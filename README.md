@@ -12,7 +12,7 @@ We offer services that cover an entire spectrum of IoT products - creating super
 
 ## App Requirements
 
- - Yii2 Version 5.8.35 | Ref: https://laravel.com/docs/5.8
+ - Yii2 Version 5.8.35 | Ref: https://www.yiiframework.com
  - MongoDB Version 3.2.22 for Database | Database hosted on mlab | Ref: https://mlab.com
  - Laravel + MongoDB Database Connection Module | Ref: https://github.com/jenssegers/laravel-mongodb
  - QueryBuilderParser Query Builder | Ref: https://github.com/timgws/QueryBuilderParser 
