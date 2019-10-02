@@ -1,8 +1,8 @@
 <p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
+    <a href="https://www.redsparkinfo.com/" target="_blank">
+        <img src="https://www.redsparkinfo.com/wp-content/themes/redspark/assets/newsite_images/logos/logo_white.png" height="100px">
     </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">Event Management App</h1>
     <br>
 </p>
 
