@@ -1,4 +1,5 @@
 Ref: https://spreadwaves.com/how-to-install-yii2-0-basic-and-advanced-application-using-composer-and-archived-files/
+Ref: https://www.mwcbarcelona.com/networking/
 ----------------------------------------------------------------------------------------------------------------------------------
 Install Yii2 Advanced
 composer create-project --prefer-dist yiisoft/yii2-app-advanced
@@ -17,4 +18,8 @@ step 4)
 Set document roots of your Web server:
 for frontend /path/to/yii-application/frontend/web/ [ In my case http://localhost/yii2advanced/frontend/web/index.php"
 for backend /path/to/yii-application/backend/web/ [ In my case http://localhost/yii2advanced/backend/web/]
+----------------------------------------------------------------------------------------------------------------------------------
+Frontend: http://localhost/projects/events/frontend/web/
+Backend: http://localhost/projects/events/backend/web/
+salim / salim123
 ----------------------------------------------------------------------------------------------------------------------------------

@@ -7,7 +7,8 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-frontend',
+    'id' => 'app-frontend',    
+    'name'=>'Events',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -45,14 +46,15 @@ return [
         ],
         */       
     
-    'urlManager' => [
+    /*'urlManager' => [
         'enablePrettyUrl' => true,
         'showScriptName' => false,
         'rules' => [
             '' => 'site/index',                                
             '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
         ],
-    ],
+    ],*/
+    
     ],
     'params' => $params,
 ];
