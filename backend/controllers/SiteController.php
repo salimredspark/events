@@ -8,67 +8,74 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 
 /**
- * Site controller
- */
+* Site controller
+*/
 class SiteController extends Controller
 {
+
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    //'logout' => ['post'],
-                ],
-            ],
+        'access' => [
+        'class' => AccessControl::className(),
+        'rules' => [
+        [
+        'actions' => ['login', 'error'],
+        'allow' => true,
+        ],
+        [
+        'actions' => ['logout', 'index'],
+        'allow' => true,
+        'roles' => ['@'],
+        ],
+        ],
+        ],
+        'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+        'logout' => ['post'],
+        ],
+        ],
         ];
     }
 
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+        'error' => [
+        'class' => 'yii\web\ErrorAction',
+        ],
         ];
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+    * Displays homepage.
+    *
+    * @return string
+    */
     public function actionIndex()
-    {
+    {    
+        if(Yii::$app->user->id){                
+            $this->redirect(['dashboard/index']);
+        }else{
+            $this->redirect(['site/login']);    
+        }
         
+        $this->view->title = 'Redspark Events';
         return $this->render('index');
     }
 
     /**
-     * Login action.
-     *
-     * @return string
-     */
+    * Login action.
+    *
+    * @return string
+    */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -82,20 +89,19 @@ class SiteController extends Controller
             $model->password = '';
 
             return $this->render('login', [
-                'model' => $model,
+            'model' => $model,
             ]);
         }
     }
 
     /**
-     * Logout action.
-     *
-     * @return string
-     */
+    * Logout action.
+    *
+    * @return string
+    */
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }

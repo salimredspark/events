@@ -16,3 +16,4 @@ We offer services that cover an entire spectrum of IoT products - creating super
  - Yii2 Version 2.0.27 | Ref: https://www.yiiframework.com
  - MySql Version 5.6 for Database | Ref: https://www.mysql.com or https://www.phpmyadmin.net 
  - DataTables ver. 1.10.19 for data list grid | Ref: https://datatables.net
+ - Admin Theme | Ref: https://github.com/ramosisw/yii2-material-dashboard

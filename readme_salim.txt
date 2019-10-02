@@ -1,5 +1,5 @@
 Ref: https://spreadwaves.com/how-to-install-yii2-0-basic-and-advanced-application-using-composer-and-archived-files/
-Ref: https://www.mwcbarcelona.com/networking/
+Ref: https://www.mwcbarcelona.com/
 ----------------------------------------------------------------------------------------------------------------------------------
 Install Yii2 Advanced
 composer create-project --prefer-dist yiisoft/yii2-app-advanced
