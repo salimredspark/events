@@ -45,6 +45,18 @@ return [
             ],
         ],
         */
+        
+    'request' => [
+        //'baseUrl' => '/admin/',
+    ],
+    'urlManager' => [
+        'enablePrettyUrl' => true,
+        'showScriptName' => false,
+        'rules' => [
+            '' => 'site/login',                                
+            '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+        ],
+    ],
     ],
     'params' => $params,
 ];

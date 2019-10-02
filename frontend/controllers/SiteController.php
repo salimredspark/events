@@ -73,8 +73,7 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        echo Yii::getVersion();die;
+    {           
         return $this->render('index');
     }
 
