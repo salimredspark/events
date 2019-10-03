@@ -1,14 +1,14 @@
 <?php
     use yii\helpers\Url; 
     use yii\helpers\Html;   
-    use yii\widgets\ActiveForm; 
+    use yii\widgets\ActiveForm;     
 ?>
 
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title">Create New User</h4>
+                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> User</h4>
                 <p class="category">Admin user will be create</p>
             </div>
             <div class="card-content">

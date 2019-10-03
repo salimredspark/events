@@ -1,8 +1,8 @@
 <?php
-use yii\helpers\Html;
+    use yii\helpers\Html;
     use yii\grid\GridView;
     use yii\helpers\Url;
-    
+
     $this->title = 'Admin Users List';
     $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,6 +31,8 @@ use yii\helpers\Html;
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'id',
+                    'firstname',                    
+                    'lastname',
                     'username',
                     //'auth_key',
                     //'password_hash',
@@ -43,6 +45,22 @@ use yii\helpers\Html;
                     //'updated_by',
                     //'firstname',
                     //'lastname',
+                    /*[
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{download} {view} {update} {delete}',
+                    'buttons' => [
+                    'download' => function ($url) {
+                    return Html::a(
+                    '<span class="glyphicon glyphicon-arrow-down"></span>',
+                    $url, 
+                    [
+                    'title' => 'Download',
+                    'data-pjax' => '0',
+                    ]
+                    );
+                    },
+                    ],
+                    ],*/
 
                     ['class' => 'yii\grid\ActionColumn'],
                     ],
@@ -53,4 +71,4 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
-</div>
+                </div>

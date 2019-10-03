@@ -55,17 +55,24 @@
                                 </a>
                             </li>
                             <li class="<?=($controller=='events')?'active':'';?>">
-                                <a href="<?=Url::to(['user/index']);?>">
+                                <a href="<?=Url::to(['events/index']);?>">
                                     <i class="material-icons">content_paste</i>
                                     <p>Events</p>
                                 </a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="<?=Url::to(['user/index']);?>">
-                                        <i class="material-icons">home</i>
-                                        <p>Location</p>
+                                <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='event-show')?'active':'';?>">
+                                        <a href="<?=Url::to(['event-show/search-event']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Show</p>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="<?=Url::to(['event-type/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Type</p>
+                                        </a>
+                                    </li>
+                                   <?php /*
                                     <li>
                                         <a href="<?=Url::to(['user/index']);?>">
                                         <i class="material-icons">home_work</i>
@@ -84,33 +91,40 @@
                                         <p>Topics</p>
                                         </a>
                                     </li>
+                                    */?>
                                 </ul>
                             </li>
                             <li class="<?=($controller=='speakers')?'active':'';?>">
-                                <a href="#">
+                                <a href="<?=Url::to(['speakers/index']);?>">
                                     <i class="material-icons">mice</i>
                                     <p>Speakers</p>
                                 </a>
                             </li>
                             <li class="<?=($controller=='hotels')?'active':'';?>">
-                                <a href="#">
+                                <a href="<?=Url::to(['speakers/index']);?>">
                                     <i class="material-icons">hotels</i>
                                     <p>Hotels</p>
                                 </a>
                             </li>
                             <li class="<?=($controller=='foods')?'active':'';?>">
-                                <a href="#">
+                                <a href="<?=Url::to(['speakers/index']);?>">
                                     <i class="material-icons">fastfood</i>
                                     <p>Foods</p>
                                 </a>
-                            </li>
-                            
+                            </li>                            
                             <li class="<?=($controller=='foods')?'active':'';?>">
-                                <a href="#">
+                                <a href="<?=Url::to(['speakers/index']);?>">
                                     <i class="material-icons">groups</i>
                                     <p>Exhibitors</p>
                                 </a>
                             </li>
+                            <li class="<?=($controller=='settings')?'active':'';?>">
+                                <a href="<?=Url::to(['settings/index']);?>">
+                                    <i class="material-icons">settings_applications</i>
+                                    <p>Developer Settings</p>
+                                </a>
+                            </li>
+                            
                             <?php /*                            
                             <li class="<?=($controller=='usersa')?'active':'';?>">
                                 <a href="icons.html">

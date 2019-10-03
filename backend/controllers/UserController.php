@@ -68,11 +68,11 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $id = Yii::$app->user->identity->id;  
+            $updated_by = Yii::$app->user->identity->id;  
 
             $model->created_at = time();
             $model->updated_at = time();
-            $model->updated_by = $id;
+            $model->updated_by = $updated_by;
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,10 +96,10 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
              
-            $id = Yii::$app->user->identity->id;  
+            $updated_by = Yii::$app->user->identity->id;  
                         
             $model->updated_at = time();
-            $model->updated_by = $id;
+            $model->updated_by = $updated_by;
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);

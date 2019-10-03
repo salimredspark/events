@@ -42,7 +42,7 @@ class UserSearch extends User
     public function search($params)
     {
        $id = Yii::$app->user->identity->id;
-        $query = User::find()->where(['<>', 'id', $id]); 
+        $query = User::find()->where(['<>', 'id', $id])->orderBy('id',SORT_DESC); 
 
         // add conditions that should always apply here
 
@@ -68,11 +68,11 @@ class UserSearch extends User
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            #->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            #->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            #->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token])
+            #->andFilterWhere(['like', 'verification_token', $this->verification_token])
             ->andFilterWhere(['like', 'firstname', $this->firstname])
             ->andFilterWhere(['like', 'lastname', $this->lastname]);
 

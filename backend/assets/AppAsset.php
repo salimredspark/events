@@ -13,7 +13,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/bootstrap.min.css',
+        //'css/bootstrap.min.css',
         'css/material-dashboard.css',
         'css/demo.css',
         '//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'css/custom.css',
     ];
     public $js = [
-        'js/jquery-3.1.0.min.js',
+        //'js/jquery-3.1.0.min.js',
         'js/bootstrap.min.js',
         'js/material.min.js',
         'js/chartist.min.js',
@@ -31,7 +31,7 @@ class AppAsset extends AssetBundle
         'js/custom.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+        //'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
 }
