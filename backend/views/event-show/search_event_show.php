@@ -45,7 +45,7 @@
 
                 <div class="clearfix"></div>                                
 
-                <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>
+                <?= Html::submitButton('Search', ['class' => 'btn btn-success']);?>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>

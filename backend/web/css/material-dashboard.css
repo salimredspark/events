@@ -54,6 +54,10 @@
     float:left
 }
 
+ul.sub-menu .sub-active > a{
+    font-weight:bold;
+}
+
 .noUi-origin {
   position: absolute;
   right: 0;

@@ -48,25 +48,25 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="<?=($controller=='users')?'active':'';?>">
+                            <li class="<?=(strpos($controller,'user') !== false )?'active':'';?>">
                                 <a href="<?=Url::to(['user/index']);?>">
                                     <i class="material-icons">person</i>
                                     <p>Users</p>
                                 </a>
                             </li>
-                            <li class="<?=($controller=='events')?'active':'';?>">
+                            <li class="<?=(strpos($controller,'event') !== false )?'active':'';?>">
                                 <a href="<?=Url::to(['events/index']);?>">
                                     <i class="material-icons">content_paste</i>
                                     <p>Events</p>
                                 </a>
                                 <ul class="sub-menu">                                    
-                                    <li class="<?=($controller=='event-show')?'active':'';?>">
+                                    <li class="<?=($controller=='event-show')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['event-show/search-event']);?>">
                                         <i class="material-icons">event_available</i>
                                         <p>Event Show</p>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="<?=($controller=='event-type')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['event-type/index']);?>">
                                         <i class="material-icons">event_available</i>
                                         <p>Event Type</p>

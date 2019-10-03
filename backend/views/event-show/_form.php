@@ -67,7 +67,7 @@
                                 'options' => ['placeholder' => 'Event Start Date Time'],
                                 'convertFormat' => false,
                                 'pluginOptions' => [
-                                    'format' => 'd-M-yyyy hh:ii P',
+                                     'format' => 'd-M-yyyy hh:ii P',
                                     'startDate' => '01-Mar-2014 12:00 AM',
                                     'todayHighlight' => true
                                 ]
@@ -76,27 +76,20 @@
                         ?>
                     </div>
                     <div class="col-md-3">
-                        <?php 
-                        /*$form->field($model, 'end_time', [
-                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control'])
-                        */
-                        
+                        <?php    
                         echo $form->field($model, 'end_time')->widget(
                             DateTimePicker::class, 
                             [
-                                'options' => ['placeholder' => 'Event End Date Time'],
-                                'convertFormat' => false,                                
+                                'options' => ['placeholder' => 'Event Start Date Time'],
+                                'convertFormat' => false,
                                 'pluginOptions' => [
-                                    'format' => 'd-M-yyyy hh:ii P',
-                                    'startDate' => date("d-M-Y h:i A"),
-                                    'todayHighlight' => true,
-                                    'autoclose' => true,
-                                    'yearRange'=>'2019:2100'
+                                   'format' => 'd-M-yyyy hh:ii P',
+                                    'startDate' => '01-Mar-2014 12:00 AM',
+                                    'todayHighlight' => true
                                 ]
                             ]
-                            );
+                            );                                             
+                      
                         ?>                                                
                     </div>
 

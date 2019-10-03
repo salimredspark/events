@@ -130,7 +130,7 @@ class EventShowController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $eventsPost = Yii::$app->request->post('EventShow');
-            
+                        
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
