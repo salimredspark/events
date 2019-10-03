@@ -44,4 +44,15 @@ class Settings extends \yii\db\ActiveRecord
             'setting_value' => 'Setting Value',
         ];
     }
+    
+    public function getConfigData($field){              
+            return Settings::find()->where(['setting_key' => $field])->one()->setting_value;
+    }
+    
+    public function getDomainUrl($domain){
+        $main_domain = Settings::find()->where(['setting_key' => 'main_domain'])->one()->setting_value;                
+        $main_domain = str_replace("*", $domain, $main_domain);
+        return 'http://'.$main_domain;
+    }
 }
+

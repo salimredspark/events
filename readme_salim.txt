@@ -23,3 +23,11 @@ Frontend: http://localhost/projects/events/frontend/web/
 Backend: http://localhost/projects/events/backend/web/
 salim / salim123
 ----------------------------------------------------------------------------------------------------------------------------------
+Sub Dominas
+Ref: https://www.dev-tips-and-tricks.com/add-subdomains-to-a-xampp-server-on-windows
+
+1) C:\xampp\apache\conf\httpd.conf uncomment LoadModule vhost_alias_module modules/mod_vhost_alias.so
+2) C:\xampp\apache\conf\extra\httpd-vhosts.conf
+3) C:\Windows\System32\drivers\etc\hosts and add 127.0.0.1 test.localhost.com
+4) events.localhost.com
+----------------------------------------------------------------------------------------------------------------------------------

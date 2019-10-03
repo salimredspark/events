@@ -4,6 +4,7 @@
     use yii\helpers\Url;
     use backend\models\User; 
     use backend\models\EventType; 
+    use backend\models\Settings; 
 
     $this->title = 'Events';
     $this->params['breadcrumbs'][] = $this->title;
@@ -34,7 +35,17 @@
 
             //'id',
             'event_name',
-            'event_domain_name',
+            #'event_domain_name',
+            [
+                        'class' => 'yii\grid\DataColumn',
+                        'label' => 'Domain',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            #$subdomainUrl = 'http://'.$data->event_domain_name.'.localhost.com';                            
+                            $subdomainUrl = Settings::getDomainUrl($data->event_domain_name);
+                            return Html::a($data->event_domain_name, $subdomainUrl,['target'=>'_blank']);                            
+                        },
+                    ],
             #'event_type_id',
             [
                         'class' => 'yii\grid\DataColumn',
