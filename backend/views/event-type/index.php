@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Updated By',
                         'format' => 'html',
                         'value' => function ($data) {
-                            return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>$data->updated_by],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
+                            return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>$data->updated_by],['target'=>'_blank']);
                         },
                     ],
 

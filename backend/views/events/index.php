@@ -63,7 +63,7 @@
                         'label' => 'Start',
                         'format' => 'html',
                         'value' => function ($data) {
-                           return date("d M, Y h:i A", strtotime($data->start_time)); 
+                           return Settings::getConfigDateTime($data->start_time); 
                         },
                     ],
             #'end_time',
@@ -72,7 +72,7 @@
                         'label' => 'End',
                         'format' => 'html',
                         'value' => function ($data) {
-                            return date("d M, Y h:i A", strtotime($data->end_time));
+                            return Settings::getConfigDateTime($data->end_time);
                         },
                     ],
             //'updated_by',

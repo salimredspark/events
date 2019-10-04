@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\helpers\Url; 
 use backend\models\User; 
 use backend\models\Events; 
+use backend\models\Settings;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\EventShow */
@@ -57,17 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'show_description:ntext',            
              array(
                             'attribute'=>'start_time',                                
-                            'value'=>date("d M, Y h:i A", strtotime($model->start_time))
+                            'value'=>Settings::getConfigDateTime($model->start_time) //date("d M, Y h:i A", strtotime($model->start_time))
                             ),
                             #'updated_at',
                             array(
                             'attribute'=>'end_time',                                
-                            'value'=>date("d M, Y h:i A", strtotime($model->end_time))
+                            'value'=>Settings::getConfigDateTime($model->end_time) //date("d M, Y h:i A", strtotime($model->end_time))
                             ),
              array(
                             'attribute'=>'updated_by',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>User::findOne($model->updated_by)->id],['target'=>'_blank'])
+                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
                             ),
         ],
     ]) ?>

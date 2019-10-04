@@ -9,10 +9,7 @@ $this->title = 'Create Speaker Role';
 $this->params['breadcrumbs'][] = ['label' => 'Speaker Roles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="speaker-role-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="speaker-role-create">        
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

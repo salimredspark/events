@@ -8,6 +8,8 @@ use backend\models\EventsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Speakers;
+use backend\models\SpeakerRole;
 
 /**
  * EventsController implements the CRUD actions for Events model.
@@ -65,6 +67,8 @@ class EventsController extends Controller
     public function actionCreate()
     {
         $model = new Events();
+        $modelSpeakers = new Speakers();
+        $modelSpeakerRole = new SpeakerRole();
 
         if ($model->load(Yii::$app->request->post())) {
             
@@ -79,7 +83,7 @@ class EventsController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model            
         ]);
     }
 

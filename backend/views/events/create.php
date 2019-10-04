@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="events-create">
     <?= $this->render('_form', [
-        'model' => $model,
+        'model' => $model,        
     ]) ?>
 
 </div>

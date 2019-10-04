@@ -2,6 +2,7 @@
     use yii\helpers\Html;
     use yii\widgets\DetailView;
     use yii\helpers\Url; 
+    use backend\models\Settings; 
     //use backend\models\User
 
     /* @var $this yii\web\View */
@@ -56,12 +57,12 @@
                             #'created_at',
                             array(
                             'attribute'=>'created_at',                                
-                            'value'=>date("d M, Y h:i A", $model->created_at)
+                            'value'=>Settings::getConfigDateTime($model->created_at,'stirng')
                             ),
                             #'updated_at',
                             array(
                             'attribute'=>'updated_at',                                
-                            'value'=>date("d M, Y h:i A", $model->updated_at)
+                            'value'=>Settings::getConfigDateTime($model->updated_at,'stirng')
                             ),
                             //'verification_token',
                             #'updated_by',                            

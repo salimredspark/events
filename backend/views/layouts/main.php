@@ -60,6 +60,12 @@
                                     <p>Events</p>
                                 </a>
                                 <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['is-event-speaker/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Speakers</p>
+                                        </a>
+                                    </li>
                                     <li class="<?=($controller=='event-show')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['event-show/search-event']);?>">
                                         <i class="material-icons">event_available</i>
@@ -94,11 +100,19 @@
                                     */?>
                                 </ul>
                             </li>
-                            <li class="<?=($controller=='speakers')?'active':'';?>">
+                            <li class="<?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ))?'active':'';?>">
                                 <a href="<?=Url::to(['speakers/index']);?>">
                                     <i class="material-icons">mice</i>
                                     <p>Speakers</p>
                                 </a>
+                                <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='speaker-role')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['speaker-role/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Speaker Role</p>
+                                        </a>
+                                    </li>                                                           
+                                </ul>
                             </li>
                             <li class="<?=($controller=='hotels')?'active':'';?>">
                                 <a href="<?=Url::to(['speakers/index']);?>">

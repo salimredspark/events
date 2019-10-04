@@ -9,10 +9,7 @@ $this->title = 'Create Speakers';
 $this->params['breadcrumbs'][] = ['label' => 'Speakers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="speakers-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="speakers-create">        
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

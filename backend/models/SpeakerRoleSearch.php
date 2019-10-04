@@ -40,7 +40,7 @@ class SpeakerRoleSearch extends SpeakerRole
      */
     public function search($params)
     {
-        $query = SpeakerRole::find();
+        $query = SpeakerRole::find()->orderBy('id',SORT_DESC);
 
         // add conditions that should always apply here
 

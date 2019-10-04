@@ -10,10 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Speaker Roles', 'url' => ['index']
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="speaker-role-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="speaker-role-update">        
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

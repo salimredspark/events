@@ -8,7 +8,8 @@
     use backend\models\Events;
     use backend\models\EventType;
     use kartik\datetime\DateTimePicker;
-    use backend\models\User; 
+    use backend\models\User;
+    use backend\models\Settings; 
 
     $this->title = 'Event Show';
     $this->params['breadcrumbs'][] = $this->title;
@@ -49,7 +50,7 @@
                         'label' => 'Start',
                         'format' => 'html',
                         'value' => function ($data) {
-                            return date("d M, Y h:i A", strtotime($data->start_time));
+                            return Settings::getConfigDateTime($data->start_time);
                         },
                     ],
             #'end_time',
@@ -58,7 +59,7 @@
                         'label' => 'End',
                         'format' => 'html',
                         'value' => function ($data) {
-                            return date("d M, Y h:i A", strtotime($data->end_time));
+                            return Settings::getConfigDateTime($data->end_time);
                         },
                     ],
                     //'event_id',

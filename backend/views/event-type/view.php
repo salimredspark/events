@@ -19,14 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header" data-background-color="purple">
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-sm-6">
                             <h4 class="title"><?= Html::encode($this->title) ?></h4>
                             <p class="category">View Event</p>
                         </div>
-                        <div class="col-sm-2 pull-right">
-                            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                            <?php                                 
-                                Html::a('Delete', ['delete', 'id' => $model->id], [
+                        <div class="col-sm-4 pull-right">
+                            <?php
+                            echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
+                            echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+                            
+                                echo Html::a('Delete', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-danger',
                                 'data' => [
                                 'confirm' => 'Are you sure you want to delete this item?',
@@ -49,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
              array(
                             'attribute'=>'updated_by',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>User::findOne($model->updated_by)->id],['target'=>'_blank'])
+                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
                             ),
         ],
     ]) ?>
