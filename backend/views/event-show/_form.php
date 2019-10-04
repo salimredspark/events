@@ -29,7 +29,11 @@
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Name' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
+                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
+                                $.post("index.php?r=event-show/event-spekers-list&id="+$(this).val(), function( data ) {
+                                $( "select#eventshow-event_speaker_id" ).html( data );
+                                });
+                                ']);
                         ?>
                     </div>                       
                     <div class="col-md-3">

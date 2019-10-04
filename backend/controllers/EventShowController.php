@@ -6,6 +6,8 @@ use Yii;
 use backend\models\Events;
 use backend\models\EventShow;
 use backend\models\EventShowSearch;
+use backend\models\IsEventSpeaker;
+use backend\models\Speakers;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,23 +34,23 @@ class EventShowController extends Controller
 
     public function actionSearchEvent(){
         $model = new EventShow();
-                
+
         //search event show
         if ($model->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post()['EventShow'];
             #$eventsAll = Events::find(['id', $post['event_id']])->all();
-            
+
             $searchModel = new EventShowSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $dataProvider->query->andWhere('event_id = '.$post['event_id']);
-            
+
             $event_name = Events::findOne($post['event_id'])->event_name;
-            
+
             return $this->render('index', [
-                'event_name'=> $event_name,             
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                ]);
+            'event_name'=> $event_name,             
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            ]);
         }
 
         return $this->render('search_event_show', [
@@ -96,13 +98,13 @@ class EventShowController extends Controller
         $model = new EventShow();
 
         if ($model->load(Yii::$app->request->post())) {
-            
+
             $eventsPost = Yii::$app->request->post('EventShow');
-                        
+
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
-                        
+
             $model->start_time = $start_time;
             $model->end_time = $end_time;
             $model->updated_by = $updated_by;
@@ -128,16 +130,16 @@ class EventShowController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $eventsPost = Yii::$app->request->post('EventShow');
-                        
+
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
-                        
+
             $model->start_time = $start_time;
             $model->end_time = $end_time;
             $model->updated_by = $updated_by;
             $model->save();
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -174,5 +176,21 @@ class EventShowController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionEventSpekersList($id){
+        $count = IsEventSpeaker::find()->where(['event_id'=>$id,])->count();
+
+        $speakers = IsEventSpeaker::find()->where(['event_id'=>$id])->orderBy('id DESC')->all();
+
+        if($count > 0){
+            foreach($speakers as $speaker){
+                $speakersinfo = Speakers::find()->where(['id'=>$speaker->id])->one();
+                echo "<option value='".$speaker->id."'>".$speakersinfo->speaker_name."</option>";
+            }
+        }else{
+            echo "<option>-</option>";
+        }
+
     }
 }
