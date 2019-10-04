@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use backend\models\Events;
 use backend\models\Speakers;
 use backend\models\SpeakerRole;
+use backend\models\Hotels; 
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\IsEventSpeaker */
@@ -47,6 +48,15 @@ use backend\models\SpeakerRole;
                             echo $form->field($model, 'event_speaker_role_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php                        
+                            $items = ArrayHelper::map(Hotels::find()->all(), 'id', 'hotel_name');                                                
+                            echo $form->field($model, 'hotel_id',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Name' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
                     </div>

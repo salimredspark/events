@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\models\User;
-
-$this->title = 'Speaker Roles';
+                              
+$this->title = 'Hotels';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="category">Order by latest first</p>
                     </div>
                     <div class="col-sm-2 pull-right">
-                        <?= Html::a('Create New Role', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create New Hotel', ['create'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>
             </div>
@@ -32,8 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         //['class' => 'yii\grid\SerialColumn'],
 
-                        //'id',
-                        'role_name',                        
+                        'hotel_name',
+                        'hotel_address',
+                        'hotel_website',                        
                         [
                         'class' => 'yii\grid\DataColumn',
                         'label' => 'Updated By',
@@ -53,4 +54,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
  

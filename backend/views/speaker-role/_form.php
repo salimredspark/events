@@ -6,7 +6,6 @@
     use backend\models\EventType;
     use kartik\datetime\DateTimePicker;
 ?>
-
 <div class="row">
     <div class="col-md-12">
         <div class="card">
