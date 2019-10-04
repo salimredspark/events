@@ -28,66 +28,74 @@
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-           // ['class' => 'yii\grid\SerialColumn'],
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => [
+                    // ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
-            'event_name',
-            #'event_domain_name',
-            [
-                        'class' => 'yii\grid\DataColumn',
-                        'label' => 'Domain',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                            #$subdomainUrl = 'http://'.$data->event_domain_name.'.localhost.com';                            
-                            $subdomainUrl = Settings::getDomainUrl($data->event_domain_name);
-                            return Html::a($data->event_domain_name, $subdomainUrl,['target'=>'_blank']);                            
-                        },
+                    //'id',
+                    'event_name',
+                    #'event_domain_name',
+                    /*[
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Domain',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        #$subdomainUrl = 'http://'.$data->event_domain_name.'.localhost.com';                            
+                        $subdomainUrl = Settings::getDomainUrl($data->event_domain_name);
+                        return Html::a($data->event_domain_name, $subdomainUrl,['target'=>'_blank']);                            
+                    },
+                    ],*/
+                    #'event_type_id',
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Event Type',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Html::a(EventType::findOne($data->event_type_id)->type_name, ['event-type/view', 'id'=>$data->event_type_id],['target'=>'_blank']);
+                    },
                     ],
-            #'event_type_id',
-            [
-                        'class' => 'yii\grid\DataColumn',
-                        'label' => 'Event Type',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                            return Html::a(EventType::findOne($data->event_type_id)->type_name, ['event-type/view', 'id'=>$data->event_type_id],['target'=>'_blank']);
-                        },
+                    //'event_location',
+                    //'event_description',
+                    //'start_time',
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Start',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Settings::getConfigDateTime($data->start_time); 
+                    },
                     ],
-            //'event_location',
-            //'event_description',
-            //'start_time',
-            [
-                        'class' => 'yii\grid\DataColumn',
-                        'label' => 'Start',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                           return Settings::getConfigDateTime($data->start_time); 
-                        },
+                    #'end_time',
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'End',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Settings::getConfigDateTime($data->end_time);
+                    },
                     ],
-            #'end_time',
-             [
-                        'class' => 'yii\grid\DataColumn',
-                        'label' => 'End',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                            return Settings::getConfigDateTime($data->end_time);
-                        },
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Event Manage By',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Html::a(User::findOne($data->event_manage_by)->username, ['user/view', 'id'=>$data->event_manage_by],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
+                    },
                     ],
-            //'updated_by',
-            [
-                        'class' => 'yii\grid\DataColumn',
-                        'label' => 'Updated By',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                            return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>User::findOne($data->updated_by)->id],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
-                        },
+                    //'updated_by',
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Updated By',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>$data->updated_by],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
+                    },
                     ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                    ['class' => 'yii\grid\ActionColumn'],
+                    ],
+                    ]); ?>
 
 
                 </div>

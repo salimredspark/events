@@ -63,6 +63,14 @@
                         },
                     ],
                     //'event_id',
+                    [
+                    'class' => 'yii\grid\DataColumn',
+                    'label' => 'Show Manage By',
+                    'format' => 'html',
+                    'value' => function ($data) {
+                        return Html::a(User::findOne($data->show_manage_by)->username, ['user/view', 'id'=>$data->show_manage_by],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
+                    },
+                    ],
                     //'updated_by',
                      [
                         'class' => 'yii\grid\DataColumn',

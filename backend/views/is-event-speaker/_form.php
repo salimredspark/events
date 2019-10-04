@@ -8,6 +8,7 @@ use backend\models\Events;
 use backend\models\Speakers;
 use backend\models\SpeakerRole;
 use backend\models\Hotels; 
+use backend\models\User; 
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\IsEventSpeaker */
@@ -50,8 +51,19 @@ use backend\models\Hotels;
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                    </div>
-                    <div class="col-md-3">
+                    </div> 
+                     <div class="col-md-3">
+                    <?php                        
+                            $items = Hotels::getTravelOption();
+                            echo $form->field($model, 'speaker_travel_by',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Travel' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?> 
+                        </div>                   
+                </div>
+                 <div class="row">
+                <div class="col-md-3">
                         <?php                        
                             $items = ArrayHelper::map(Hotels::find()->all(), 'id', 'hotel_name');                                                
                             echo $form->field($model, 'hotel_id',[
@@ -60,7 +72,31 @@ use backend\models\Hotels;
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
                     </div>
-                </div>
+                    <div class="col-md-3">
+                    <?= $form->field($model, 'hotel_room_number', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>                        
+                    </div>
+                    <div class="col-md-3">
+                        <?php                        
+                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
+                            echo $form->field($model, 'hotel_book_by',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Book By' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php                        
+                            $items = $items = Hotels::getHotelPatnerOption();
+                            echo $form->field($model, 'hotel_patner',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Patner' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>
+                    </div>
+                    </div>
                               
 
                 <div class="clearfix"></div>                                

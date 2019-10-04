@@ -45,7 +45,7 @@
                             <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                            'id',
+                            //'id',
                             'firstname',
                             'lastname',
                             'username',

@@ -3,6 +3,7 @@
     use yii\helpers\Url; 
     use yii\helpers\Html;   
     use yii\widgets\ActiveForm; 
+    use backend\models\User;    
     use backend\models\EventType;    
     use kartik\datetime\DateTimePicker;
 ?>
@@ -16,12 +17,21 @@
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-9">
                         <?= $form->field($model, 'event_name', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
-                    </div>                     
+                    </div> 
+                     <div class="col-md-3">
+                        <?php                        
+                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
+                            echo $form->field($model, 'event_manage_by',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Manage By' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>
+                    </div>                                        
                 </div>
                 
                 <div class="row">

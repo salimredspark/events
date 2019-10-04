@@ -62,4 +62,29 @@ class Hotels extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
+    
+    public function getTravelOption()
+    {
+        return [            
+            'Flight' => 'Flight',
+            'Car' => 'Car',
+            'Train' => 'Train',
+            'Self Manage' => 'Self Manage',            
+        ];
+    }
+    
+    public function getHotelPatnerOption()
+    {
+        return [            
+            'yatra.com' => 'Yatra',
+            'makemytrip.com' => 'Makemytrip',
+            'cleartrip.com' => 'Cleartrip',
+            'goibibo.com' => 'Goibibo',
+            'trivago.in' => 'Trivago',
+            'expedia.co.in' => 'Expedia',
+            'redbus.in' => 'Redbus',
+            'agoda.com' => 'Agoda',
+            'hotels.com' => 'Hotels',            
+        ];
+    }
 }

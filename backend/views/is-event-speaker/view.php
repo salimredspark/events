@@ -69,6 +69,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'format' => 'html',                                
                                     'value'=>Html::a(SpeakerRole::findOne($model->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->event_speaker_role_id],['target'=>'_blank'])
                                     ),
+                                    'speaker_travel_by',
+                                    #'hotel_patner',
+                                    array(
+                                    'attribute'=>'hotel_patner',                                
+                                    //'label'=>'Speaker Role',
+                                    'format' => 'html',                                
+                                    'value'=>Html::a($model->hotel_patner, ['https://'.$model->hotel_patner],['target'=>'_blank'])
+                                    ),
                             ],
                         ]) ?>                            
                         </div>
