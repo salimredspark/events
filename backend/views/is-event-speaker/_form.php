@@ -31,7 +31,11 @@ use backend\models\User;
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
+                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
+                                $.post("index.php?r=event-show/event-spekers-list&id="+$(this).val(), function( data ) {
+                                $( "select#iseventspeaker-event_speaker_id" ).html( data );
+                                });
+                                '] );
                         ?>
                     </div>
                     <div class="col-md-3">
@@ -40,11 +44,7 @@ use backend\models\User;
                             echo $form->field($model, 'event_speaker_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
-                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
-                                $.post("index.php?r=event-show/event-spekers-list&id="+$(this).val(), function( data ) {
-                                $( "select#eventshow-event_speaker_id" ).html( data );
-                                });
-                                '] );
+                            ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
                     </div>
                     <div class="col-md-3">
