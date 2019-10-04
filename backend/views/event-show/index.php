@@ -20,7 +20,7 @@
             <div class="card-header" data-background-color="purple">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4 class="title"><?= Html::encode($this->title) ?></h4>
+                        <h4 class="title"><?= Html::encode($this->title) ?> - <?=$event_name;?></h4>
                         <p class="category">Order by latest first</p>
                     </div>
                     <div class="col-sm-3 pull-right">

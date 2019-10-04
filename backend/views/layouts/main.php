@@ -61,7 +61,7 @@
                                 </a>
                                 <ul class="sub-menu">                                    
                                     <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
-                                        <a href="<?=Url::to(['is-event-speaker/index']);?>">
+                                        <a href="<?=Url::to(['is-event-speaker/search-event']);?>">
                                         <i class="material-icons">event_available</i>
                                         <p>Event Speakers</p>
                                         </a>

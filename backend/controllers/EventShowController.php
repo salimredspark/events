@@ -32,11 +32,7 @@ class EventShowController extends Controller
 
     public function actionSearchEvent(){
         $model = new EventShow();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
+                
         //search event show
         if ($model->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post()['EventShow'];
@@ -44,18 +40,20 @@ class EventShowController extends Controller
             
             $searchModel = new EventShowSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider->query->andWhere('event_id = '.$post['event_id']);
             
-            return $this->redirect(['index', 
-            'event_id'=>$post['event_id'], 
-            //'allEvents' => $eventsAll,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            ]
-            );
+            $event_name = Events::findOne($post['event_id'])->event_name;
+            
+            return $this->render('index', [
+                'event_name'=> $event_name,             
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                ]);
         }
 
         return $this->render('search_event_show', [
         'model' => $model,
+        'event_name' => ''
         ]);
     }
 
