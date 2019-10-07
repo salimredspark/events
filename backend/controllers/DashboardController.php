@@ -9,10 +9,11 @@ use common\models\LoginForm;
 use backend\models\Events;
 use backend\models\EventShow;
 use backend\models\Speakers;
+use backend\models\Hotels;
 
 class DashboardController extends Controller
 {
-        
+
     public function behaviors()
     {
         return [
@@ -28,7 +29,7 @@ class DashboardController extends Controller
         ],        
         ];
     }
-        
+
     public function actions()
     {
         return [
@@ -37,31 +38,51 @@ class DashboardController extends Controller
         ],
         ];
     }
-        
+
     public function actionIndex()
     {
         $this->view->title = 'Dashboard';
-        
+
         //events
         $total_events = Events::find()->count();
         $today = date('Y-m-d h:i:s');
         $total_active_events = Events::find()->where([ '>=', 'end_time', $today])->count();
-        
+
+        //get on going events list
+        $ongoing_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+
+        //upcoming events list
+        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();        
+
+        //active but not todays events list
+        $active_events = Events::find()->where('start_time > (NOW() + INTERVAL 1 DAY)')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+
+        //completed events list 
+        $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy('end_time',SORT_DESC)->all();
+
         //events Shows
         $total_eventshows = EventShow::find()->count();
         $today = date('Y-m-d h:i:s');
         $total_active_eventshows = EventShow::find()->where([ '>=', 'end_time', $today])->count();
-        
+
         //
         $total_speakers = Speakers::find()->count();;
-        
+        $total_hotels = Hotels::find()->count();;
+
         return $this->render('dashboard', [
         'total_events' => $total_events, 
         'total_active_events'=>$total_active_events,
-        
+
+        'ongoing_events'=>$ongoing_events,
+        'upcoming_events'=>$upcoming_events,
+        'active_events'=>$active_events,
+        'completed_events'=>$completed_events,
+
         'total_eventshows' => $total_eventshows, 
         'total_active_eventshows'=>$total_active_eventshows,
+
         'total_speakers'=>$total_speakers,
+        'total_hotels'=>$total_hotels,
         ]);        
     }                         
 }

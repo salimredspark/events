@@ -72,6 +72,7 @@ class EventsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             
+            $eventsPost = Yii::$app->request->post('Events'); 
             $updated_by = Yii::$app->user->identity->id;  
             
             #$model->start_time = strtotime(Yii::$app->request->post('start_time'));

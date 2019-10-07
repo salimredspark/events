@@ -1,5 +1,6 @@
 <?php 
-use yii\helpers\Url; 
+    use yii\helpers\Url;  
+    use backend\models\Settings; 
 ?>
 <div class="content">
     <div class="container-fluid">
@@ -31,7 +32,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Total <?=$total_eventshows;?> Events are created. 
+                            <i class="material-icons">date_range</i> Total <?=$total_eventshows;?> Shows are created. 
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@ use yii\helpers\Url;
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="red">
-                        <i class="material-icons">mice</i>
+                        <i class="fa fa-microphone"></i>
                     </div>
                     <div class="card-content">
                         <p class="category">Speakers</p>
@@ -52,19 +53,18 @@ use yii\helpers\Url;
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="blue">
-                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-hotel"></i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Followers</p>
-                        <h3 class="title">+245</h3>
+                        <p class="category">Hotels</p>
+                        <h3 class="title"><a href="<?= Url::to(['hotels/index']);?>"><?=$total_hotels;?></a></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">update</i> All Hotels
                         </div>
                     </div>
                 </div>
@@ -73,10 +73,76 @@ use yii\helpers\Url;
 
         <div class="row">
             <div class="col-md-4">
+                <div class="card">                                   
+                    <div class="card-content">
+                        <h4 class="title"><i class="fa fa-bell"></i> Active Events</h4>
+                        <p class="category">Latest active events</p>
+                    </div>
+                    <?php 
+                        if(count($ongoing_events) > 0){
+                               foreach($ongoing_events as $e){?>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> 
+                                    <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> started on <?=Settings::getTimeAgo($e->start_time);?> at <?=Settings::getConfigDateTime($e->start_time,'number','time');?><br />
+                                    Events Close on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?>
+                                </div>
+                            </div>
+                            <?php } ?>
+                   <?php }else{?>
+                    <div class="card-footer">No Event Schedule Yet!</div> 
+                    <?php }?>                    
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title">Daily Sales</h4>
-                        <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                        <h4 class="title"><i class="fa fa-clipboard"></i> Todays Events</h4>
+                        <p class="category">Latest upcoming events</p>
+                    </div>
+                    <?php 
+                        if(count($upcoming_events) > 0){
+                               foreach($upcoming_events as $e){?>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> will start on <?=Settings::getConfigDateTime($e->start_time,'number','time');?>
+                                </div>
+                            </div>
+                            <?php } ?>
+                   <?php }else{?>
+                    <div class="card-footer">No Event Schedule Yet!</div> 
+                    <?php }?>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">                                    
+                    <div class="card-content">
+                        <h4 class="title"><i class="fa fa-calendar"></i> Upcoming Events</h4>
+                        <p class="category">Scheduled Events</p>
+                    </div>
+                   <?php 
+                        if(count($active_events) > 0){
+                               foreach($active_events as $e){?>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> Schedule  on <?=Settings::getConfigDateTime($e->start_time,'number','datetime');?>
+                                </div>
+                            </div>
+                            <?php } ?>
+                   <?php }else{?>
+                    <div class="card-footer">No Event Schedule Yet!</div> 
+                    <?php }?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">                                    
+                    <div class="card-content">
+                        <h4 class="title"><i class="fa fa-user"></i> Exhibitors</h4>
+                        <p class="category">Latest 10 Exhibitors</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -89,12 +155,12 @@ use yii\helpers\Url;
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title">Email Subscriptions</h4>
-                        <p class="category">Last Campaign Performance</p>
+                        <h4 class="title"><i class="fa fa-user"></i> Visitors</h4>
+                        <p class="category">Latest 10 Visitors</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                            <i class="material-icons">access_time</i> updated 4 minutes ago
                         </div>
                     </div>
 
@@ -104,16 +170,23 @@ use yii\helpers\Url;
             <div class="col-md-4">
                 <div class="card">                                   
                     <div class="card-content">
-                        <h4 class="title">Completed Tasks</h4>
-                        <p class="category">Last Campaign Performance</p>
+                        <h4 class="title"><i class="fa fa-calendar"></i> Completed Events</h4>
+                        <p class="category">Latest 10 Completed Events</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
-                    </div>
+                    <?php 
+                        if(count($completed_events) > 0){
+                            foreach($completed_events as $e){?>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> completed on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?> (<?=Settings::getTimeAgo($e->end_time);?>)
+                                    <?php //echo Settings::getConfigDateTime($e->end_time,'number','datetime');?>
+                                </div>
+                            </div>
+                            <?php }
+                    }else{?><div class="card-footer">No Completed Events</div> <?php }?>                    
                 </div>
             </div>
         </div>
+
     </div>
-</div> 
+    </div> 
