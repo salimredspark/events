@@ -68,8 +68,8 @@
                             'options' => ['placeholder' => 'Event Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
-                            'format' => 'd-M-yyyy hh:ii P',
-                            'startDate' => '01-Mar-2014 12:00 AM',
+                            'format' => 'd-m-yyyy hh:ii P',
+                            'startDate' => date("d-m-Y h:i A"),
                             'todayHighlight' => true
                             ]
                             ]
@@ -84,8 +84,8 @@
                             'options' => ['placeholder' => 'Event End Date Time'],
                             'convertFormat' => false,                                
                             'pluginOptions' => [
-                            'format' => 'd-M-yyyy hh:ii P',
-                            'startDate' => date("d-M-Y h:i A"),
+                            'format' => 'd-m-yyyy hh:ii P',
+                            'startDate' => date("d-m-Y h:i A"),
                             'todayHighlight' => true,
                             'autoclose' => true,
                             'yearRange'=>'2019:2100'
@@ -94,6 +94,7 @@
                             );
                         ?>                                                
                     </div>
+                                     
                                      </div>
                 
                 <div class="row">

@@ -77,6 +77,12 @@
                                         <i class="material-icons">event_available</i>
                                         <p>Event Type</p>
                                         </a>
+                                    </li>
+                                    <li class="<?=($controller=='event-location')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['event-location/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Location</p>
+                                        </a>
                                     </li>                                   
                                 </ul>
                             </li>
@@ -97,48 +103,27 @@
                                             <i class="material-icons">event_available</i>
                                             <p>Hotels</p>
                                         </a>
-                                    </li>
-                                    <li class="<?=($controller=='travel')?'sub-active':'';?>">
-                                        <a href="<?=Url::to(['travel/index']);?>">
-                                            <i class="material-icons">event_available</i>
-                                            <p>Travel</p>
-                                        </a>
-                                    </li>
+                                    </li>                                    
                                 </ul>
                             </li>                            
-                            <li class="<?=($controller=='foods')?'active':'';?>">
-                                <a href="<?=Url::to(['speakers/index']);?>">
+                            <li class="<?=(strpos($controller,'exhibitors') !== false )?'active':'';?>">
+                                <a href="<?=Url::to(['exhibitors/index']);?>">
                                     <i class="material-icons">groups</i>
                                     <p>Exhibitors</p>
+                                </a>
+                            </li>
+                            <li class="<?=(strpos($controller,'visitors') !== false )?'active':'';?>">
+                                <a href="<?=Url::to(['visitors/index']);?>">
+                                    <i class="material-icons">groups</i>
+                                    <p>Visitors</p>
                                 </a>
                             </li>
                             <li class="<?=($controller=='settings')?'active':'';?>">
                                 <a href="<?=Url::to(['settings/index']);?>">
                                     <i class="material-icons">settings_applications</i>
-                                    <p>Developer Settings</p>
+                                    <p>System Configuration</p>
                                 </a>
                             </li>
-                            
-                            <?php /*                            
-                            <li class="<?=($controller=='usersa')?'active':'';?>">
-                                <a href="icons.html">
-                                    <i class="material-icons">bubble_chart</i>
-                                    <p>Icons</p>
-                                </a>
-                            </li>
-                            <li class="<?=($controller=='usersa')?'active':'';?>">
-                                <a href="maps.html">
-                                    <i class="material-icons">location_on</i>
-                                    <p>Maps</p>
-                                </a>
-                            </li>
-                            <li class="<?=($controller=='usersa')?'active':'';?>">
-                                <a href="notifications.html">
-                                    <i class="material-icons text-gray">notifications</i>
-                                    <p>Notifications</p>
-                                </a>
-                            </li>
-                            */?>
                             <li class="<?=($controller=='usersa')?'active':'';?>">
                                 <a href="<?=Url::to(['site/logout']);?>">
                                     <i class="material-icons text-gray">logout</i>

@@ -84,7 +84,7 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">access_time</i> 
-                                    <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> started on <?=Settings::getTimeAgo($e->start_time);?> at <?=Settings::getConfigDateTime($e->start_time,'number','time');?><br />
+                                    <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> started on <?=Settings::getConfigDateTime($e->start_time,'number','time');?> (<?=Settings::getTimeAgo($e->start_time);?>)<br />
                                     Events Close on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?>
                                 </div>
                             </div>
