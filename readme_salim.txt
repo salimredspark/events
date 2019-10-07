@@ -32,5 +32,3 @@ Ref: https://www.dev-tips-and-tricks.com/add-subdomains-to-a-xampp-server-on-win
 4) events.localhost.com
 ----------------------------------------------------------------------------------------------------------------------------------
 
-Branch Name
-
