@@ -34,13 +34,3 @@ Ref: https://www.dev-tips-and-tricks.com/add-subdomains-to-a-xampp-server-on-win
 
 Branch Name
 
-Create Branch
-Feature/Code-Task_Name
-
-Save Comment
-
-Code | Task_Name
-
-your Comment 
-
-task url;

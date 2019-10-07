@@ -1,18 +1,21 @@
+<?php 
+use yii\helpers\Url; 
+?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="orange">
-                        <i class="material-icons">content_copy</i>
+                        <i class="material-icons">events</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Used Space</p>
-                        <h3 class="title">49/50<small>GB</small></h3>
+                        <p class="category">Active Events</p>
+                        <h3 class="title"><a href="<?= Url::to(['events/index']);?>"><?=$total_active_events;?></a></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Total <?=$total_events;?> Events are created.
                         </div>
                     </div>
                 </div>
@@ -20,15 +23,15 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="green">
-                        <i class="material-icons">store</i>
+                        <i class="material-icons">event_available</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Revenue</p>
-                        <h3 class="title">$34,245</h3>
+                        <p class="category">Event Shows</p>
+                        <h3 class="title"><a href="<?= Url::to(['event-show/search-event']);?>"><?=$total_active_eventshows;?></a></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Total <?=$total_eventshows;?> Events are created. 
                         </div>
                     </div>
                 </div>
@@ -36,15 +39,15 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="red">
-                        <i class="material-icons">info_outline</i>
+                        <i class="material-icons">mice</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Fixed Issues</p>
-                        <h3 class="title">75</h3>
+                        <p class="category">Speakers</p>
+                        <h3 class="title"><a href="<?= Url::to(['speakers/index']);?>"><?=$total_speakers;?></a></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Github
+                            <i class="material-icons">date_range</i> All Speakers
                         </div>
                     </div>
                 </div>

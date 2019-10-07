@@ -74,8 +74,14 @@ class EventsController extends Controller
             
             $updated_by = Yii::$app->user->identity->id;  
             
-            $model->start_time = strtotime(Yii::$app->request->post('start_time'));
-            $model->end_time = strtotime(Yii::$app->request->post('end_time'));
+            #$model->start_time = strtotime(Yii::$app->request->post('start_time'));
+            #$model->end_time = strtotime(Yii::$app->request->post('end_time'));
+            
+            $start_time = date("Y-m-d H:i:s",strtotime($eventsPost['start_time']));                        
+            $end_time = date("Y-m-d H:i:s",strtotime($eventsPost['end_time']));
+            
+            $model->start_time = $start_time;
+            $model->end_time = $end_time;
             $model->updated_by = $updated_by;
             $model->save();
             
@@ -103,8 +109,8 @@ class EventsController extends Controller
             $eventsPost = Yii::$app->request->post('Events');
             $updated_by = Yii::$app->user->identity->id;  
                         
-            $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
-            $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
+            $start_time = date("Y-m-d H:i:s",strtotime($eventsPost['start_time']));                        
+            $end_time = date("Y-m-d H:i:s",strtotime($eventsPost['end_time']));
                         
             $model->start_time = $start_time;
             $model->end_time = $end_time;

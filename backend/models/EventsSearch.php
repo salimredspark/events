@@ -40,7 +40,7 @@ class EventsSearch extends Events
      */
     public function search($params)
     {
-        $query = Events::find()->orderBy('id',SORT_DESC);
+        $query = Events::find()->orderBy('start_time',SORT_ASC);
 
         // add conditions that should always apply here
 
