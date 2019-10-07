@@ -36,6 +36,7 @@ class EventLocationSlots extends \yii\db\ActiveRecord
             [['event_location_id', 'slot_type', 'slot_name', 'slot_detail', 'updated_by'], 'required'],
             [['event_location_id', 'updated_by'], 'integer'],
             [['slot_detail'], 'string'],
+            [['slot_available'], 'safe'],
             [['slot_type', 'slot_name'], 'string', 'max' => 255],
             [['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -71,5 +72,12 @@ class EventLocationSlots extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+    
+    public function getSlotType(){
+        return [
+        'Hotel Room' => 'Hotel Rooms',
+        'Hall' => 'Hall',
+        ];
     }
 }

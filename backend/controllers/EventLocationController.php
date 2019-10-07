@@ -66,7 +66,12 @@ class EventLocationController extends Controller
     {
         $model = new EventLocation();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $updated_by = Yii::$app->user->identity->id;                          
+            $model->updated_by = $updated_by;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +91,12 @@ class EventLocationController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $updated_by = Yii::$app->user->identity->id;                          
+            $model->updated_by = $updated_by;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

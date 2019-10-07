@@ -18,7 +18,7 @@ class EventLocationSlotsSearch extends EventLocationSlots
     {
         return [
             [['id', 'event_location_id', 'updated_by'], 'integer'],
-            [['slot_type', 'slot_name', 'slot_detail'], 'safe'],
+            [['slot_type', 'slot_name', 'slot_detail', 'slot_available'], 'safe'],
         ];
     }
 

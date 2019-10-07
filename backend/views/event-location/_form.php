@@ -2,26 +2,44 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\EventLocation */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="purple">
+                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Hotel</h4>
+                <p class="category">Hotel will be create</p>
+            </div>
+            <div class="card-content">
+                <?php $form = ActiveForm::begin(); ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->field($model, 'location_name', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>                      
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->field($model, 'location_details', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textArea(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>                     
+                </div>                
 
-<div class="event-location-form">
+                <div class="clearfix"></div>                                
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'location_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'location_details')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>
+                <?php ActiveForm::end(); ?>
+            </div>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+ 

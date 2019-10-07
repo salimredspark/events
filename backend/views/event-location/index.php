@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use backend\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\EventLocationSearch */
@@ -15,12 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card">
             <div class="card-header" data-background-color="purple">
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <h4 class="title"><?= Html::encode($this->title) ?></h4>
                         <p class="category">Order by latest first</p>
                     </div>
-                    <div class="col-sm-2 pull-right">
-                        <?= Html::a('Create New Location', ['create'], ['class' => 'btn btn-success']) ?>
+                    <div class="col-sm-4 pull-right">
+                        <?= Html::a('Create New', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Slots', ['event-location-slots/create'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>
             </div>
