@@ -75,7 +75,7 @@
             <div class="col-md-4">
                 <div class="card">                                   
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-bell"></i> Active Events</h4>
+                        <h4 class="title"><i class="fa fa-bell"></i> Active Events (<?=count($ongoing_events);?>)</h4>
                         <p class="category">Latest active events</p>
                     </div>
                     <?php 
@@ -97,7 +97,7 @@
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-clipboard"></i> Todays Events</h4>
+                        <h4 class="title"><i class="fa fa-clipboard"></i> Todays Events (<?=count($upcoming_events);?>)</h4>
                         <p class="category">Latest upcoming events</p>
                     </div>
                     <?php 
@@ -118,7 +118,7 @@
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-calendar"></i> Upcoming Events</h4>
+                        <h4 class="title"><i class="fa fa-calendar"></i> Upcoming Events (<?=count($active_events);?>)</h4>
                         <p class="category">Scheduled Events</p>
                     </div>
                    <?php 
@@ -141,7 +141,7 @@
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-user"></i> Exhibitors</h4>
+                        <h4 class="title"><i class="fa fa-user"></i> Exhibitors (<?=count($total_exhibitors);?>)</h4>
                         <p class="category">Latest 10 Exhibitors</p>
                     </div>
                     <?php 
@@ -160,7 +160,7 @@
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-user"></i> Visitors</h4>
+                        <h4 class="title"><i class="fa fa-user"></i> Visitors (<?=count($total_visitors);?>)</h4>
                         <p class="category">Latest 10 Visitors</p>
                     </div>
                     <?php 
@@ -180,7 +180,7 @@
             <div class="col-md-4">
                 <div class="card">                                   
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-calendar"></i> Completed Events</h4>
+                        <h4 class="title"><i class="fa fa-calendar"></i> Completed Events (<?=count($completed_events);?>)</h4>
                         <p class="category">Latest 10 Completed Events</p>
                     </div>
                     <?php 
@@ -188,7 +188,7 @@
                             foreach($completed_events as $e){?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> completed on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?> (<?=Settings::getTimeAgo($e->end_time);?>)
+                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> completed on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?><br />(<?=Settings::getTimeAgo($e->end_time);?>)
                                     <?php //echo Settings::getConfigDateTime($e->end_time,'number','datetime');?>
                                 </div>
                             </div>
