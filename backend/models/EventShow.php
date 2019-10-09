@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $show_name
- * @property string $show_location
+ * @property int $show_location_id
+ * @property int $show_location_slot_id
  * @property string $show_description
  * @property string $start_time
  * @property string $end_time
@@ -23,6 +24,8 @@ use Yii;
  * @property User $updatedBy
  * @property Speakers $eventSpeaker
  * @property SpeakerRole $eventSpeakerRole
+ * @property EventLocation $showLocation
+ * @property EventLocationSlots $showLocationSlot
  */
 class EventShow extends \yii\db\ActiveRecord
 {
@@ -40,15 +43,17 @@ class EventShow extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['show_name', 'show_location', 'show_description', 'event_id', 'event_speaker_id', 'event_speaker_role_id', 'show_manage_by', 'updated_by'], 'required'],
+            [['show_name', 'show_location_id', 'show_location_slot_id', 'show_description', 'event_id', 'event_speaker_id', 'event_speaker_role_id', 'show_manage_by', 'updated_by'], 'required'],
+            [['show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_speaker_role_id', 'show_manage_by', 'updated_by'], 'integer'],
             [['show_description'], 'string'],
             [['start_time', 'end_time'], 'safe'],
-            [['event_id', 'event_speaker_id', 'event_speaker_role_id', 'show_manage_by', 'updated_by'], 'integer'],
-            [['show_name', 'show_location'], 'string', 'max' => 255],
+            [['show_name'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],
             [['event_speaker_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => SpeakerRole::className(), 'targetAttribute' => ['event_speaker_role_id' => 'id']],
+            [['show_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['show_location_id' => 'id']],
+            [['show_location_slot_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocationSlots::className(), 'targetAttribute' => ['show_location_slot_id' => 'id']],
         ];
     }
 
@@ -60,7 +65,8 @@ class EventShow extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'show_name' => 'Show Name',
-            'show_location' => 'Show Location',
+            'show_location_id' => 'Show Location ID',
+            'show_location_slot_id' => 'Show Location Slot ID',
             'show_description' => 'Show Description',
             'start_time' => 'Start Time',
             'end_time' => 'End Time',
@@ -102,5 +108,21 @@ class EventShow extends \yii\db\ActiveRecord
     public function getEventSpeakerRole()
     {
         return $this->hasOne(SpeakerRole::className(), ['id' => 'event_speaker_role_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShowLocation()
+    {
+        return $this->hasOne(EventLocation::className(), ['id' => 'show_location_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShowLocationSlot()
+    {
+        return $this->hasOne(EventLocationSlots::className(), ['id' => 'show_location_slot_id']);
     }
 }

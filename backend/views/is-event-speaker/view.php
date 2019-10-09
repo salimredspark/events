@@ -1,15 +1,13 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\Events;
 use backend\models\Speakers;
 use backend\models\SpeakerRole;
+use backend\models\EventLocation;
+use backend\models\EventLocationSlots;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\IsEventSpeaker */
-
-$this->title = $model->id;
+$this->title = 'Event Show Speaker';
 $this->params['breadcrumbs'][] = ['label' => 'Is Event Speakers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -27,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-sm-4 pull-right">
                             <?php
-                            echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
-                            echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-                            
+                                echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
+                                echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+
                                 echo Html::a('Delete', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-danger',
                                 'data' => [
@@ -37,48 +35,52 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                                 ],
                                 ]);
-                             ?>
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card-content">
                     <div id="typography">
                         <div class="row">
-                        <?= DetailView::widget([
+                            <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                               // 'id',
-                                //'event_id',
-                                array(
-                                    'attribute'=>'event_id',                                
-                                    'label'=>'Event Name',
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(Events::findOne($model->event_id)->event_name, ['events/view', 'id'=>$model->event_id],['target'=>'_blank'])
-                                    ),
-                                #'event_speaker_id',
-                                array(
-                                    'attribute'=>'event_speaker_id',                                
-                                    'label'=>'Event Speaker Name',
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(Speakers::findOne($model->event_speaker_id)->speaker_name, ['speakers/view', 'id'=>$model->event_speaker_id],['target'=>'_blank'])
-                                    ),
-                                #'event_speaker_role_id',
-                                array(
-                                    'attribute'=>'event_speaker_role_id',                                
-                                    'label'=>'Speaker Role',
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(SpeakerRole::findOne($model->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->event_speaker_role_id],['target'=>'_blank'])
-                                    ),
-                                    'speaker_travel_by',
-                                    #'hotel_patner',
-                                    array(
-                                    'attribute'=>'hotel_patner',                                
-                                    //'label'=>'Speaker Role',
-                                    'format' => 'html',                                
-                                    'value'=>Html::a($model->hotel_patner, ['https://'.$model->hotel_patner],['target'=>'_blank'])
-                                    ),
+                            // 'id',
+                            //'event_id',
+                            array(
+                            'attribute'=>'event_id',                                
+                            'label'=>'Event Name',
+                            'format' => 'html',                                
+                            'value'=>Html::a(Events::findOne($model->event_id)->event_name, ['events/view', 'id'=>$model->event_id],['target'=>'_blank'])
+                            ),
+                            #'event_speaker_id',
+                            array(
+                            'attribute'=>'event_speaker_id',                                
+                            'label'=>'Event Speaker Name',
+                            'format' => 'html',                                
+                            'value'=>Html::a(Speakers::findOne($model->event_speaker_id)->speaker_name, ['speakers/view', 'id'=>$model->event_speaker_id],['target'=>'_blank'])
+                            ),
+                            #'event_speaker_role_id',
+                            array(
+                            'attribute'=>'event_speaker_role_id',                                
+                            'label'=>'Speaker Role',
+                            'format' => 'html',                                
+                            'value'=>Html::a(SpeakerRole::findOne($model->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->event_speaker_role_id],['target'=>'_blank'])
+                            ),
+                            array(
+                            'attribute'=>'event_location_id',                                
+                            'label'=>'Event Show Location',
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
+                            ), 
+                            array(
+                            'attribute'=>'event_location_slot_id',                                
+                            'label'=>'Show Location Slot',
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocationSlots::findOne($model->event_location_slot_id)->slot_name, ['event-location-slots/view', 'id'=>$model->event_location_slot_id],['target'=>'_blank'])
+                            ), 
                             ],
-                        ]) ?>                            
+                            ]) ?>                            
                         </div>
                     </div>
                 </div>

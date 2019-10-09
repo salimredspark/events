@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\helpers\Url; 
 use backend\models\User; 
 use backend\models\EventType;
+use backend\models\EventLocation;
 use backend\models\Settings; 
 
 /* @var $this yii\web\View */
@@ -46,22 +47,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div id="typography">
                         <div class="row">
                             <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //'id',
-            'event_name',
-            'event_domain_name',
-            #'event_type_id',
-            array(
-                            'attribute'=>'event_type_id',                                
-                            'format' => 'html',                                
-                            'value'=>Html::a(EventType::findOne($model->event_type_id)->type_name, ['event-type/view', 'id'=>$model->event_type_id],['target'=>'_blank'])
-                            ),
-            'event_location',
-            'event_description',
-            #'start_time',
-            #'end_time',
-             array(
+                    'model' => $model,
+                    'attributes' => [
+                        //'id',
+                        'event_name',
+                        'event_domain_name',
+                        #'event_type_id',
+                        array(
+                        'label' => 'Event Type',
+                                        'attribute'=>'event_type_id',                                
+                                        'format' => 'html',                                
+                                        'value'=>Html::a(EventType::findOne($model->event_type_id)->type_name, ['event-type/view', 'id'=>$model->event_type_id],['target'=>'_blank'])
+                                        ),
+                        //'event_location_id',
+                         array(         
+                         'label' => 'Event Location',
+                                        'attribute'=>'event_location_id',                                
+                                        'format' => 'html',                                
+                                        'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
+                                        ),                        
+                        #'start_time',
+                        #'end_time',
+                         array(
                             'attribute'=>'start_time',                                
                             'value'=>Settings::getConfigDateTime($model->start_time)
                             ),
@@ -70,13 +77,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute'=>'end_time',                                
                             'value'=>Settings::getConfigDateTime($model->end_time)
                             ),
-             array(
-                            'attribute'=>'updated_by',                                
-                            'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
-                            ),
-        ],
-    ]) ?>
+                             array(
+                                            'attribute'=>'updated_by',                                
+                                            'format' => 'html',                                
+                                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                                            ),
+                                            'event_description',
+                        ],
+                            ]) ?>
                         </div>
                     </div>
                 </div>

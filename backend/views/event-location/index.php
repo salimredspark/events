@@ -1,13 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\models\User;
-
-/* @var $this yii\web\View */
-/* @var $searchModel backend\models\EventLocationSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Event Location';
 $this->params['breadcrumbs'][] = $this->title;

@@ -8,6 +8,8 @@ use backend\models\EventShow;
 use backend\models\EventShowSearch;
 use backend\models\IsEventSpeaker;
 use backend\models\Speakers;
+use backend\models\EventLocation;
+use backend\models\EventLocationSlots;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -178,12 +180,9 @@ class EventShowController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionEventSpekersList($id){
-        $count = IsEventSpeaker::find()->where(['event_id'=>$id,])->count();
-
+    public function actionEventSpekersList($id){        
         $speakers = IsEventSpeaker::find()->where(['event_id'=>$id])->orderBy('id DESC')->all();
-
-        if($count > 0){
+        if(count($speakers) > 0){
             foreach($speakers as $speaker){
                 $speakersinfo = Speakers::find()->where(['id'=>$speaker->id])->one();
                 echo "<option value='".$speaker->id."'>".$speakersinfo->speaker_name."</option>";
@@ -191,6 +190,26 @@ class EventShowController extends Controller
         }else{
             echo "<option>-</option>";
         }
+    }
 
+    public function actionEventLocationList($id){        
+        $location = IsEventSpeaker::find()->where(['event_id'=>$id])->orderBy('id DESC')->one();        
+        if(isset($location->event_location_id)){            
+            $locationInfo = EventLocation::find()->where(['id'=>$location->event_location_id])->one();
+            echo "<option value='".$location->id."'>".$locationInfo->location_name."</option>";
+        }else{
+            echo "<option>-</option>";
+        }
+    }
+    
+    public function actionEventLocationSlotList($id){        
+        $locationSlots = EventLocationSlots::find()->where(['event_location_id'=>$id])->orderBy('slot_name ASC')->all();        
+        if(count($locationSlots)){
+            foreach($locationSlots as $locationSlot){
+                echo "<option value='".$locationSlot->id."'>".$locationSlot->slot_name."</option>";
+            }
+        }else{
+            echo "<option>-</option>";
+        }
     }
 }

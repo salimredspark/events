@@ -17,9 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'show_name') ?>
+    <?= $form->field($model, 'show_location_id') ?>
 
-    <?= $form->field($model, 'show_location') ?>
+    <?= $form->field($model, 'show_location_slot_id') ?>
 
     <?= $form->field($model, 'show_description') ?>
 

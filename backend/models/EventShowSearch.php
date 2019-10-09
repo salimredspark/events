@@ -17,8 +17,8 @@ class EventShowSearch extends EventShow
     public function rules()
     {
         return [
-            [['id', 'event_id', 'updated_by'], 'integer'],
-            [['show_name', 'show_location', 'show_description', 'start_time', 'end_time'], 'safe'],
+            [['id', 'show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_speaker_role_id', 'show_manage_by', 'updated_by'], 'integer'],
+            [['show_name', 'show_description', 'start_time', 'end_time'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EventShowSearch extends EventShow
      */
     public function search($params)
     {
-        $query = EventShow::find()->orderBy('id',SORT_DESC);
+        $query = EventShow::find();
 
         // add conditions that should always apply here
 
@@ -59,14 +59,18 @@ class EventShowSearch extends EventShow
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'show_location_id' => $this->show_location_id,
+            'show_location_slot_id' => $this->show_location_slot_id,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'event_id' => $this->event_id,
+            'event_speaker_id' => $this->event_speaker_id,
+            'event_speaker_role_id' => $this->event_speaker_role_id,
+            'show_manage_by' => $this->show_manage_by,
             'updated_by' => $this->updated_by,
         ]);
 
         $query->andFilterWhere(['like', 'show_name', $this->show_name])
-            ->andFilterWhere(['like', 'show_location', $this->show_location])
             ->andFilterWhere(['like', 'show_description', $this->show_description]);
 
         return $dataProvider;

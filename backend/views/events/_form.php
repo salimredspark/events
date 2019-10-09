@@ -5,6 +5,7 @@
     use yii\widgets\ActiveForm; 
     use backend\models\User;    
     use backend\models\EventType;    
+    use backend\models\EventLocation;    
     use kartik\datetime\DateTimePicker;
 ?>
 <div class="row">
@@ -51,12 +52,16 @@
                         ?>
                     </div>
                                                                                 
-                    <div class="col-md-6">                                                                        
-                        <?= $form->field($model, 'event_location', [
-                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    <div class="col-md-3">                                                                        
+                    <?php                        
+                            $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
+                            echo $form->field($model, 'event_location_id',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Location' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>                                                
                     </div>
+                    
                 </div>
                 
                 <div class="row">

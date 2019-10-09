@@ -17,8 +17,8 @@ class EventsSearch extends Events
     public function rules()
     {
         return [
-            [['id', 'event_name', 'event_type_id', 'updated_by'], 'integer'],
-            [['event_domain_name', 'event_location', 'event_description', 'start_time', 'end_time'], 'safe'],
+            [['id', 'event_type_id', 'event_location_id', 'event_manage_by', 'updated_by'], 'integer'],
+            [['event_name', 'event_domain_name', 'event_description', 'start_time', 'end_time'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EventsSearch extends Events
      */
     public function search($params)
     {
-        $query = Events::find()->orderBy('start_time',SORT_ASC);
+        $query = Events::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,16 @@ class EventsSearch extends Events
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'event_name' => $this->event_name,
             'event_type_id' => $this->event_type_id,
-            'event_location' => $this->event_location,
+            'event_location_id' => $this->event_location_id,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
+            'event_manage_by' => $this->event_manage_by,
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'event_domain_name', $this->event_domain_name])
+        $query->andFilterWhere(['like', 'event_name', $this->event_name])
+            ->andFilterWhere(['like', 'event_domain_name', $this->event_domain_name])
             ->andFilterWhere(['like', 'event_description', $this->event_description]);
 
         return $dataProvider;

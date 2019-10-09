@@ -7,6 +7,8 @@ use backend\models\Events;
 use backend\models\Settings;
     use backend\models\Speakers;
     use backend\models\SpeakerRole;
+    use backend\models\EventLocation;
+    use backend\models\EventLocationSlots;
 
 $this->title = $model->show_name;
 $this->params['breadcrumbs'][] = ['label' => 'Event Shows', 'url' => ['index']];
@@ -52,8 +54,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',                                
                             'value'=>Html::a(Events::findOne($model->event_id)->event_name, ['events/view', 'id'=>$model->event_id],['target'=>'_blank'])
                             ),
-                            'show_name',
-                            'show_location',                            
+                            'show_name',                            
+                             array(
+                            'attribute'=>'show_location_id',                                
+                            'label'=>'Location Name',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocation::findOne($model->show_location_id)->location_name, ['event-location/view', 'id'=>$model->show_location_id],['target'=>'_blank'])
+                            ),
+                             array(
+                            'attribute'=>'show_location_slot_id',                                
+                            'label'=>'Location Slot',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocationSlots::findOne($model->show_location_slot_id)->slot_name, ['event-location/view', 'id'=>$model->show_location_slot_id],['target'=>'_blank'])
+                            ),
                             array(
                             'attribute'=>'start_time',                                
                             'value'=>Settings::getConfigDateTime($model->start_time) //date("d M, Y h:i A", strtotime($model->start_time))

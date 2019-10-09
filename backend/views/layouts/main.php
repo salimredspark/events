@@ -83,7 +83,13 @@
                                         <i class="material-icons">event_available</i>
                                         <p>Event Location</p>
                                         </a>
-                                    </li>                                   
+                                    </li>
+                                    <li class="<?=($controller=='event-location-slots')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['event-location-slots/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Location Slot</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="<?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'active':'';?>">

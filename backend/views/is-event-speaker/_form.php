@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper; 
@@ -9,21 +8,19 @@ use backend\models\Speakers;
 use backend\models\SpeakerRole;
 use backend\models\Hotels; 
 use backend\models\User; 
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\IsEventSpeaker */
-/* @var $form yii\widgets\ActiveForm */
+use backend\models\EventLocation;
+use backend\models\EventLocationSlots;
 ?>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title"><?php echo ($model->id)?'Update':'Assign';?> Event Speaker</h4>
-                <p class="category">Assign Speaker to Event</p>
+                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Show</h4>
+                <p class="category">New Event Show will be create</p>
             </div>
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
-               
+
                 <div class="row">                        
                     <div class="col-md-3">
                         <?php                        
@@ -31,11 +28,7 @@ use backend\models\User;
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event' ]
-                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
-                                $.post("index.php?r=event-show/event-spekers-list&id="+$(this).val(), function( data ) {
-                                $( "select#iseventspeaker-event_speaker_id" ).html( data );
-                                });
-                                '] );
+                            ])->dropDownList( $items, ['prompt'=>'',] );
                         ?>
                     </div>
                     <div class="col-md-3">
@@ -46,7 +39,7 @@ use backend\models\User;
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                    </div>
+                    </div>                    
                     <div class="col-md-3">
                         <?php                        
                             $items = ArrayHelper::map(SpeakerRole::find()->all(), 'id', 'role_name');                                                
@@ -55,53 +48,33 @@ use backend\models\User;
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                    </div> 
-                     <div class="col-md-3">
-                    <?php                        
-                            $items = Hotels::getTravelOption();
-                            echo $form->field($model, 'speaker_travel_by',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Travel' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
-                        ?> 
-                        </div>                   
+                    </div>
                 </div>
-                 <div class="row">
-                <div class="col-md-3">
-                        <?php                        
-                            $items = ArrayHelper::map(Hotels::find()->all(), 'id', 'hotel_name');                                                
-                            echo $form->field($model, 'hotel_id',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Name' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
-                        ?>
-                    </div>
-                    <div class="col-md-3">
-                    <?= $form->field($model, 'hotel_room_number', [
-                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>                        
-                    </div>
+                <div class="row">                     
                     <div class="col-md-3">
                         <?php                        
-                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
-                            echo $form->field($model, 'hotel_book_by',[
+                            $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
+                            echo $form->field($model, 'event_location_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Book By' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Location Name' ]
+                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'                            
+                            //get event locations
+                            $.post("index.php?r=event-show/event-location-slot-list&id="+$(this).val(), function( data ) {
+                            $( "select#iseventspeaker-event_location_slot_id" ).html( data );
+                            });
+                            ']);
                         ?>
                     </div>
                     <div class="col-md-3">
                         <?php                        
-                            $items = $items = Hotels::getHotelPatnerOption();
-                            echo $form->field($model, 'hotel_patner',[
+                            $items = ArrayHelper::map(EventLocationSlots::find()->all(), 'id', 'slot_name');                                                
+                            echo $form->field($model, 'event_location_slot_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hotel Patner' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Location Slot Name' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                    </div>
-                    </div>
-                              
+                    </div>                    
+                </div>
 
                 <div class="clearfix"></div>                                
 
@@ -110,4 +83,4 @@ use backend\models\User;
             </div>
         </div>
     </div>
-</div> 
+</div>

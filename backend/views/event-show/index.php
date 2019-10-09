@@ -41,7 +41,7 @@
 
                     //'id',
                     'show_name',
-                    'show_location',
+                    //'show_location',
                     //'show_description:ntext',
                     #'start_time',
                     #'end_time',
