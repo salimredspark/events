@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'class' => 'yii\grid\DataColumn',
                                 'label' => 'Location Name',
+                                'filter' => true,
                                 'format' => 'html',
                                 'value' => function ($data) {
                                     return Html::a(EventLocation::findOne($data->event_location_id)->location_name, ['event-location/view', 'id'=>$data->event_location_id],['target'=>'_blank']);
