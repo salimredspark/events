@@ -60,6 +60,12 @@
                                     <p>Events</p>
                                 </a>
                                 <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='events')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['events/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event List</p>
+                                        </a>
+                                    </li>
                                     <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['is-event-speaker/search-event']);?>">
                                         <i class="material-icons">event_available</i>
@@ -98,6 +104,12 @@
                                     <p>Speakers</p>
                                 </a>
                                 <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='speakers')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['speakers/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Speaker List</p>
+                                        </a>
+                                    </li>
                                     <li class="<?=($controller=='speaker-role')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['speaker-role/index']);?>">
                                         <i class="material-icons">event_available</i>
