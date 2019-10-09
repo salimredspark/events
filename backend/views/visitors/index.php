@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\models\User;
+use backend\models\Settings;
 
 $this->title = 'Visitors';
 $this->params['breadcrumbs'][] = $this->title;
