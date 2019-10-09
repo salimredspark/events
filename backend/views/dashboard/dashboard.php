@@ -144,11 +144,16 @@
                         <h4 class="title"><i class="fa fa-user"></i> Exhibitors</h4>
                         <p class="category">Latest 10 Exhibitors</p>
                     </div>
+                    <?php 
+                        if(count($total_exhibitors) > 0){
+                            foreach($total_exhibitors as $e){?>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                            <i class="material-icons">access_time</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->firstname." ".$e->lastname;?></a> registered <?=Settings::getTimeAgo($e->updated_at);?>
                         </div>
                     </div>
+                    <?php }
+                    }else{?><div class="card-footer">No Exhibitors!</div> <?php }?>
                 </div>
             </div>
 
@@ -158,11 +163,16 @@
                         <h4 class="title"><i class="fa fa-user"></i> Visitors</h4>
                         <p class="category">Latest 10 Visitors</p>
                     </div>
+                    <?php 
+                        if(count($total_visitors) > 0){
+                            foreach($total_visitors as $e){?>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                            <i class="material-icons">access_time</i> <a href="<?= Url::to(['visitors/view', 'id'=>$e->id]);?>"><?=$e->visitor_name;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
                         </div>
                     </div>
+                    <?php }
+                    }else{?><div class="card-footer">No Visitors!</div> <?php }?>
 
                 </div>
             </div>

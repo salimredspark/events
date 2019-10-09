@@ -10,6 +10,8 @@ use backend\models\Events;
 use backend\models\EventShow;
 use backend\models\Speakers;
 use backend\models\Hotels;
+use backend\models\Exhibitors;
+use backend\models\Visitors;
 
 class DashboardController extends Controller
 {
@@ -65,10 +67,15 @@ class DashboardController extends Controller
         $today = date('Y-m-d h:i:s');
         $total_active_eventshows = EventShow::find()->where([ '>=', 'end_time', $today])->count();
 
-        //
+        //get speakers
         $total_speakers = Speakers::find()->count();;
         $total_hotels = Hotels::find()->count();;
 
+        
+        //get 
+        $total_exhibitors = Exhibitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        $total_visitors = Visitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        
         return $this->render('dashboard', [
         'total_events' => $total_events, 
         'total_active_events'=>$total_active_events,
@@ -83,6 +90,9 @@ class DashboardController extends Controller
 
         'total_speakers'=>$total_speakers,
         'total_hotels'=>$total_hotels,
+        
+        'total_exhibitors'=>$total_exhibitors,
+        'total_visitors'=>$total_visitors,
         ]);        
     }                         
 }
