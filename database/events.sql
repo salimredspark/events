@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2019 at 02:35 PM
+-- Generation Time: Oct 09, 2019 at 02:41 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -33,8 +33,8 @@ CREATE TABLE `events` (
   `event_name` varchar(255) NOT NULL,
   `event_domain_name` varchar(255) NOT NULL,
   `event_type_id` int(11) NOT NULL,
-  `event_location` text NOT NULL,
-  `event_description` blob NOT NULL,
+  `event_location_id` int(11) NOT NULL,
+  `event_description` text NOT NULL,
   `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `event_manage_by` int(11) NOT NULL,
@@ -45,9 +45,62 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `event_name`, `event_domain_name`, `event_type_id`, `event_location`, `event_description`, `start_time`, `end_time`, `event_manage_by`, `updated_by`) VALUES
-(1, 'Conference Programmes', 'domain1', 1, 'Industry 4.0 Hall 4 - Auditorium 1', 0x4e6574776f726b206f70657261746f7273206172652074686520677265617420656e61626c6572206f6620746865206469676974616c2065636f6e6f6d792e20546865697220636f6e747269627574696f6e20616e64207374617469737469637320617265206173746f6e697368696e673b0d0a0d0ae280a2202020546865206d6f62696c6520696e6475737472792065636f2d73797374656d2068617320616e2065636f6e6f6d696320696d70616374206f662024332e39207472696c6c696f6e0d0ae280a220202054686520696e64757374727920636f6e6e6563747320c2bd2074686520776f726c64e280997320706f70756c6174696f6e20746f2074686520496e7465726e65740d0ae280a2202020352e312062696c6c696f6e2070656f706c652073756273637269626520746f2061206d6f62696c6520736572766963650d0a0d0a546865206d6f62696c6520696e647573747279206861732061207472656d656e646f757320696d7061637420616e64207468657265666f726520726573706f6e736962696c69747920746f7761726420696e646976696475616c2c206e6174696f6e616c20616e6420696e7465726e6174696f6e616c2073656375726974792c207072697661637920616e6420736f63696574792e200d0a200d0a546865206f70656e696e67206b65796e6f7465206f66204d574331392077696c6c207365652074686520776f726c64e2809973206c656164696e67206f70657261746f72732c20696e636c7564696e6720666f72207468652066697273742074696d6520566f6461666f6e65e2809973206e65772043454f204e69636b20526561642c20206469736375737320686f77207468657920636f6e74696e756520746f20707573682074686520626f756e646172696573206f6620746563686e6f6c6f676963616c20696e6e6f766174696f6e207468726f7567682035472c2041492c20496f542c20616e642042696720446174612e200d0a546865792077696c6c20616c736f20646973637573732074686520726567756c61746f727920656e7669726f6e6d656e7420726571756972656420746f20656e73757265206f70657261746f7273206172652061626c6520746f206465706c6f7920746865736520746563686e6f6c6f676965732c20616e642074686520737472617465676965732c20627573696e657373206d6f64656c7320616e6420696e7465726e616c2073797374656d73206e656564656420746f20656e7375726520746865792064656c69766572206f6e2074686569722070726f6d6973652e20416c6c2077697468696e2074686520636f6e74657874206f6620746865697220776964657220736f6369616c20616e6420656e7669726f6e6d656e74616c20726573706f6e736962696c69746965732e0909090909090909, '2019-10-04 09:35:28', '2019-10-04 21:45:00', 1, 1),
-(2, 'Demo Event', 'domain2', 2, 'Millenium Resort, Fategunj, Vadodara, Gujarat', 0x44656d6f6e7374726174696f6e204576656e74, '2019-10-03 21:35:30', '2019-10-05 01:00:00', 1, 1);
+INSERT INTO `events` (`id`, `event_name`, `event_domain_name`, `event_type_id`, `event_location_id`, `event_description`, `start_time`, `end_time`, `event_manage_by`, `updated_by`) VALUES
+(1, 'Conference Programmes', 'domain1', 1, 1, 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\nâ€¢   The mobile industry eco-system has an economic impact of $3.9 trillion\r\nâ€¢   The industry connects Â½ the worldâ€™s population to the Internet\r\nâ€¢   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the worldâ€™s leading operators, including for the first time Vodafoneâ€™s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-09 05:16:24', '2019-10-08 05:25:00', 1, 1),
+(2, 'Demo Event', 'domain2', 2, 2, 'Demonstration Event', '2019-10-09 06:04:33', '2019-10-10 00:30:00', 1, 1),
+(3, 'Active Event', 'domain3', 3, 1, 'this is test', '2019-10-09 05:16:28', '2019-10-10 00:30:00', 2, 1),
+(4, 'Past Spark Event', 'domain4', 9, 1, 'demo', '2019-10-09 05:16:30', '2019-10-07 10:20:00', 3, 1),
+(5, 'Merathon', 'domain5', 10, 1, 'Merathon Run', '2019-10-09 05:16:32', '2019-10-10 04:30:00', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_location`
+--
+
+CREATE TABLE `event_location` (
+  `id` int(11) NOT NULL,
+  `location_name` varchar(255) NOT NULL,
+  `location_details` varchar(255) NOT NULL,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event_location`
+--
+
+INSERT INTO `event_location` (`id`, `location_name`, `location_details`, `updated_by`) VALUES
+(1, 'Zinger Hotel', 'Fategunj Vaodara', 1),
+(2, 'Millennium Hotel', 'Fategunj, Baroda', 1),
+(3, 'Sayaji Hall', 'SayajiGunj', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_location_slots`
+--
+
+CREATE TABLE `event_location_slots` (
+  `id` int(11) NOT NULL,
+  `event_location_id` int(11) NOT NULL,
+  `slot_type` varchar(255) NOT NULL COMMENT 'hotel room or hall',
+  `slot_name` varchar(255) NOT NULL,
+  `slot_detail` text NOT NULL,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event_location_slots`
+--
+
+INSERT INTO `event_location_slots` (`id`, `event_location_id`, `slot_type`, `slot_name`, `slot_detail`, `updated_by`) VALUES
+(1, 1, 'Hotel Room', 'Section B', 'Zinger Hotel Hall 1 Section B', 1),
+(2, 1, 'Hotel Room', 'Room 13', 'Room 13', 1),
+(3, 2, 'Hotel Room', 'Room 007', 'Room 007', 1),
+(4, 3, 'Hall', 'Hall 1 - Slot 1', 'Hall 1 - Slot 1', 1),
+(5, 3, 'Hall', 'Hall 1 - Slot 2', 'Hall 1 - Slot 2', 1),
+(6, 3, 'Hall', 'Hall 1 - Slot 3', 'Hall 1 - Slot 3', 1),
+(7, 3, 'Hall', 'Hall 1 - Slot 4', 'Hall 1 - Slot 4', 1);
 
 -- --------------------------------------------------------
 
@@ -58,7 +111,8 @@ INSERT INTO `events` (`id`, `event_name`, `event_domain_name`, `event_type_id`, 
 CREATE TABLE `event_show` (
   `id` int(11) NOT NULL,
   `show_name` varchar(255) NOT NULL,
-  `show_location` varchar(255) NOT NULL,
+  `show_location_id` int(11) NOT NULL,
+  `show_location_slot_id` int(11) NOT NULL,
   `show_description` text NOT NULL,
   `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -73,8 +127,11 @@ CREATE TABLE `event_show` (
 -- Dumping data for table `event_show`
 --
 
-INSERT INTO `event_show` (`id`, `show_name`, `show_location`, `show_description`, `start_time`, `end_time`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `show_manage_by`, `updated_by`) VALUES
-(1, 'Keynote 1: Intelligently Connecting the World', 'Hall 4 - Auditorium 1', 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\n•   The mobile industry eco-system has an economic impact of $3.9 trillion\r\n•   The industry connects ½ the world’s population to the Internet\r\n•   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the world’s leading operators, including for the first time Vodafone’s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-03 21:21:06', '2019-10-04 05:30:00', 1, 1, 1, 1, 1);
+INSERT INTO `event_show` (`id`, `show_name`, `show_location_id`, `show_location_slot_id`, `show_description`, `start_time`, `end_time`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `show_manage_by`, `updated_by`) VALUES
+(1, 'Keynote 1: Intelligently Connecting the World', 1, 1, 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\n•   The mobile industry eco-system has an economic impact of $3.9 trillion\r\n•   The industry connects ½ the world’s population to the Internet\r\n•   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the world’s leading operators, including for the first time Vodafone’s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-09 05:31:18', '2019-10-04 05:30:00', 1, 1, 1, 1, 1),
+(2, 'Show 1', 3, 5, 'demo', '0000-00-00 00:00:00', '2019-10-09 23:30:00', 3, 3, 1, 2, 1),
+(3, '5am Show', 2, 3, '5am Show', '2019-10-09 19:30:00', '2019-10-09 23:30:00', 5, 1, 1, 2, 1),
+(4, '6am Show', 2, 3, '6am Show', '2019-10-10 04:30:00', '2019-10-10 06:30:00', 5, 2, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -104,6 +161,30 @@ INSERT INTO `event_type` (`id`, `type_name`, `color`, `updated_by`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `exhibitors`
+--
+
+CREATE TABLE `exhibitors` (
+  `id` int(11) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password_has` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exhibitors`
+--
+
+INSERT INTO `exhibitors` (`id`, `firstname`, `lastname`, `username`, `password_has`, `updated_at`, `updated_by`) VALUES
+(1, 'Dhruv', 'Patel', 'dhruv', '$2y$10$NmnkrZOQV75t/mfo/K2QXu3rVOh2bUfJrMUzdHRfWRpTDDsonDa4O', '2019-10-09 08:01:27', 1),
+(2, 'Sajit', 'Nayar', 'sajit', '$2y$10$6yodNlOJXuKDTboE6qQS9eQPQblrGUDdQOhg58u3QgF/MKvxu6CbS', '2019-10-09 07:43:28', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hotels`
 --
 
@@ -126,6 +207,27 @@ INSERT INTO `hotels` (`id`, `hotel_name`, `hotel_address`, `hotel_website`, `hot
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `is_event_exhibitors`
+--
+
+CREATE TABLE `is_event_exhibitors` (
+  `id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `exhibitor_id` int(11) NOT NULL,
+  `exhibitor_join_status` varchar(20) NOT NULL COMMENT 'yes, no, maybe',
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `is_event_exhibitors`
+--
+
+INSERT INTO `is_event_exhibitors` (`id`, `event_id`, `exhibitor_id`, `exhibitor_join_status`, `comment`) VALUES
+(1, 1, 2, 'yes', 'this is test');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `is_event_speaker`
 --
 
@@ -134,34 +236,23 @@ CREATE TABLE `is_event_speaker` (
   `event_id` int(11) NOT NULL,
   `event_speaker_id` int(11) NOT NULL,
   `event_speaker_role_id` int(11) NOT NULL,
-  `hotel_id` int(11) NOT NULL,
-  `hotel_room_number` varchar(150) NOT NULL,
-  `hotel_book_by` int(11) NOT NULL,
-  `hotel_patner` varchar(255) NOT NULL,
-  `speaker_travel_by` varchar(255) NOT NULL
+  `event_location_id` int(11) NOT NULL,
+  `event_location_slot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `is_event_speaker`
 --
 
-INSERT INTO `is_event_speaker` (`id`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `hotel_id`, `hotel_room_number`, `hotel_book_by`, `hotel_patner`, `speaker_travel_by`) VALUES
-(1, 1, 1, 1, 1, '125', 1, 'cleartrip.com', 'Flight'),
-(2, 1, 2, 3, 1, '', 1, '', ''),
-(3, 1, 3, 2, 1, '', 1, '', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `locations`
---
-
-CREATE TABLE `locations` (
-  `id` int(11) NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `location_details` text NOT NULL,
-  `updated_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `is_event_speaker` (`id`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `event_location_id`, `event_location_slot_id`) VALUES
+(1, 1, 1, 1, 1, 1),
+(2, 1, 2, 3, 1, 1),
+(3, 1, 3, 2, 1, 1),
+(4, 2, 2, 3, 1, 2),
+(5, 2, 1, 1, 3, 4),
+(6, 2, 3, 3, 2, 3),
+(7, 3, 3, 3, 3, 4),
+(8, 5, 4, 3, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -202,7 +293,7 @@ CREATE TABLE `settings` (
 INSERT INTO `settings` (`id`, `setting_key`, `setting_value`) VALUES
 (1, 'google_map_key', 'AIzaSyBmOgbX-bUYFlhagd9LXJbUd2KRXB6FTSg'),
 (2, 'time_format', ' h:i A'),
-(3, 'date_format', 'd m, Y'),
+(3, 'date_format', 'd-m-Y'),
 (4, 'main_domain', '*.localhost.com');
 
 -- --------------------------------------------------------
@@ -280,6 +371,20 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (2, 'deval', '', 'deval123', NULL, 'deval@redsaprkinfo.co.in', 10, 1569999351, 1570019313, NULL, 1, 'Deval', 'Barot'),
 (3, 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, 1570022535, 1570084573, NULL, 1, 'Nirav', 'Patel');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visitors`
+--
+
+CREATE TABLE `visitors` (
+  `id` int(11) NOT NULL,
+  `visitor_name` varchar(255) NOT NULL,
+  `visitor_uid` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -291,6 +396,22 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `event_domain_name` (`event_domain_name`),
   ADD KEY `event_type_id` (`event_type_id`),
+  ADD KEY `updated_by` (`updated_by`),
+  ADD KEY `event_location_id` (`event_location_id`);
+
+--
+-- Indexes for table `event_location`
+--
+ALTER TABLE `event_location`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `updated_by` (`updated_by`);
+
+--
+-- Indexes for table `event_location_slots`
+--
+ALTER TABLE `event_location_slots`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_location_id` (`event_location_id`),
   ADD KEY `updated_by` (`updated_by`);
 
 --
@@ -301,7 +422,9 @@ ALTER TABLE `event_show`
   ADD KEY `event_id` (`event_id`),
   ADD KEY `updated_by` (`updated_by`),
   ADD KEY `event_speaker_id` (`event_speaker_id`),
-  ADD KEY `event_speaker_role_id` (`event_speaker_role_id`);
+  ADD KEY `event_speaker_role_id` (`event_speaker_role_id`),
+  ADD KEY `show_location_id` (`show_location_id`),
+  ADD KEY `show_location_slot_id` (`show_location_slot_id`);
 
 --
 -- Indexes for table `event_type`
@@ -311,11 +434,25 @@ ALTER TABLE `event_type`
   ADD KEY `updated_by` (`updated_by`);
 
 --
+-- Indexes for table `exhibitors`
+--
+ALTER TABLE `exhibitors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hotels`
 --
 ALTER TABLE `hotels`
   ADD PRIMARY KEY (`id`),
   ADD KEY `updated_by` (`updated_by`);
+
+--
+-- Indexes for table `is_event_exhibitors`
+--
+ALTER TABLE `is_event_exhibitors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `exhibitor_id` (`exhibitor_id`);
 
 --
 -- Indexes for table `is_event_speaker`
@@ -325,15 +462,8 @@ ALTER TABLE `is_event_speaker`
   ADD KEY `is_event_speaker_ibfk_1` (`event_id`),
   ADD KEY `is_event_speaker_ibfk_2` (`event_speaker_id`),
   ADD KEY `is_event_speaker_ibfk_3` (`event_speaker_role_id`),
-  ADD KEY `hotel_id` (`hotel_id`),
-  ADD KEY `hotel_book_by` (`hotel_book_by`);
-
---
--- Indexes for table `locations`
---
-ALTER TABLE `locations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `updated_by` (`updated_by`);
+  ADD KEY `event_location_id` (`event_location_id`),
+  ADD KEY `event_location_slot_id` (`event_location_slot_id`);
 
 --
 -- Indexes for table `migration`
@@ -371,6 +501,12 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
 
 --
+-- Indexes for table `visitors`
+--
+ALTER TABLE `visitors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -378,13 +514,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `event_location`
+--
+ALTER TABLE `event_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `event_location_slots`
+--
+ALTER TABLE `event_location_slots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `event_show`
 --
 ALTER TABLE `event_show`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `event_type`
@@ -393,22 +541,28 @@ ALTER TABLE `event_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `exhibitors`
+--
+ALTER TABLE `exhibitors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `hotels`
 --
 ALTER TABLE `hotels`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `is_event_exhibitors`
+--
+ALTER TABLE `is_event_exhibitors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `is_event_speaker`
 --
 ALTER TABLE `is_event_speaker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `locations`
---
-ALTER TABLE `locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -435,6 +589,12 @@ ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `visitors`
+--
+ALTER TABLE `visitors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -443,7 +603,21 @@ ALTER TABLE `user`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`event_type_id`) REFERENCES `event_type` (`id`),
-  ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `events_ibfk_4` FOREIGN KEY (`event_location_id`) REFERENCES `event_location` (`id`);
+
+--
+-- Constraints for table `event_location`
+--
+ALTER TABLE `event_location`
+  ADD CONSTRAINT `event_location_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `event_location_slots`
+--
+ALTER TABLE `event_location_slots`
+  ADD CONSTRAINT `event_location_slots_ibfk_1` FOREIGN KEY (`event_location_id`) REFERENCES `event_location` (`id`),
+  ADD CONSTRAINT `event_location_slots_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `event_show`
@@ -452,7 +626,9 @@ ALTER TABLE `event_show`
   ADD CONSTRAINT `event_show_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `event_show_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `event_show_ibfk_3` FOREIGN KEY (`event_speaker_id`) REFERENCES `speakers` (`id`),
-  ADD CONSTRAINT `event_show_ibfk_4` FOREIGN KEY (`event_speaker_role_id`) REFERENCES `speaker_role` (`id`);
+  ADD CONSTRAINT `event_show_ibfk_4` FOREIGN KEY (`event_speaker_role_id`) REFERENCES `speaker_role` (`id`),
+  ADD CONSTRAINT `event_show_ibfk_5` FOREIGN KEY (`show_location_id`) REFERENCES `event_location` (`id`),
+  ADD CONSTRAINT `event_show_ibfk_6` FOREIGN KEY (`show_location_slot_id`) REFERENCES `event_location_slots` (`id`);
 
 --
 -- Constraints for table `event_type`
@@ -467,20 +643,21 @@ ALTER TABLE `hotels`
   ADD CONSTRAINT `hotels_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
 
 --
+-- Constraints for table `is_event_exhibitors`
+--
+ALTER TABLE `is_event_exhibitors`
+  ADD CONSTRAINT `is_event_exhibitors_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  ADD CONSTRAINT `is_event_exhibitors_ibfk_2` FOREIGN KEY (`exhibitor_id`) REFERENCES `exhibitors` (`id`);
+
+--
 -- Constraints for table `is_event_speaker`
 --
 ALTER TABLE `is_event_speaker`
   ADD CONSTRAINT `is_event_speaker_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `is_event_speaker_ibfk_2` FOREIGN KEY (`event_speaker_id`) REFERENCES `speakers` (`id`),
   ADD CONSTRAINT `is_event_speaker_ibfk_3` FOREIGN KEY (`event_speaker_role_id`) REFERENCES `speaker_role` (`id`),
-  ADD CONSTRAINT `is_event_speaker_ibfk_4` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`),
-  ADD CONSTRAINT `is_event_speaker_ibfk_5` FOREIGN KEY (`hotel_book_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `locations`
---
-ALTER TABLE `locations`
-  ADD CONSTRAINT `locations_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `is_event_speaker_ibfk_4` FOREIGN KEY (`event_location_id`) REFERENCES `event_location` (`id`),
+  ADD CONSTRAINT `is_event_speaker_ibfk_5` FOREIGN KEY (`event_location_slot_id`) REFERENCES `event_location_slots` (`id`);
 
 --
 -- Constraints for table `speakers`

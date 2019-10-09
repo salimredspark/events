@@ -54,7 +54,7 @@
                                     <p>Users</p>
                                 </a>
                             </li>
-                            <li class="<?=(strpos($controller,'event') !== false )?'active':'';?>">
+                            <li class="<?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'active':'';?>">
                                 <a href="<?=Url::to(['events/index']);?>">
                                     <i class="material-icons">content_paste</i>
                                     <p>Events</p>
@@ -129,6 +129,20 @@
                                     <i class="material-icons">groups</i>
                                     <p>Exhibitors</p>
                                 </a>
+                                 <ul class="sub-menu">                                    
+                                    <li class="<?=($controller=='exhibitors')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['exhibitors/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Exhibitors List</p>
+                                        </a>
+                                    </li>
+                                    <li class="<?=($controller=='is-event-exhibitors')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['is-event-exhibitors/index']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Assign Exhibitors</p>
+                                        </a>
+                                    </li>
+                                 </ul>
                             </li>
                             <li class="<?=(strpos($controller,'visitors') !== false )?'active':'';?>">
                                 <a href="<?=Url::to(['visitors/index']);?>">

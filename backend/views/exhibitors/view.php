@@ -1,14 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use backend\models\User; 
+use backend\models\User;
+use backend\models\Settings; 
 
-$this->title = $model->hotel_name;
-$this->params['breadcrumbs'][] = ['label' => 'Hotels', 'url' => ['index']];
+$this->title = $model->firstname;
+$this->params['breadcrumbs'][] = ['label' => 'Exhibitors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-
 <div class="user-view">
     <div class="row">
         <div class="col-md-12">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-sm-6">
                             <h4 class="title"><?= Html::encode($this->title) ?></h4>
-                            <p class="category">View Hotel</p>
+                            <p class="category">View Exhibitor</p>
                         </div>
                         <div class="col-sm-4 pull-right">
                             <?php
@@ -39,18 +39,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div id="typography">
                         <div class="row">
                         <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'hotel_name',
-            'hotel_address',
-            'hotel_detail:ntext',            
-             array(
-                            'attribute'=>'updated_by',                                
-                            'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                            'model' => $model,
+                            'attributes' => [
+                                'firstname',
+                                'lastname',
+                                'username',
+                                #'updated_at',            
+                                array(
+                            'attribute'=>'updated_at',                                
+                            'value'=>Settings::getConfigDateTime($model->updated_at)
                             ),
-        ],
-    ]) ?>
+                                 array(
+                                    'attribute'=>'updated_by',                                
+                                    'format' => 'html',                                
+                                    'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                                    ),
+                            ],
+                        ]) ?>
     
                             
                         </div>
@@ -60,4 +65,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
  
