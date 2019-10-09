@@ -41,9 +41,9 @@
                     'label' => 'Domain',
                     'format' => 'html',
                     'value' => function ($data) {
-                        #$subdomainUrl = 'http://'.$data->event_domain_name.'.localhost.com';                            
-                        $subdomainUrl = Settings::getDomainUrl($data->event_domain_name);
-                        return Html::a($data->event_domain_name, $subdomainUrl,['target'=>'_blank']);                            
+                    #$subdomainUrl = 'http://'.$data->event_domain_name.'.localhost.com';                            
+                    $subdomainUrl = Settings::getDomainUrl($data->event_domain_name);
+                    return Html::a($data->event_domain_name, $subdomainUrl,['target'=>'_blank']);                            
                     },
                     ],*/
                     #'event_type_id',

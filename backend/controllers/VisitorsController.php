@@ -66,7 +66,13 @@ class VisitorsController extends Controller
     {
         $model = new Visitors();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $updated_by = Yii::$app->user->identity->id;            
+            $model->created_at = date("Y-m-d H:i:s");
+            $model->updated_by = $updated_by;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +92,13 @@ class VisitorsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $updated_by = Yii::$app->user->identity->id;            
+            $model->created_at = date("Y-m-d H:i:s");
+            $model->updated_by = $updated_by;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

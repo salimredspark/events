@@ -266,10 +266,12 @@
                         <nav class="pull-left">
                             <?php if (!Yii::$app->user->isGuest) { ?>
                                 <ul>
-                                    <li><a href="<?= Url::to(['user/profile']);?>">Dashboard</a></li>
-                                    <li><a href="#">Company</a></li>
-                                    <li><a href="#">Portfolio</a></li>
-                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="<?= Url::to(['dashboard/index']);?>">Dashboard</a></li>
+                                    <li><a href="<?= Url::to(['user/index']);?>">Users</a></li>
+                                    <li><a href="<?= Url::to(['events/index']);?>">Events</a></li>
+                                    <li><a href="<?= Url::to(['speakers/index']);?>">Speakers</a></li>
+                                    <li><a href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a></li>
+                                    <li><a href="<?= Url::to(['visitors/index']);?>">Visitors</a></li>
                                 </ul>
                                 <?php }?>
                         </nav>
