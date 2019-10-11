@@ -51,16 +51,16 @@ class DashboardController extends Controller
         $total_active_events = Events::find()->where([ '>=', 'end_time', $today])->count();
 
         //get on active events list
-        $active_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+        $active_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy(['start_time' => SORT_ASC])->all();
 
         //today events list
-        $todays_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();        
+        $todays_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy(['start_time' => SORT_ASC])->all();        
 
         //active but not todays events list
-        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) <> CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) <> CURDATE()')->limit(10)->offset(0)->orderBy(['start_time'=>SORT_ASC])->all();
 
         //completed events list 
-        $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy('end_time',SORT_DESC)->all();
+        $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy(['end_time'=>SORT_DESC])->all();
         //echo '<pre>';print_r($completed_events->sql);echo '</pre>';die('developer is working');
         
 
@@ -74,11 +74,11 @@ class DashboardController extends Controller
                        
         //get exhibitors
         $total_exhibitors = Exhibitors::find()->count();
-        $exhibitors_list = Exhibitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        $exhibitors_list = Exhibitors::find()->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
         
         //get visitors
         $total_visitors = Visitors::find()->count();
-        $visitors_list = Visitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        $visitors_list = Visitors::find()->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
         
         
         return $this->render('dashboard', [

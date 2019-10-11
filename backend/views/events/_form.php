@@ -73,8 +73,8 @@
                             'options' => ['placeholder' => 'Event Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
-                            'format' => 'd-m-yyyy hh:ii P',
-                            'startDate' => date("d-m-Y h:i A"),
+                            'format' => 'd-m-yyyy hh:ii',
+                            'startDate' => date("d-m-Y H:i"),
                             'todayHighlight' => true
                             ]
                             ]
@@ -89,8 +89,8 @@
                             'options' => ['placeholder' => 'Event End Date Time'],
                             'convertFormat' => false,                                
                             'pluginOptions' => [
-                            'format' => 'd-m-yyyy hh:ii P',
-                            'startDate' => date("d-m-Y h:i A"),
+                            'format' => 'd-m-yyyy hh:ii',
+                            'startDate' => date("d-m-Y h:i"),
                             'todayHighlight' => true,
                             'autoclose' => true,
                             'yearRange'=>'2019:2100'

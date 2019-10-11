@@ -89,14 +89,16 @@ class Settings extends \yii\db\ActiveRecord
     }
 
     public function getTimeAgo( $timestamp, $string = 'number' ){
+
         if(empty($timestamp)) return $timestamp;                
 
-        if($timestamp == 'number'){ 
-            $timestamp = strtotime($timestamp);
-        }
+        /*$timezone = Settings::find()->where(['setting_key' => 'timezone'])->one()->setting_value;
+        $timezone = (empty($timezone) ? 'Asia/Kolkata' : $timezone);
+        date_default_timezone_set($timezone); 
+        */ 
+        //if($timestamp == 'number'){  $timestamp = strtotime($timestamp); }                        
 
-        date_default_timezone_set("Asia/Kolkata");         
-        $time_ago        = strtotime($timestamp);
+        $time_ago = strtotime($timestamp);
         $current_time    = time();
         $time_difference = $current_time - $time_ago;
         $seconds         = $time_difference;
@@ -124,7 +126,7 @@ class Settings extends \yii\db\ActiveRecord
             }
         } elseif ($days <= 7){
             if ($days == 1){
-                return "yesterday";
+                return "Yesterday";
             } else {
                 return "$days days ago";
             }

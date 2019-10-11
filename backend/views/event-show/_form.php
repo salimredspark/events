@@ -109,8 +109,8 @@
                             'options' => ['placeholder' => 'Event Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
-                            'format' => 'd-m-yyyy hh:ii P',
-                            'startDate' => date("d-m-Y h:i A"),
+                            'format' => 'd-m-yyyy hh:ii',
+                            'startDate' => date("d-m-Y h:i"),
                             'todayHighlight' => true
                             ]
                             ]
@@ -125,8 +125,8 @@
                             'options' => ['placeholder' => 'Event Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
-                            'format' => 'd-m-yyyy hh:ii P',
-                            'startDate' => date("d-m-Y h:i A"),
+                            'format' => 'd-m-yyyy hh:ii',
+                            'startDate' => date("d-m-Y h:i"),
                             'todayHighlight' => true
                             ]
                             ]

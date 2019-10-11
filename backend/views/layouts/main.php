@@ -174,7 +174,6 @@
                 </div>
                 <?php }?>   
             <div class="main-panel <?php if(!Yii::$app->user->id){?>-guest<?php }?>">
-
                 <?php
                     /*
                     NavBar::begin([
@@ -220,6 +219,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>                                
+                                    <a class="navbar-brand <?=(strpos($controller,'dashboard') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['dashboard/index']);?>">Dashboard</a>
+                                    <a class="navbar-brand <?=(strpos($controller,'user') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['user/index']);?>">Users</a>
+                                    <a class="navbar-brand <?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'top-menu-active dark':'';?>" href="<?= Url::to(['events/index']);?>">Events</a>
+                                    <a class="navbar-brand <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'top-menu-active dark':'';?>" href="<?= Url::to(['speakers/index']);?>">Speakers</a>
+                                    <a class="navbar-brand <?=(strpos($controller,'exhibitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a>
+                                    <a class="navbar-brand <?=(strpos($controller,'visitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>                                
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-right">                
@@ -265,12 +270,12 @@
                         <nav class="pull-left">
                             <?php if (!Yii::$app->user->isGuest) { ?>
                                 <ul>
-                                    <li><a href="<?= Url::to(['dashboard/index']);?>">Dashboard</a></li>
-                                    <li><a href="<?= Url::to(['user/index']);?>">Users</a></li>
-                                    <li><a href="<?= Url::to(['events/index']);?>">Events</a></li>
-                                    <li><a href="<?= Url::to(['speakers/index']);?>">Speakers</a></li>
-                                    <li><a href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a></li>
-                                    <li><a href="<?= Url::to(['visitors/index']);?>">Visitors</a></li>
+                                    <li><a href="<?= Url::to(['dashboard/index']);?>" class="<?=(strpos($controller,'dashboard') !== false )?'footer-menu-active dark':'';?>">Dashboard</a></li>
+                                    <li><a href="<?= Url::to(['user/index']);?>" class="<?=(strpos($controller,'user') !== false )?'footer-menu-active dark':'';?>">Users</a></li>
+                                    <li><a href="<?= Url::to(['events/index']);?>" class="<?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'footer-menu-active dark':'';?>">Events</a></li>
+                                    <li><a href="<?= Url::to(['speakers/index']);?>" class="<?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'footer-menu-active dark':'';?>">Speakers</a></li>
+                                    <li><a href="<?= Url::to(['exhibitors/index']);?>" class="<?=(strpos($controller,'exhibitors') !== false )?'footer-menu-active dark':'';?>">Exhibitors</a></li>
+                                    <li><a href="<?= Url::to(['visitors/index']);?>" class="<?=(strpos($controller,'visitors') !== false )?'footer-menu-active dark':'';?>">Visitors</a></li>                                    
                                 </ul>
                                 <?php }?>
                         </nav>

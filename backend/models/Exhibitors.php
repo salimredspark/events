@@ -39,7 +39,7 @@ class Exhibitors extends \yii\db\ActiveRecord
     {
         return [
             [['firstname', 'lastname', 'username', 'gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_by'], 'required'],
-            [['birthdate', 'updated_at', 'password_has'], 'safe'],
+            [['birthdate', 'updated_at', 'password_has', 'created_at'], 'safe'],
             [['company_address'], 'string'],
             [['updated_by'], 'integer'],
             [['firstname', 'lastname', 'username', 'password_has', 'company_name', 'company_site_url'], 'string', 'max' => 255],

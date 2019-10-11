@@ -1,4 +1,5 @@
 <?php 
+use yii\helpers\Html;
 use yii\helpers\Url;  
 use backend\models\Settings;
 ?>
@@ -186,7 +187,7 @@ use backend\models\Settings;
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-user"></i> Exhibitors</h4>
+                        <h4 class="title"><i class="fa fa-group"></i> Exhibitors</h4>
                         <p class="category">Latest 10 Exhibitors</p>
                     </div>
                     <?php 
@@ -194,7 +195,7 @@ use backend\models\Settings;
                             foreach($exhibitors_list as $e){?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->firstname." ".$e->lastname;?></a> registered <?=Settings::getTimeAgo($e->updated_at);?>
+                                    <i class="material-icons">person</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->firstname." ".$e->lastname;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
                                 </div>
                             </div>
                             <?php }
@@ -205,7 +206,7 @@ use backend\models\Settings;
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-user"></i> Visitors</h4>
+                        <h4 class="title"><i class="fa fa-users"></i> Visitors</h4>
                         <p class="category">Latest 10 Visitors</p>
                     </div>
                     <?php 
@@ -213,7 +214,7 @@ use backend\models\Settings;
                             foreach($visitors_list as $e){?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['visitors/view', 'id'=>$e->id]);?>"><?=$e->visitor_name;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
+                                    <i class="material-icons">person</i> <a href="<?= Url::to(['visitors/view', 'id'=>$e->id]);?>"><?=$e->visitor_name;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
                                 </div>
                             </div>
                             <?php }

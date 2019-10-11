@@ -101,7 +101,7 @@ class VisitorsController extends Controller
 
             $updated_by = Yii::$app->user->identity->id;
             $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
-            $model->created_at = date("Y-m-d H:i:s");
+            $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
 

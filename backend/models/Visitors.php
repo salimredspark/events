@@ -32,7 +32,7 @@ class Visitors extends \yii\db\ActiveRecord
     {
         return [
             [['visitor_name', 'visitor_uid', 'gender', 'birthdate', 'updated_by'], 'required'],
-            [['birthdate', 'created_at'], 'safe'],
+            [['birthdate', 'created_at', 'updated_at'], 'safe'],
             [['updated_by'], 'integer'],
             [['visitor_name', 'visitor_uid'], 'string', 'max' => 255],
             [['gender'], 'string', 'max' => 20],
