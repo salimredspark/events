@@ -18,7 +18,7 @@ class ExhibitorsSearch extends Exhibitors
     {
         return [
             [['id', 'updated_by'], 'integer'],
-            [['firstname', 'lastname', 'username', 'password_has', 'updated_at'], 'safe'],
+            [['firstname', 'lastname', 'username', 'password_has', 'gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_at'], 'safe'],
         ];
     }
 
@@ -59,6 +59,7 @@ class ExhibitorsSearch extends Exhibitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'birthdate' => $this->birthdate,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
         ]);
@@ -66,7 +67,11 @@ class ExhibitorsSearch extends Exhibitors
         $query->andFilterWhere(['like', 'firstname', $this->firstname])
             ->andFilterWhere(['like', 'lastname', $this->lastname])
             ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password_has', $this->password_has]);
+            ->andFilterWhere(['like', 'password_has', $this->password_has])
+            ->andFilterWhere(['like', 'gender', $this->gender])
+            ->andFilterWhere(['like', 'company_name', $this->company_name])
+            ->andFilterWhere(['like', 'company_site_url', $this->company_site_url])
+            ->andFilterWhere(['like', 'company_address', $this->company_address]);
 
         return $dataProvider;
     }

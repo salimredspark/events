@@ -50,17 +50,19 @@ class DashboardController extends Controller
         $today = date('Y-m-d h:i:s');
         $total_active_events = Events::find()->where([ '>=', 'end_time', $today])->count();
 
-        //get on going events list
-        $ongoing_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+        //get on active events list
+        $active_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
 
-        //upcoming events list
-        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();        
+        //today events list
+        $todays_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();        
 
         //active but not todays events list
-        $active_events = Events::find()->where('start_time > (NOW() + INTERVAL 1 DAY)')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
+        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) <> CURDATE()')->limit(10)->offset(0)->orderBy('start_time',SORT_ASC)->all();
 
         //completed events list 
         $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy('end_time',SORT_DESC)->all();
+        //echo '<pre>';print_r($completed_events->sql);echo '</pre>';die('developer is working');
+        
 
         //events Shows
         $total_eventshows = EventShow::find()->count();
@@ -68,31 +70,36 @@ class DashboardController extends Controller
         $total_active_eventshows = EventShow::find()->where([ '>=', 'end_time', $today])->count();
 
         //get speakers
-        $total_speakers = Speakers::find()->count();;
-        $total_hotels = Hotels::find()->count();;
-
+        $total_speakers = Speakers::find()->count();
+                       
+        //get exhibitors
+        $total_exhibitors = Exhibitors::find()->count();
+        $exhibitors_list = Exhibitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
         
-        //get 
-        $total_exhibitors = Exhibitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
-        $total_visitors = Visitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        //get visitors
+        $total_visitors = Visitors::find()->count();
+        $visitors_list = Visitors::find()->limit(10)->offset(0)->orderBy('id',SORT_DESC)->all();
+        
         
         return $this->render('dashboard', [
         'total_events' => $total_events, 
         'total_active_events'=>$total_active_events,
 
-        'ongoing_events'=>$ongoing_events,
-        'upcoming_events'=>$upcoming_events,
         'active_events'=>$active_events,
+        'todays_events'=>$todays_events,
+        'upcoming_events'=>$upcoming_events,
         'completed_events'=>$completed_events,
 
         'total_eventshows' => $total_eventshows, 
         'total_active_eventshows'=>$total_active_eventshows,
 
         'total_speakers'=>$total_speakers,
-        'total_hotels'=>$total_hotels,
+                
+        'total_exhibitors'=>$total_exhibitors,        
+        'exhibitors_list'=>$exhibitors_list,
         
-        'total_exhibitors'=>$total_exhibitors,
         'total_visitors'=>$total_visitors,
+        'visitors_list'=>$visitors_list,
         ]);        
     }                         
 }

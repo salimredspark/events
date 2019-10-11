@@ -106,6 +106,7 @@ class ExhibitorsController extends Controller
                 $model->password_has = password_hash($post['password_has'], PASSWORD_DEFAULT); 
             }
             
+            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();

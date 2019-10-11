@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-sm-4 pull-right">
                             <?php
-                            echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
-                            echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-                            
+                                echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
+                                echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+
                                 echo Html::a('Delete', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-danger',
                                 'data' => [
@@ -31,33 +31,41 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                                 ],
                                 ]);
-                             ?>
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card-content">
                     <div id="typography">
                         <div class="row">
-                        <?= DetailView::widget([
+                            <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                                'firstname',
-                                'lastname',
-                                'username',
-                                #'updated_at',            
-                                array(
+                            'firstname',
+                            'lastname',
+                            'gender',
+                            array(
+                            'attribute'=>'birthdate',                                
+                            'value'=>Settings::getConfigDateTime($model->birthdate, 'number', 'date')
+                            ),
+                            'company_name',
+                            'company_site_url',
+                            'company_address',
+                            'username',
+                            #'updated_at',            
+                            array(
                             'attribute'=>'updated_at',                                
                             'value'=>Settings::getConfigDateTime($model->updated_at)
                             ),
-                                 array(
-                                    'attribute'=>'updated_by',                                
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
-                                    ),
+                            array(
+                            'attribute'=>'updated_by',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                            ),
                             ],
-                        ]) ?>
-    
-                            
+                            ]) ?>
+
+
                         </div>
                     </div>
                 </div>

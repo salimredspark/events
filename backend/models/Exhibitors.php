@@ -12,6 +12,11 @@ use Yii;
  * @property string $lastname
  * @property string $username
  * @property string $password_has
+ * @property string $gender Male, Female, Other
+ * @property string $birthdate
+ * @property string $company_name
+ * @property string $company_site_url
+ * @property string $company_address
  * @property string $updated_at
  * @property int $updated_by
  *
@@ -33,10 +38,12 @@ class Exhibitors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'lastname', 'username', 'updated_by'], 'required'],
-            [['updated_at', 'password_has'], 'safe'],
+            [['firstname', 'lastname', 'username', 'gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_by'], 'required'],
+            [['birthdate', 'updated_at', 'password_has'], 'safe'],
+            [['company_address'], 'string'],
             [['updated_by'], 'integer'],
-            [['firstname', 'lastname', 'username'], 'string', 'max' => 255],
+            [['firstname', 'lastname', 'username', 'password_has', 'company_name', 'company_site_url'], 'string', 'max' => 255],
+            [['gender'], 'string', 'max' => 20],
         ];
     }
 
@@ -51,6 +58,11 @@ class Exhibitors extends \yii\db\ActiveRecord
             'lastname' => 'Lastname',
             'username' => 'Username',
             'password_has' => 'Password Has',
+            'gender' => 'Gender',
+            'birthdate' => 'Birthdate',
+            'company_name' => 'Company Name',
+            'company_site_url' => 'Company Site Url',
+            'company_address' => 'Company Address',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];

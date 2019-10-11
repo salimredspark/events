@@ -61,7 +61,7 @@ class Settings extends \yii\db\ActiveRecord
 
     public function getConfigDateTime($date, $string = 'number', $param = 'datetime'){
 
-        if(empty($date)) return $date;
+        if(empty($date) || $date == '0000-00-00') return '';
 
         //if date save as date format then it will not conver into strtotime
         if($string == 'number'){ 
@@ -87,38 +87,66 @@ class Settings extends \yii\db\ActiveRecord
 
         return $return;
     }
-            
-    public function getTimeAgo( $time, $string = 'number' )
-    {
-        if(empty($time)) return $time;                
 
-        if($string == 'number'){ 
-            $time = strtotime($time);
+    public function getTimeAgo( $timestamp, $string = 'number' ){
+        if(empty($timestamp)) return $timestamp;                
+
+        if($timestamp == 'number'){ 
+            $timestamp = strtotime($timestamp);
         }
-        
-        $diff = $time - time(); //strtotime('2019-10-07 15:22:22'); 
-        
-        if( $diff < 1 ) {  
-            return ' 1 second ago';  
-        } 
 
-        $time_rules = array (  
-        12 * 30 * 24 * 60 * 60 => 'year', 
-        30 * 24 * 60 * 60       => 'month', 
-        24 * 60 * 60           => 'day', 
-        60 * 60                   => 'hour', 
-        60                       => 'minute', 
-        1                       => 'second'
-        ); 
-         
-        foreach( $time_rules as $secs => $str ) { 
-            $div = $diff / $secs; 
-            if( $div >= 1 ) { 
-                $t = round( $div );       
-                return $t . ' ' . $str .  
-                ( $t > 1 ? 's' : '' ) . ' ago'; 
-            } 
-        }      
+        date_default_timezone_set("Asia/Kolkata");         
+        $time_ago        = strtotime($timestamp);
+        $current_time    = time();
+        $time_difference = $current_time - $time_ago;
+        $seconds         = $time_difference;
+
+        $minutes = round($seconds / 60); // value 60 is seconds  
+        $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
+        $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
+        $weeks   = round($seconds / 604800); // 7*24*60*60;  
+        $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
+        $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
+
+        if ($seconds <= 60){
+            return "Just Now";
+        } elseif ($minutes <= 60){
+            if ($minutes == 1){
+                return "one minute ago";
+            } else {
+                return "$minutes minutes ago";
+            }
+        } elseif ($hours <= 24){
+            if ($hours == 1){
+                return "an hour ago";
+            } else {
+                return "$hours hrs ago";
+            }
+        } elseif ($days <= 7){
+            if ($days == 1){
+                return "yesterday";
+            } else {
+                return "$days days ago";
+            }
+        } elseif ($weeks <= 4.3){
+            if ($weeks == 1){
+                return "a week ago";
+            } else {
+                return "$weeks weeks ago";
+            }
+        } elseif ($months <= 12){
+            if ($months == 1){
+                return "a month ago";
+            } else {
+                return "$months months ago";
+            }
+        } else {
+            if ($years == 1){
+                return "one year ago";
+            } else {
+                return "$years years ago";
+            }
+        }
     }
 }
 
