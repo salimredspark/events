@@ -48,7 +48,7 @@ class DashboardController extends Controller
         //events
         $total_events = Events::find()->count();
         $today = date('Y-m-d h:i:s');
-        $total_active_events = Events::find()->where([ '>=', 'end_time', $today])->count();
+        $total_todays_active_events = Events::find()->where([ '>=', 'end_time', $today])->count();
 
         //get on active events list
         $active_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy(['start_time' => SORT_ASC])->all();
@@ -61,15 +61,13 @@ class DashboardController extends Controller
 
         //completed events list 
         $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy(['end_time'=>SORT_DESC])->all();
-        //echo '<pre>';print_r($completed_events->sql);echo '</pre>';die('developer is working');
         
-
         //events Shows
-        $total_eventshows = EventShow::find()->count();
-        $today = date('Y-m-d h:i:s');
-        $total_active_eventshows = EventShow::find()->where([ '>=', 'end_time', $today])->count();
+        //$total_eventshows = EventShow::find()->count();        
+        //$today = date('Y-m-d h:i:s');
+        //$total_active_eventshows = EventShow::find()->where([ '>=', 'end_time', $today])->count();
 
-        //get speakers
+        //get total speakers count
         $total_speakers = Speakers::find()->count();
                        
         //get exhibitors
@@ -83,15 +81,15 @@ class DashboardController extends Controller
         
         return $this->render('dashboard', [
         'total_events' => $total_events, 
-        'total_active_events'=>$total_active_events,
-
+        'total_todays_events'=>$total_todays_active_events,
+        
         'active_events'=>$active_events,
         'todays_events'=>$todays_events,
         'upcoming_events'=>$upcoming_events,
         'completed_events'=>$completed_events,
 
-        'total_eventshows' => $total_eventshows, 
-        'total_active_eventshows'=>$total_active_eventshows,
+        //'total_eventshows' => $total_eventshows, 
+        //'total_active_eventshows'=>$total_active_eventshows,
 
         'total_speakers'=>$total_speakers,
                 

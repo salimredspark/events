@@ -21,7 +21,7 @@ use backend\models\Settings;
             document.getElementById(divId).innerHTML = createStr + minutes + "m " + seconds + "s ";                        
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById(divId).innerHTML = "EXPIRED";
+                document.getElementById(divId).innerHTML = " - ";
             }
         }, 1000);
     }
@@ -32,11 +32,11 @@ use backend\models\Settings;
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="orange">
-                        <i class="material-icons">events</i>
+                        <i class="fa fa-calendar"></i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Active Events</p>
-                        <h3 class="title"><a href="<?= Url::to(['events/index']);?>"><?=$total_active_events;?></a></h3>
+                        <p class="category">Active / Scheduled</p>
+                        <h3 class="title"><a href="<?= Url::to(['events/index']);?>"><?=count($active_events);?> / <?=$total_todays_events;?></a></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -187,7 +187,7 @@ use backend\models\Settings;
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
-                        <h4 class="title"><i class="fa fa-group"></i> Exhibitors</h4>
+                        <h4 class="title"><i class="fa fa-address-card"></i> Exhibitors</h4>
                         <p class="category">Latest 10 Exhibitors</p>
                     </div>
                     <?php 
