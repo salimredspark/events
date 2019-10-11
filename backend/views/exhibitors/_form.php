@@ -4,7 +4,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use kartik\datetime\DateTimePicker; 
-    use yii\jui\DatePicker;
+use yii\jui\DatePicker;
 use backend\models\Settings;
 ?>
 <div class="row">
@@ -38,7 +38,7 @@ use backend\models\Settings;
                             ])->dropDownList( $items, ['prompt'=>''] );                            
                         ?>
                     </div>
-                     <div class="col-md-3">                     
+                    <div class="col-md-3">                     
                          <?php 
                          $day = '-18y';
                             echo $form->field($model, 'birthdate', [

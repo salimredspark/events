@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $visitor_name
  * @property string $visitor_uid
+ * @property string $gender Male, Female, Other
+ * @property string $birthdate
  * @property string $created_at
  * @property int $updated_by
  */
@@ -29,10 +31,11 @@ class Visitors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['visitor_name', 'visitor_uid', 'updated_by'], 'required'],
-            [['created_at'], 'safe'],
+            [['visitor_name', 'visitor_uid', 'gender', 'birthdate', 'updated_by'], 'required'],
+            [['birthdate', 'created_at'], 'safe'],
             [['updated_by'], 'integer'],
             [['visitor_name', 'visitor_uid'], 'string', 'max' => 255],
+            [['gender'], 'string', 'max' => 20],
         ];
     }
 
@@ -45,6 +48,8 @@ class Visitors extends \yii\db\ActiveRecord
             'id' => 'ID',
             'visitor_name' => 'Visitor Name',
             'visitor_uid' => 'Visitor Uid',
+            'gender' => 'Gender',
+            'birthdate' => 'Birthdate',
             'created_at' => 'Created At',
             'updated_by' => 'Updated By',
         ];

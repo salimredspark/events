@@ -43,7 +43,7 @@
 }
 
 .sidebar ul ul.sub-menu{
-    margin-left: 30px;
+    margin-left: 8px;
 }
 .sidebar ul ul.sub-menu li{
     list-style:none;
@@ -499,7 +499,7 @@ h2.title {
 }
 .sidebar .nav li > a,
 .off-canvas-sidebar .nav li > a {
-  margin: 10px 15px;
+  margin: 12px 15px 6px 15px;
   border-radius: 3px;
   color: #3C4858;
 }
@@ -620,7 +620,7 @@ h2.title {
 }
 .sidebar:before,
 .off-canvas-sidebar:before {
-  opacity: .33;
+  opacity: .99;
 }
 .sidebar:after,
 .off-canvas-sidebar:after {
@@ -3460,7 +3460,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 footer {
-  padding: 15px 0;
+  padding: 5px 0;
 }
 footer ul {
   margin-bottom: 0;

@@ -35,7 +35,7 @@
         ?>
         <div class="wrapper">
             <?php if(Yii::$app->user->id){?>
-                <div class="sidebar" data-color="purple" data-image="<?=Yii::$app->request->baseUrl;?>/img/sidebar-<?=rand(1,4);?>.jpg">           
+                <div class="sidebar" data-color="purple" data-image="<?=Yii::$app->request->baseUrl;?>/img/sidebar-<?=rand(1,4);?>.jpg">
                     <div class="logo">
                         <a href="<?= Url::to(['user/view', 'id'=>Yii::$app->user->identity->id]);?>" class="simple-text"><?=Yii::$app->user->identity->username;?></a>
                         <div>Last Updated: <?=date("d M, Y h:i A",Yii::$app->user->identity->updated_at);?></div>
@@ -172,8 +172,7 @@
                         </ul>
                     </div>
                 </div>
-                <?php }?>
-
+                <?php }?>   
             <div class="main-panel <?php if(!Yii::$app->user->id){?>-guest<?php }?>">
 
                 <?php

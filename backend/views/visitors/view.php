@@ -4,7 +4,7 @@ use yii\widgets\DetailView;
 use backend\models\User;
 use backend\models\Settings; 
 
-$this->title = $model->id;
+$this->title = $model->visitor_name;
 $this->params['breadcrumbs'][] = ['label' => 'Visitors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -43,6 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attributes' => [
                                 'visitor_name',
                                 'visitor_uid',                                
+                                'gender',
+                                 array(
+                                'attribute'=>'birthdate',                                
+                                'value'=>Settings::getConfigDateTime($model->birthdate, 'number', 'date')
+                                ),
                                 array(
                                     'attribute'=>'created_at',                                
                                     'value'=>Settings::getConfigDateTime($model->created_at)

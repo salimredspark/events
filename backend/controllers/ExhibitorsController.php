@@ -71,6 +71,7 @@ class ExhibitorsController extends Controller
             $post = Yii::$app->request->post('Exhibitors');                        
             $updated_by = Yii::$app->user->identity->id;
                           
+            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
             $model->password_has = password_hash($post['password_has'], PASSWORD_DEFAULT);
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;

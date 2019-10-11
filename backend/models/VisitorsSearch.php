@@ -18,7 +18,7 @@ class VisitorsSearch extends Visitors
     {
         return [
             [['id', 'updated_by'], 'integer'],
-            [['visitor_name', 'visitor_uid', 'created_at'], 'safe'],
+            [['visitor_name', 'visitor_uid', 'gender', 'birthdate', 'created_at'], 'safe'],
         ];
     }
 
@@ -59,12 +59,14 @@ class VisitorsSearch extends Visitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'birthdate' => $this->birthdate,
             'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,
         ]);
 
         $query->andFilterWhere(['like', 'visitor_name', $this->visitor_name])
-            ->andFilterWhere(['like', 'visitor_uid', $this->visitor_uid]);
+            ->andFilterWhere(['like', 'visitor_uid', $this->visitor_uid])
+            ->andFilterWhere(['like', 'gender', $this->gender]);
 
         return $dataProvider;
     }
