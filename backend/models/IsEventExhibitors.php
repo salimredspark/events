@@ -37,7 +37,7 @@ class IsEventExhibitors extends \yii\db\ActiveRecord
             [['comment'], 'string'],
             [['exhibitor_join_status'], 'string', 'max' => 20],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
-            [['exhibitor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Exhibitors::className(), 'targetAttribute' => ['exhibitor_id' => 'id']],
+            [['exhibitor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['exhibitor_id' => 'id']],
         ];
     }
 

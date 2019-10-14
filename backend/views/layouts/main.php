@@ -38,7 +38,7 @@
                 <div class="sidebar" data-color="purple" data-image="<?=Yii::$app->request->baseUrl;?>/img/sidebar-<?=rand(1,4);?>.jpg">
                     <div class="logo">
                         <a href="<?= Url::to(['user/view', 'id'=>Yii::$app->user->identity->id]);?>" class="simple-text"><?=Yii::$app->user->identity->username;?></a>
-                        <div>Last Updated: <?=date("d M, Y h:i A",Yii::$app->user->identity->updated_at);?></div>
+                        <div>Last Updated: <?=date("d M, Y h:i A",strtotime(Yii::$app->user->identity->updated_at));?></div>
                     </div>                
                     <div class="sidebar-wrapper">
                         <ul class="nav">
@@ -225,6 +225,7 @@
                                     <a class="navbar-brand <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'top-menu-active dark':'';?>" href="<?= Url::to(['speakers/index']);?>">Speakers</a>
                                     <a class="navbar-brand <?=(strpos($controller,'exhibitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a>
                                     <a class="navbar-brand <?=(strpos($controller,'visitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>                                
+                                    <a class="navbar-brand" href="./../../frontend/web/" target="_blank">Website</a>                                
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-right">                

@@ -3,6 +3,7 @@
     use yii\widgets\ActiveForm;
     use yii\helpers\Url;
     use yii\helpers\ArrayHelper;
+    use backend\models\User; 
     use backend\models\Events; 
     use backend\models\Exhibitors; 
 ?>
@@ -27,7 +28,8 @@
                     </div> 
                     <div class="col-md-3">                        
                         <?php                                                
-                            $items = ArrayHelper::map(Exhibitors::find()->all(), 'id', 'firstname');
+                            #$items = ArrayHelper::map(Exhibitors::find()->joinWith('user', true, 'RIGHT JOIN')->where(['user.login_type' => "exhibitor"])->all(), 'id', 'user.firstname');
+                            $items = ArrayHelper::map(User::find()->where(['login_type' => "exhibitor"])->all(), 'id', 'firstname');
                             echo $form->field($model, 'exhibitor_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Exhibitor Name' ]

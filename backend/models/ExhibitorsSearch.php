@@ -17,8 +17,8 @@ class ExhibitorsSearch extends Exhibitors
     public function rules()
     {
         return [
-            [['id', 'updated_by'], 'integer'],
-            [['firstname', 'lastname', 'username', 'password_has', 'gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_at'], 'safe'],
+            [['id', 'user_id', 'updated_by'], 'integer'],
+            [['gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_at', 'created_at'], 'safe'],
         ];
     }
 
@@ -59,16 +59,14 @@ class ExhibitorsSearch extends Exhibitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'birthdate' => $this->birthdate,
             'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'firstname', $this->firstname])
-            ->andFilterWhere(['like', 'lastname', $this->lastname])
-            ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password_has', $this->password_has])
-            ->andFilterWhere(['like', 'gender', $this->gender])
+        $query->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'company_name', $this->company_name])
             ->andFilterWhere(['like', 'company_site_url', $this->company_site_url])
             ->andFilterWhere(['like', 'company_address', $this->company_address]);

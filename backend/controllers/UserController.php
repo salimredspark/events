@@ -70,8 +70,8 @@ class UserController extends Controller
 
             $updated_by = Yii::$app->user->identity->id;  
 
-            $model->created_at = time();
-            $model->updated_at = time();
+            $model->created_at = date("Y-m-d H:i:s");
+            $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
             
@@ -98,7 +98,7 @@ class UserController extends Controller
              
             $updated_by = Yii::$app->user->identity->id;  
                         
-            $model->updated_at = time();
+            $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
             

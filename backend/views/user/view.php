@@ -57,12 +57,12 @@
                             #'created_at',
                             array(
                             'attribute'=>'created_at',                                
-                            'value'=>Settings::getConfigDateTime($model->created_at,'stirng')
+                            'value'=>Settings::getConfigDateTime($model->created_at)
                             ),
                             #'updated_at',
                             array(
                             'attribute'=>'updated_at',                                
-                            'value'=>Settings::getConfigDateTime($model->updated_at,'stirng')
+                            'value'=>Settings::getConfigDateTime($model->updated_at)
                             ),
                             //'verification_token',
                             #'updated_by',                            

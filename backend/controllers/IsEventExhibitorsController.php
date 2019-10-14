@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\User;
 use backend\models\IsEventExhibitors;
 use backend\models\IsEventExhibitorsSearch;
 use yii\web\Controller;
@@ -85,6 +86,7 @@ class IsEventExhibitorsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $userModel = User::find($model->exhibitor_id)->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,6 +94,7 @@ class IsEventExhibitorsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'userModel' => $userModel,
         ]);
     }
 

@@ -4,7 +4,9 @@ use yii\widgets\DetailView;
 use backend\models\User;
 use backend\models\Settings; 
 
-$this->title = $model->firstname;
+$userModel = User::find($model->user_id)->one();
+
+$this->title = $userModel->firstname;
 $this->params['breadcrumbs'][] = ['label' => 'Exhibitors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -41,8 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                            'firstname',
-                            'lastname',
+                            'user.firstname',
+                            'user.lastname',
                             'gender',
                             array(
                             'attribute'=>'birthdate',                                
@@ -51,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'company_name',
                             'company_site_url',
                             'company_address',
-                            'username',
+                            'user.username',
                             #'updated_at',            
                             array(
                             'attribute'=>'updated_at',                                

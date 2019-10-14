@@ -72,8 +72,10 @@ class DashboardController extends Controller
                        
         //get exhibitors
         $total_exhibitors = Exhibitors::find()->count();
-        $exhibitors_list = Exhibitors::find()->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
-        
+        $exhibitors_list = Exhibitors::find()
+        ->joinWith('user', true, 'RIGHT JOIN')        
+        ->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
+                
         //get visitors
         $total_visitors = Visitors::find()->count();
         $visitors_list = Visitors::find()->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();

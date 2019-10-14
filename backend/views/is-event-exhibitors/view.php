@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\User; 
 use backend\models\Events; 
 use backend\models\Exhibitors; 
     
@@ -55,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'label' => 'Exhibitor Name',
                                     'attribute'=>'event_id',                                
                                     'format' => 'html',                                
-                                    'value'=>Html::a(Exhibitors::findOne($model->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$model->exhibitor_id],['target'=>'_blank'])
+                                    'value'=>Html::a(User::findOne($model->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$model->exhibitor_id],['target'=>'_blank'])
                                  ),
                                     #'exhibitor_join_status',
                                     array(

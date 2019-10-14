@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         //['class' => 'yii\grid\SerialColumn'],
 
-                        'firstname',
-                        'lastname',
-                        'username',                        
+                        'user.firstname',
+                        'user.lastname',
+                        'user.username',                        
                         [
                         'class' => 'yii\grid\DataColumn',
                         'label' => 'Updated By',

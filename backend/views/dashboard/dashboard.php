@@ -195,7 +195,7 @@ use backend\models\Settings;
                             foreach($exhibitors_list as $e){?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">person</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->firstname." ".$e->lastname;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
+                                    <i class="material-icons">person</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->user['firstname']." ".$e->user['lastname'];?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
                                 </div>
                             </div>
                             <?php }

@@ -4,7 +4,10 @@ use yii\widgets\DetailView;
 use backend\models\User;
 use backend\models\Settings; 
 
-$this->title = $model->visitor_name;
+//echo '<pre>';print_r($model);echo '</pre>';die('developer is working');
+
+$userModel = User::find($model->user_id)->one(); 
+$this->title = $userModel->firstname; 
 $this->params['breadcrumbs'][] = ['label' => 'Visitors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -41,7 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                                'visitor_name',
+                                'user.firstname',
+                                'user.lastname',
                                 'visitor_uid',                                
                                 'gender',
                                  array(

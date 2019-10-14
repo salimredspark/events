@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\grid\DataColumn',
                                 'label' => 'Exhibitor Name',                                
                                 'format' => 'html',
-                                'value' => function ($data) {
-                                    return Html::a(Exhibitors::findOne($data->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$data->exhibitor_id],['target'=>'_blank']);
+                                'value' => function ($data) {                                                                        
+                                    return Html::a(User::findOne($data->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$data->exhibitor_id],['target'=>'_blank']);
                                 },
                             ],
                            // 'exhibitor_join_status',

@@ -17,8 +17,8 @@ class VisitorsSearch extends Visitors
     public function rules()
     {
         return [
-            [['id', 'updated_by'], 'integer'],
-            [['visitor_name', 'visitor_uid', 'gender', 'birthdate', 'created_at'], 'safe'],
+            [['id', 'user_id', 'updated_by'], 'integer'],
+            [['visitor_uid', 'gender', 'birthdate', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class VisitorsSearch extends Visitors
      */
     public function search($params)
     {
-        $query = Visitors::find();
+        $query = Visitors::find(); //->joinWith('user', true, 'RIGHT JOIN');
 
         // add conditions that should always apply here
 
@@ -59,13 +59,14 @@ class VisitorsSearch extends Visitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'birthdate' => $this->birthdate,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'visitor_name', $this->visitor_name])
-            ->andFilterWhere(['like', 'visitor_uid', $this->visitor_uid])
+        $query->andFilterWhere(['like', 'visitor_uid', $this->visitor_uid])
             ->andFilterWhere(['like', 'gender', $this->gender]);
 
         return $dataProvider;

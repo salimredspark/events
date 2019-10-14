@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="exhibitors-create">        
     <?= $this->render('_form', [
         'model' => $model,
+        'userModel' => $userModel,
     ]) ?>
 
 </div>

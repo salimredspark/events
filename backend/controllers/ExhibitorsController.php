@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Exhibitors;
 use backend\models\ExhibitorsSearch;
+use backend\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,23 +66,38 @@ class ExhibitorsController extends Controller
     public function actionCreate()
     {
         $model = new Exhibitors();
+        $userModel = new User;
 
         if ($model->load(Yii::$app->request->post())) {
-
-            $post = Yii::$app->request->post('Exhibitors');                        
+                        
             $updated_by = Yii::$app->user->identity->id;
-                          
-            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
-            $model->password_has = password_hash($post['password_has'], PASSWORD_DEFAULT);
+                        
+            //save user
+            $postUser = Yii::$app->request->post('User');
+            $userModel->load(Yii::$app->request->post());            
+            $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT);
+            $userModel->updated_at = date("Y-m-d H:i:s");
+            $userModel->created_at = date("Y-m-d H:i:s");
+            $userModel->updated_by = $updated_by;
+            $userModel->login_type = 'exhibitor'; //'superadmin','admin','exhibitor','visitor'
+            $userModel->save(); 
+            $last_insert_userid = $userModel->id;                     
+            
+            //save Exhibitors
+            $post = Yii::$app->request->post('Exhibitors');              
+            $model->user_id = $last_insert_userid; 
+            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
             $model->created_at = date("Y-m-d H:i:s");
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
         'model' => $model,
+        'userModel' => $userModel, 
         ]);
     }
 
@@ -93,26 +109,35 @@ class ExhibitorsController extends Controller
     * @throws NotFoundHttpException if the model cannot be found
     */
     public function actionUpdate($id)
-    {
+    {           
         $model = $this->findModel($id);
-        $old_password = $model->password_has;
+        $userModel = User::find()->where('id = '.$model->user_id)->one();
                 
-        if ($model->load(Yii::$app->request->post())) {
-
-            $post = Yii::$app->request->post('Exhibitors');            
-
-            $updated_by = Yii::$app->user->identity->id;            
-            if (empty($post['password_has'])) {                
-                $model->password_has = $old_password;
-            }else{
-                $model->password_has = password_hash($post['password_has'], PASSWORD_DEFAULT); 
-            }
+        $old_password = $userModel->password_hash;
+                
+        if ($model->load(Yii::$app->request->post())) 
+        {   
+            $updated_by = Yii::$app->user->identity->id;
             
+            //save User
+            $postUser = Yii::$app->request->post('User');
+            $userModel->load(Yii::$app->request->post());
+            if (empty($postUser['password_hash'])) {                
+                $userModel->password_hash = $old_password;
+            }else{
+                $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
+            }            
+            $userModel->updated_at = date("Y-m-d H:i:s");
+            $userModel->updated_by = $updated_by;
+            $userModel->save();
+            
+            //save Exhibitors
+            $post = Yii::$app->request->post('Exhibitors');            
             $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
-            $model->save();
-
+            $model->save();             
+              
             /*
             when login use
             if (password_verify($request->password, $post['password_has'])) {
@@ -125,6 +150,7 @@ class ExhibitorsController extends Controller
 
         return $this->render('update', [
         'model' => $model,
+        'userModel' => $userModel,
         ]);
     }
 

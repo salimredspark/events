@@ -17,17 +17,39 @@ use backend\models\Settings;
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-md-3">
-                        <?= $form->field($model, 'visitor_name', [
+                        <?= $form->field($userModel, 'firstname', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Visitor Name'  ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
-                    </div> 
-                     <div class="col-md-3">
-                        <?= $form->field($model, 'visitor_uid', [
-                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Visitor ID'  ]
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'First Name'  ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
+                    <div class="col-md-3">
+                        <?= $form->field($userModel, 'lastname', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Last Name'  ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($userModel, 'email', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Email'  ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>                    
+                </div>
+                <div class="row">
+                <div class="col-md-3">
+                        <?= $form->field($userModel, 'username', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Username'  ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>
+                <div class="col-md-3">                   
+                        <?= $form->field($userModel, 'password_hash', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Password'  ]
+                        ])->passwordInput(['maxlength' => true,'class'=>'form-control', 'value'=>''])?>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <?php
                             $items = array('Male'=>'Male', 'Female'=>'Female');
@@ -37,9 +59,17 @@ use backend\models\Settings;
                             ])->dropDownList( $items, ['prompt'=>''] );                            
                         ?>
                     </div>
+
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'visitor_uid', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label' =>'Visitor ID'  ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>
+
                     <div class="col-md-3">                     
-                         <?php 
-                         $day = '-18y';
+                        <?php 
+                            $day = '-18y';
                             echo $form->field($model, 'birthdate', [
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' =>'Birthdate'  ]
@@ -48,7 +78,7 @@ use backend\models\Settings;
                     </div>                     
                 </div>
                 <div class="row">
-                                       
+
                 </div>                
 
                 <div class="clearfix"></div>                                

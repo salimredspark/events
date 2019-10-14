@@ -18,13 +18,13 @@ use backend\models\Settings;
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-md-3">
-                        <?= $form->field($model, 'firstname', [
+                        <?= $form->field($userModel, 'firstname', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label', 'label' =>'First Name'  ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div> 
                     <div class="col-md-3">
-                        <?= $form->field($model, 'lastname', [
+                        <?= $form->field($userModel, 'lastname', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label', 'label' =>'Last Name'  ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
@@ -69,14 +69,20 @@ use backend\models\Settings;
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <?= $form->field($model, 'username', [
+                    <div class="col-md-3">
+                        <?= $form->field($userModel, 'username', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>
+                    <div class="col-md-3">
+                        <?= $form->field($userModel, 'email', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
                     <div class="col-md-6">
-                        <?= $form->field($model, 'password_has', [
+                        <?= $form->field($userModel, 'password_hash', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label', 'label' =>'Password' ]
                         ])->passwordInput(['maxlength' => true,'class'=>'form-control','value'=>''])?>

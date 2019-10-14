@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\User;
 use backend\models\Visitors;
 use backend\models\VisitorsSearch;
 use yii\web\Controller;
@@ -37,7 +38,7 @@ class VisitorsController extends Controller
     {
         $searchModel = new VisitorsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                
         return $this->render('index', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
@@ -52,8 +53,10 @@ class VisitorsController extends Controller
     */
     public function actionView($id)
     {
+        $one = $this->findModel($id);
+                
         return $this->render('view', [
-        'model' => $this->findModel($id),
+        'model' => $this->findModel($id),                
         ]);
     }
 
@@ -65,22 +68,38 @@ class VisitorsController extends Controller
     public function actionCreate()
     {
         $model = new Visitors();
-
+        $userModel = new User;
+        
         if ($model->load(Yii::$app->request->post())) {
 
-            $post = Yii::$app->request->post('Visitors');
-
-            $updated_by = Yii::$app->user->identity->id;            
-            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
+             $updated_by = Yii::$app->user->identity->id;
+                         
+            //save user
+            $postUser = Yii::$app->request->post('User');
+            $userModel->load(Yii::$app->request->post());            
+            $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT);
+            $userModel->updated_at = date("Y-m-d H:i:s");
+            $userModel->created_at = date("Y-m-d H:i:s");
+            $userModel->updated_by = $updated_by;
+            $userModel->login_type = 'visitor'; //'superadmin','admin','exhibitor','visitor'
+            $userModel->save();   
+            $last_insert_userid = $userModel->id; 
+                        
+            //save Visitors
+            $post = Yii::$app->request->post('Visitors');                                                              
+            $model->user_id = $last_insert_userid;
+            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
             $model->created_at = date("Y-m-d H:i:s");
+            $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
-            $model->save();
-
+            $model->save(); 
+                        
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
         'model' => $model,
+        'userModel' => $userModel,
         ]);
     }
 
@@ -93,23 +112,39 @@ class VisitorsController extends Controller
     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
+        $model = $this->findModel($id);        
+        $userModel = User::find()->where('id = '.$model->user_id)->one();
+        
         if ($model->load(Yii::$app->request->post())) {
 
-            $post = Yii::$app->request->post('Visitors');
-
             $updated_by = Yii::$app->user->identity->id;
-            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
+            
+            //save User
+            $old_password = $userModel->password_hash;
+            $postUser = Yii::$app->request->post('User');
+            $userModel->load(Yii::$app->request->post());
+            if (empty($postUser['password_hash'])) {                
+                $userModel->password_hash = $old_password;
+            }else{
+                $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
+            }            
+            $userModel->updated_at = date("Y-m-d H:i:s");
+            $userModel->updated_by = $updated_by;
+            $userModel->save();
+            
+            //save Exhibitors
+            $post = Yii::$app->request->post('Visitors');            
+            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
-            $model->save();
+            $model->save();                        
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
         'model' => $model,
+        'userModel' => $userModel,
         ]);
     }
 
