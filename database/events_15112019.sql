@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2019 at 01:47 PM
+-- Generation Time: Oct 15, 2019 at 11:48 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -32,8 +32,7 @@ CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `event_name` varchar(255) NOT NULL,
   `event_domain_name` varchar(255) NOT NULL,
-  `event_type_id` int(11) NOT NULL,
-  `event_location_id` int(11) NOT NULL,
+  `event_location` varchar(255) NOT NULL,
   `event_description` text NOT NULL,
   `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -45,13 +44,13 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `event_name`, `event_domain_name`, `event_type_id`, `event_location_id`, `event_description`, `start_time`, `end_time`, `event_manage_by`, `updated_by`) VALUES
-(1, 'Conference Programmes', 'domain1', 1, 1, 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\nâ€¢   The mobile industry eco-system has an economic impact of $3.9 trillion\r\nâ€¢   The industry connects Â½ the worldâ€™s population to the Internet\r\nâ€¢   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the worldâ€™s leading operators, including for the first time Vodafoneâ€™s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-11 10:44:48', '2019-10-12 09:30:00', 1, 1),
-(2, 'Demo Event', 'domain2', 2, 2, 'Demonstration Event', '2019-10-11 09:04:36', '2019-10-11 16:30:00', 1, 1),
-(3, 'Active Event', 'domain3', 3, 1, 'this is test', '2019-10-12 03:30:30', '2019-10-12 06:30:30', 2, 1),
-(4, 'Past Spark Event', 'domain4', 9, 1, 'demo', '2019-10-09 05:16:30', '2019-10-07 10:20:00', 3, 1),
-(5, 'Merathon', 'domain5', 10, 1, 'Merathon Run', '2019-10-09 05:16:32', '2019-10-10 04:30:00', 2, 1),
-(6, 'Robotics', 'robo', 8, 2, 'robo', '2019-10-11 12:30:00', '2019-10-11 17:30:00', 3, 1);
+INSERT INTO `events` (`id`, `event_name`, `event_domain_name`, `event_location`, `event_description`, `start_time`, `end_time`, `event_manage_by`, `updated_by`) VALUES
+(1, 'Event 001', 'domain1', 'Millenium Resort, Fategunj, Vadodara, Gujarat', 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\nThe mobile industry eco-system has an economic impact of $3.9 trillion\r\nâ€¢   The industry connects Â½ the worldâ€™s population to the Internet\r\nâ€¢   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the worldâ€™s leading operators, including for the first time Vodafoneâ€™s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-15 09:42:30', '2019-10-16 00:30:00', 1, 1),
+(2, 'Event 002', 'domain2', '2', 'Demonstration Event', '2019-10-15 09:42:32', '2019-10-11 16:30:00', 1, 1),
+(3, 'Event 003', 'domain3', '1', 'this is test', '2019-10-15 09:42:35', '2019-10-15 06:30:00', 2, 2),
+(4, 'Event 004', 'domain4', '1', 'demo', '2019-10-15 09:42:38', '2019-10-07 10:20:00', 3, 1),
+(5, 'Event 005', 'domain5', '1', 'Merathon Run', '2019-10-15 09:42:41', '2019-10-10 04:30:00', 2, 1),
+(6, 'Event 006', 'domain6', '2', 'robo', '2019-10-15 09:42:49', '2019-10-15 07:30:00', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -71,9 +70,9 @@ CREATE TABLE `event_location` (
 --
 
 INSERT INTO `event_location` (`id`, `location_name`, `location_details`, `updated_by`) VALUES
-(1, 'Zinger Hotel', 'Fategunj Vaodara', 1),
-(2, 'Millennium Hotel', 'Fategunj, Baroda', 1),
-(3, 'Sayaji Hall', 'SayajiGunj', 1);
+(1, 'Hall 1', 'Fategunj Vaodara', 1),
+(2, 'Hall 2', 'Fategunj, Baroda', 1),
+(3, 'Hall 3', 'SayajiGunj', 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +118,7 @@ CREATE TABLE `event_show` (
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `event_id` int(11) NOT NULL,
   `event_speaker_id` int(11) NOT NULL,
-  `event_speaker_role_id` int(11) NOT NULL,
+  `event_moderator_id` int(11) NOT NULL,
   `show_manage_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -128,7 +127,7 @@ CREATE TABLE `event_show` (
 -- Dumping data for table `event_show`
 --
 
-INSERT INTO `event_show` (`id`, `show_name`, `show_location_id`, `show_location_slot_id`, `show_description`, `start_time`, `end_time`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `show_manage_by`, `updated_by`) VALUES
+INSERT INTO `event_show` (`id`, `show_name`, `show_location_id`, `show_location_slot_id`, `show_description`, `start_time`, `end_time`, `event_id`, `event_speaker_id`, `event_moderator_id`, `show_manage_by`, `updated_by`) VALUES
 (1, 'Keynote 1: Intelligently Connecting the World', 1, 1, 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\n•   The mobile industry eco-system has an economic impact of $3.9 trillion\r\n•   The industry connects ½ the world’s population to the Internet\r\n•   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the world’s leading operators, including for the first time Vodafone’s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-12 03:30:00', '2019-10-12 04:30:00', 1, 1, 1, 1, 1),
 (2, 'Show 1', 3, 5, 'demo', '0000-00-00 00:00:00', '2019-10-09 23:30:00', 3, 3, 1, 2, 1),
 (3, '5am Show', 2, 3, '5am Show', '2019-10-09 19:30:00', '2019-10-09 23:30:00', 5, 1, 1, 2, 1),
@@ -167,10 +166,7 @@ INSERT INTO `event_type` (`id`, `type_name`, `color`, `updated_by`) VALUES
 
 CREATE TABLE `exhibitors` (
   `id` int(11) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password_has` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `gender` varchar(20) NOT NULL COMMENT 'Male, Female, Other',
   `birthdate` date NOT NULL,
   `company_name` varchar(255) NOT NULL,
@@ -185,15 +181,10 @@ CREATE TABLE `exhibitors` (
 -- Dumping data for table `exhibitors`
 --
 
-INSERT INTO `exhibitors` (`id`, `firstname`, `lastname`, `username`, `password_has`, `gender`, `birthdate`, `company_name`, `company_site_url`, `company_address`, `updated_at`, `created_at`, `updated_by`) VALUES
-(1, 'Dhruv', 'Patel', 'dhruv', '$2y$10$NmnkrZOQV75t/mfo/K2QXu3rVOh2bUfJrMUzdHRfWRpTDDsonDa4O', 'Male', '1987-08-30', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', '2019-10-11 10:54:06', '2019-10-11 10:53:25', 1),
-(2, 'Sajit', 'Nayar', 'sajit', '$2y$10$6yodNlOJXuKDTboE6qQS9eQPQblrGUDdQOhg58u3QgF/MKvxu6CbS', 'Male', '1978-10-25', 'Spark', 'http://www.spark.coom', 'Alkapuri, Vadodara', '2019-10-11 10:54:06', '2019-10-11 10:53:32', 1),
-(3, 'Prashatn', 'Khalasi', 'prashant', '$2y$10$k/ft7pbtY65Gb3MBFtPh/.EMG4JoZJ7IE10Ov2cI362OlwaeRu2.S', 'Male', '0000-00-00', 'pk', 'www.pk.com', 'Surat, Gujarat', '2019-10-11 10:54:06', '2019-10-11 04:00:55', 1),
-(4, 'Vidhi', 'Patel', 'vidhi', '$2y$10$E8s2DB0z5l37vn9kkLvhQuQVUP4u64D.T4fJnnDcOf.08atSpSH0q', 'Male', '0000-00-00', 'Vidhi Pvt. Ltd', 'www.vidhi.com', 'Gorwa, Vadodara', '2019-10-11 10:54:06', '2019-10-11 04:01:42', 1),
-(5, 'Irfan', 'Pathan', 'irfan', '$2y$10$0z1UKJAxsuO8xpDafdx70eLAS8FmJNTTaSBGrncQeqX4Rf9O6Omz6', 'Male', '1992-09-16', 'Irfan', 'www.irfankhan.com', 'Mumbai', '2019-10-11 10:54:06', '2019-10-11 10:49:42', 1),
-(6, 'Salman', 'Khan', 'salman', '$2y$10$JIqn.vvUNPaQbkGYkqM6FeELLjW44hkxq/0VPW7r5nDviufqbVSBy', 'Male', '1988-05-17', 'Salman Pvt. Ltd', 'www.salmankhan.com', 'Galaxy Appartment, Mumbai', '2019-10-11 10:54:06', '2019-10-11 10:49:29', 1),
-(7, 'Amitab', 'Bacchan', 'bachan', '$2y$10$X.nwFFH6xTt8C9nhEVMjPuM75NgmfrPPTOsZ/x8NWoqLT/phO2BXu', 'Male', '1980-10-11', 'Bachan and Sons', 'www.bachan.com', 'Juhu Mumbai', '2019-10-11 10:54:06', '2019-10-11 10:49:11', 1),
-(8, 'Amit', 'Shah', 'amit', '$2y$10$cHIz8vXDTmnKU8Z/wkVKm.ro.3lOhBFR6Yd8S15H6mfVYa0Gvpaaa', 'Male', '1984-09-24', 'Amit and Company', 'www.amit.com', 'Delhi', '2019-10-11 10:54:06', '2019-10-11 10:40:58', 1);
+INSERT INTO `exhibitors` (`id`, `user_id`, `gender`, `birthdate`, `company_name`, `company_site_url`, `company_address`, `updated_at`, `created_at`, `updated_by`) VALUES
+(1, 2, 'Male', '1987-08-30', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', '2019-10-14 12:34:51', '2019-10-11 10:53:25', 1),
+(2, 3, 'Male', '1978-10-25', 'Spark', 'http://www.spark.coom', 'Alkapuri, Vadodara', '2019-10-14 12:34:56', '2019-10-11 10:53:32', 1),
+(3, 4, 'Male', '1978-10-25', 'pk', 'www.pk.com', 'Surat, Gujarat', '2019-10-14 12:35:40', '2019-10-11 04:00:55', 1);
 
 -- --------------------------------------------------------
 
@@ -236,7 +227,7 @@ CREATE TABLE `is_event_exhibitors` (
 --
 
 INSERT INTO `is_event_exhibitors` (`id`, `event_id`, `exhibitor_id`, `exhibitor_join_status`, `comment`) VALUES
-(1, 1, 2, 'yes', 'this is test');
+(3, 1, 4, 'yes', 'test');
 
 -- --------------------------------------------------------
 
@@ -258,14 +249,15 @@ CREATE TABLE `is_event_speaker` (
 --
 
 INSERT INTO `is_event_speaker` (`id`, `event_id`, `event_speaker_id`, `event_speaker_role_id`, `event_location_id`, `event_location_slot_id`) VALUES
-(1, 1, 1, 1, 1, 1),
+(1, 1, 1, 1, 3, 5),
 (2, 1, 2, 3, 1, 1),
 (3, 1, 3, 2, 1, 1),
 (4, 2, 2, 3, 1, 2),
 (5, 2, 1, 1, 3, 4),
 (6, 2, 3, 3, 2, 3),
 (7, 3, 3, 3, 3, 4),
-(8, 5, 4, 3, 2, 3);
+(8, 5, 4, 3, 2, 3),
+(9, 6, 4, 3, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -362,28 +354,32 @@ INSERT INTO `speaker_role` (`id`, `role_name`, `updated_by`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+  `firstname` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_by` int(11) NOT NULL,
-  `firstname` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(150) COLLATE utf8_unicode_ci NOT NULL
+  `login_type` enum('superadmin','admin','exhibitor','visitor') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `firstname`, `lastname`) VALUES
-(1, 'salim', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', 'demo99', NULL, 'salim@redsparkinfo.co.in', 10, 1569999351, 1570628011, 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'Salim', 'Kureshi'),
-(2, 'deval', '', 'deval123', NULL, 'deval@redsaprkinfo.co.in', 10, 1569999351, 1570019313, NULL, 1, 'Deval', 'Barot'),
-(3, 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, 1570022535, 1570084573, NULL, 1, 'Nirav', 'Patel');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`) VALUES
+(1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin'),
+(2, 'Deval', 'Barot', 'deval', '', '$2y$10$UM3CkMj4vFd0FMPqHZFCnuoUYTlzEl29ZcmEd2qlQQj9bkodw3ho.', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-15 05:57:25', '2019-10-15 05:57:25', NULL, 1, 'admin'),
+(3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin'),
+(4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor'),
+(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor'),
+(9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor');
 
 -- --------------------------------------------------------
 
@@ -393,7 +389,7 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 
 CREATE TABLE `visitors` (
   `id` int(11) NOT NULL,
-  `visitor_name` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `visitor_uid` varchar(255) NOT NULL,
   `gender` varchar(20) NOT NULL COMMENT 'Male, Female, Other',
   `birthdate` date NOT NULL,
@@ -406,15 +402,9 @@ CREATE TABLE `visitors` (
 -- Dumping data for table `visitors`
 --
 
-INSERT INTO `visitors` (`id`, `visitor_name`, `visitor_uid`, `gender`, `birthdate`, `created_at`, `updated_at`, `updated_by`) VALUES
-(1, 'Ravi Patel', 'EVT-001-208-434', 'Male', '1990-10-10', '2019-10-11 10:55:52', '2019-10-11 06:16:58', 1),
-(2, 'Deval Barot', 'ENT-002-02990320', 'Male', '1991-04-03', '2019-10-11 10:55:52', '2019-10-11 06:54:04', 1),
-(3, 'Nirali Patel', 'BNC-21903983029', 'Female', '1991-07-25', '2019-10-11 11:46:34', '2019-10-11 11:46:34', 1),
-(4, 'Sandip Solanki', 'DN-3430343', 'Male', '1992-10-14', '2019-10-11 10:55:52', '2019-10-11 06:54:40', 1),
-(5, 'Vidhi Patel', 'VND-2323232', 'Female', '1988-11-21', '2019-10-11 10:55:52', '2019-10-11 06:55:02', 1),
-(6, 'Nirav Shah', 'BNR-2309239029', 'Male', '1986-08-11', '2019-10-11 10:55:52', '2019-10-11 06:55:22', 1),
-(7, 'Anil Kapoor', 'NAD-323232', 'Male', '1985-08-13', '2019-10-11 10:55:52', '2019-10-11 06:55:41', 1),
-(8, 'Sonakshi Sinha', 'WMC-34324343', 'Female', '1986-01-21', '2019-10-11 10:55:52', '2019-10-11 06:56:04', 1);
+INSERT INTO `visitors` (`id`, `user_id`, `visitor_uid`, `gender`, `birthdate`, `created_at`, `updated_at`, `updated_by`) VALUES
+(12, 8, 'Arvind', 'Male', '2001-10-11', '2019-10-14 10:13:43', '2019-10-14 09:18:41', 1),
+(13, 9, 'Salman', 'Male', '2001-10-10', '2019-10-14 11:55:38', '2019-10-14 11:55:38', 1);
 
 --
 -- Indexes for dumped tables
@@ -426,9 +416,8 @@ INSERT INTO `visitors` (`id`, `visitor_name`, `visitor_uid`, `gender`, `birthdat
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `event_domain_name` (`event_domain_name`),
-  ADD KEY `event_type_id` (`event_type_id`),
   ADD KEY `updated_by` (`updated_by`),
-  ADD KEY `event_location_id` (`event_location_id`);
+  ADD KEY `event_location_id` (`event_location`);
 
 --
 -- Indexes for table `event_location`
@@ -453,9 +442,9 @@ ALTER TABLE `event_show`
   ADD KEY `event_id` (`event_id`),
   ADD KEY `updated_by` (`updated_by`),
   ADD KEY `event_speaker_id` (`event_speaker_id`),
-  ADD KEY `event_speaker_role_id` (`event_speaker_role_id`),
   ADD KEY `show_location_id` (`show_location_id`),
-  ADD KEY `show_location_slot_id` (`show_location_slot_id`);
+  ADD KEY `show_location_slot_id` (`show_location_slot_id`),
+  ADD KEY `event_moderator_id` (`event_moderator_id`);
 
 --
 -- Indexes for table `event_type`
@@ -468,7 +457,8 @@ ALTER TABLE `event_type`
 -- Indexes for table `exhibitors`
 --
 ALTER TABLE `exhibitors`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `hotels`
@@ -483,7 +473,7 @@ ALTER TABLE `hotels`
 ALTER TABLE `is_event_exhibitors`
   ADD PRIMARY KEY (`id`),
   ADD KEY `event_id` (`event_id`),
-  ADD KEY `exhibitor_id` (`exhibitor_id`);
+  ADD KEY `is_event_exhibitors_ibfk_2` (`exhibitor_id`);
 
 --
 -- Indexes for table `is_event_speaker`
@@ -535,7 +525,8 @@ ALTER TABLE `user`
 -- Indexes for table `visitors`
 --
 ALTER TABLE `visitors`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `visitors_ibfk_1` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -575,7 +566,7 @@ ALTER TABLE `event_type`
 -- AUTO_INCREMENT for table `exhibitors`
 --
 ALTER TABLE `exhibitors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hotels`
@@ -587,13 +578,13 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT for table `is_event_exhibitors`
 --
 ALTER TABLE `is_event_exhibitors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `is_event_speaker`
 --
 ALTER TABLE `is_event_speaker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -617,13 +608,13 @@ ALTER TABLE `speaker_role`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `visitors`
 --
 ALTER TABLE `visitors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -633,9 +624,7 @@ ALTER TABLE `visitors`
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`event_type_id`) REFERENCES `event_type` (`id`),
-  ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `events_ibfk_4` FOREIGN KEY (`event_location_id`) REFERENCES `event_location` (`id`);
+  ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `event_location`
@@ -657,15 +646,21 @@ ALTER TABLE `event_show`
   ADD CONSTRAINT `event_show_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `event_show_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `event_show_ibfk_3` FOREIGN KEY (`event_speaker_id`) REFERENCES `speakers` (`id`),
-  ADD CONSTRAINT `event_show_ibfk_4` FOREIGN KEY (`event_speaker_role_id`) REFERENCES `speaker_role` (`id`),
   ADD CONSTRAINT `event_show_ibfk_5` FOREIGN KEY (`show_location_id`) REFERENCES `event_location` (`id`),
-  ADD CONSTRAINT `event_show_ibfk_6` FOREIGN KEY (`show_location_slot_id`) REFERENCES `event_location_slots` (`id`);
+  ADD CONSTRAINT `event_show_ibfk_6` FOREIGN KEY (`show_location_slot_id`) REFERENCES `event_location_slots` (`id`),
+  ADD CONSTRAINT `event_show_ibfk_7` FOREIGN KEY (`event_moderator_id`) REFERENCES `speakers` (`id`);
 
 --
 -- Constraints for table `event_type`
 --
 ALTER TABLE `event_type`
   ADD CONSTRAINT `event_type_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `exhibitors`
+--
+ALTER TABLE `exhibitors`
+  ADD CONSTRAINT `exhibitors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `hotels`
@@ -678,7 +673,7 @@ ALTER TABLE `hotels`
 --
 ALTER TABLE `is_event_exhibitors`
   ADD CONSTRAINT `is_event_exhibitors_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
-  ADD CONSTRAINT `is_event_exhibitors_ibfk_2` FOREIGN KEY (`exhibitor_id`) REFERENCES `exhibitors` (`id`);
+  ADD CONSTRAINT `is_event_exhibitors_ibfk_2` FOREIGN KEY (`exhibitor_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `is_event_speaker`
@@ -701,6 +696,12 @@ ALTER TABLE `speakers`
 --
 ALTER TABLE `speaker_role`
   ADD CONSTRAINT `speaker_role_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `visitors`
+--
+ALTER TABLE `visitors`
+  ADD CONSTRAINT `visitors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
