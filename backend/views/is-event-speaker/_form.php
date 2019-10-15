@@ -15,7 +15,7 @@ use backend\models\EventLocationSlots;
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Show</h4>
+                <h4 class="title"><?php echo ($model->id)?'Update':'Assign';?> Speaker to Event</h4>
                 <p class="category">New Event Show will be create</p>
             </div>
             <div class="card-content">

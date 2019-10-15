@@ -192,7 +192,9 @@ use backend\models\Settings;
                     </div>
                     <?php 
                         if(count($exhibitors_list) > 0){
-                            foreach($exhibitors_list as $e){?>
+                            foreach($exhibitors_list as $e){
+                                if(!$e->id) continue; 
+                                ?>
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">person</i> <a href="<?= Url::to(['exhibitors/view', 'id'=>$e->id]);?>"><?=$e->user['firstname']." ".$e->user['lastname'];?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
@@ -211,10 +213,12 @@ use backend\models\Settings;
                     </div>
                     <?php 
                         if(count($visitors_list) > 0){
-                            foreach($visitors_list as $e){?>
+                            foreach($visitors_list as $e){
+                                if(!$e->id) continue;
+                                ?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">person</i> <a href="<?= Url::to(['visitors/view', 'id'=>$e->id]);?>"><?=$e->visitor_name;?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
+                                    <i class="material-icons">person</i> <a href="<?= Url::to(['visitors/view', 'id'=>$e->id]);?>"><?=$e->user['firstname']." ".$e->user['lastname'];?></a> registered <?=Settings::getTimeAgo($e->created_at);?>
                                 </div>
                             </div>
                             <?php }

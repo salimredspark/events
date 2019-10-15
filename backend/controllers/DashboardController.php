@@ -74,11 +74,15 @@ class DashboardController extends Controller
         $total_exhibitors = Exhibitors::find()->count();
         $exhibitors_list = Exhibitors::find()
         ->joinWith('user', true, 'RIGHT JOIN')        
+        ->groupBy(['id'])
         ->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
                 
         //get visitors
         $total_visitors = Visitors::find()->count();
-        $visitors_list = Visitors::find()->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
+        $visitors_list = Visitors::find()
+        ->joinWith('user', true, 'RIGHT JOIN')
+        ->groupBy(['id'])
+        ->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
         
         
         return $this->render('dashboard', [

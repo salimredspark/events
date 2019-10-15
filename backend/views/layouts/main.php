@@ -12,6 +12,12 @@
     use yii\helpers\Url;
 
     AppAsset::register($this);
+    
+    $loginType = '';
+    $allowLoginType = ['superadmin', 'admin'];
+        if(!Yii::$app->user->isGuest){
+        $loginType = Yii::$app->user->identity->login_type; //'superadmin', 'admin', 'exhibitor', 'visitor         
+    }
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -42,12 +48,13 @@
                     </div>                
                     <div class="sidebar-wrapper">
                         <ul class="nav">
+                           <?php if(in_array($loginType, $allowLoginType)){?>
                             <li class="<?=($controller=='dashboard')?'active':'';?>">
                                 <a href="<?=Url::to(['dashboard/index']);?>">
                                     <i class="material-icons">dashboard</i>
                                     <p>Dashboard</p>
                                 </a>
-                            </li>
+                            </li>                            
                             <li class="<?=(strpos($controller,'user') !== false )?'active':'';?>">
                                 <a href="<?=Url::to(['user/index']);?>">
                                     <i class="material-icons">person</i>
@@ -66,18 +73,18 @@
                                         <p>Event List</p>
                                         </a>
                                     </li>
+                                    <li class="<?=($controller=='event-show')?'sub-active':'';?>">
+                                        <a href="<?=Url::to(['event-show/search-event']);?>">
+                                        <i class="material-icons">event_available</i>
+                                        <p>Event Topic</p>
+                                        </a>
+                                    </li>
                                     <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['is-event-speaker/search-event']);?>">
                                         <i class="material-icons">event_available</i>
                                         <p>Event Speakers</p>
                                         </a>
-                                    </li>
-                                    <li class="<?=($controller=='event-show')?'sub-active':'';?>">
-                                        <a href="<?=Url::to(['event-show/search-event']);?>">
-                                        <i class="material-icons">event_available</i>
-                                        <p>Event Show</p>
-                                        </a>
-                                    </li>
+                                    </li>                                    
                                     <li class="<?=($controller=='event-type')?'sub-active':'';?>">
                                         <a href="<?=Url::to(['event-type/index']);?>">
                                         <i class="material-icons">event_available</i>
@@ -150,12 +157,15 @@
                                     <p>Visitors</p>
                                 </a>
                             </li>
+                            <?php }?>
+                            <?php if($loginType == 'superadmin'){?>
                             <li class="<?=($controller=='settings')?'active':'';?>">
                                 <a href="<?=Url::to(['settings/index']);?>">
                                     <i class="material-icons">settings_applications</i>
                                     <p>System Configuration</p>
                                 </a>
                             </li>
+                            <?php }?>
                             <li class="<?=($controller=='usersa')?'active':'';?>">
                                 <a href="<?=Url::to(['site/logout']);?>">
                                     <i class="material-icons text-gray">logout</i>
@@ -218,13 +228,15 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
-                                </button>                                
+                                </button>
+                                <?php if(in_array($loginType, $allowLoginType)){?>
                                     <a class="navbar-brand <?=(strpos($controller,'dashboard') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['dashboard/index']);?>">Dashboard</a>
                                     <a class="navbar-brand <?=(strpos($controller,'user') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['user/index']);?>">Users</a>
                                     <a class="navbar-brand <?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'top-menu-active dark':'';?>" href="<?= Url::to(['events/index']);?>">Events</a>
                                     <a class="navbar-brand <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'top-menu-active dark':'';?>" href="<?= Url::to(['speakers/index']);?>">Speakers</a>
                                     <a class="navbar-brand <?=(strpos($controller,'exhibitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a>
-                                    <a class="navbar-brand <?=(strpos($controller,'visitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>                                
+                                    <a class="navbar-brand <?=(strpos($controller,'visitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>
+                                    <?php }?>
                                     <a class="navbar-brand" href="./../../frontend/web/" target="_blank">Website</a>                                
                             </div>
                             <div class="collapse navbar-collapse">
@@ -269,7 +281,7 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            <?php if (!Yii::$app->user->isGuest) { ?>
+                            <?php if (!Yii::$app->user->isGuest AND in_array($loginType, $allowLoginType)) { ?>
                                 <ul>
                                     <li><a href="<?= Url::to(['dashboard/index']);?>" class="<?=(strpos($controller,'dashboard') !== false )?'footer-menu-active dark':'';?>">Dashboard</a></li>
                                     <li><a href="<?= Url::to(['user/index']);?>" class="<?=(strpos($controller,'user') !== false )?'footer-menu-active dark':'';?>">Users</a></li>

@@ -37,11 +37,13 @@
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>                                                
                     </div>
-
-                    <div class="col-md-3">                                                                        
-                        <?= $form->field($model, 'password_hash')->passwordInput() ?>
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'password_hash', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->passwordInput(['maxlength' => true,'class'=>'form-control', 'value'=>''])?>                                                
                     </div>
-
+                    
                     <div class="col-md-6">
                         <?= $form->field($model, 'email', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",

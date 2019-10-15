@@ -98,6 +98,14 @@ class UserController extends Controller
              
             $updated_by = Yii::$app->user->identity->id;  
                         
+            $old_password = $model->password_hash;
+            $postUser = Yii::$app->request->post('User');            
+            if (empty($postUser['password_hash'])) {                
+                $model->password_hash = $old_password;
+            }else{
+                $model->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
+            }                        
+                        
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
