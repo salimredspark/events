@@ -17,8 +17,16 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
+            <div class="row">
+                    <div class="col-sm-8">
                 <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Topic</h4>
                 <p class="category">New Event Topic will be create</p>
+                </div>
+                <div class="col-sm-4 pull-right">
+                        <?= Html::a('Create Event', ['events/create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Topic Type', ['event-type/create'], ['class' => 'btn btn-success']) ?>
+                    </div>
+            </div>    
             </div>
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>

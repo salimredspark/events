@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'format' => 'html',                                
                                     'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
                                  ),
-                                'slot_type',
+                                //'slot_type',
                                 'slot_name',
                                 'slot_detail:ntext',
                                 //'updated_by',

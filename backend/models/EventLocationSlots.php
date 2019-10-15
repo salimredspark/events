@@ -33,11 +33,11 @@ class EventLocationSlots extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_location_id', 'slot_type', 'slot_name', 'slot_detail', 'updated_by'], 'required'],
+            [['event_location_id', 'slot_name', 'slot_detail', 'updated_by'], 'required'],
             [['event_location_id', 'updated_by'], 'integer'],
             [['slot_detail'], 'string'],
             [['slot_available'], 'safe'],
-            [['slot_type', 'slot_name'], 'string', 'max' => 255],
+            [['slot_name'], 'string', 'max' => 255],
             [['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -50,10 +50,9 @@ class EventLocationSlots extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'event_location_id' => 'Event Location ID',
-            'slot_type' => 'Slot Type',
-            'slot_name' => 'Slot Name',
-            'slot_detail' => 'Slot Detail',
+            'event_location_id' => 'Event Hall',            
+            'slot_name' => 'Stage Name',
+            'slot_detail' => 'Stage Detail',
             'updated_by' => 'Updated By',
         ];
     }

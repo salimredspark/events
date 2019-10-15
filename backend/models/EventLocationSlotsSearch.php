@@ -18,7 +18,7 @@ class EventLocationSlotsSearch extends EventLocationSlots
     {
         return [
             [['id', 'event_location_id', 'updated_by'], 'integer'],
-            [['slot_type', 'slot_name', 'slot_detail', 'slot_available'], 'safe'],
+            [['slot_name', 'slot_detail', 'slot_available'], 'safe'],
         ];
     }
 
@@ -63,8 +63,7 @@ class EventLocationSlotsSearch extends EventLocationSlots
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'slot_type', $this->slot_type])
-            ->andFilterWhere(['like', 'slot_name', $this->slot_name])
+        $query->andFilterWhere(['like', 'slot_name', $this->slot_name])
             ->andFilterWhere(['like', 'slot_detail', $this->slot_detail]);
 
         return $dataProvider;

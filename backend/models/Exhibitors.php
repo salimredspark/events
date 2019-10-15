@@ -37,9 +37,9 @@ class Exhibitors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_by'], 'required'],
+            [['user_id', 'gender', 'company_name', 'company_site_url', 'company_address', 'updated_by'], 'required'],
             [['user_id', 'updated_by'], 'integer'],
-            [['birthdate', 'updated_at', 'created_at'], 'safe'],
+            [['updated_at', 'created_at'], 'safe'],
             [['company_address'], 'string'],
             [['gender'], 'string', 'max' => 20],            
             [['company_name', 'company_site_url'], 'string', 'max' => 255],
@@ -55,8 +55,7 @@ class Exhibitors extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'gender' => 'Gender',
-            'birthdate' => 'Birthdate',
+            'gender' => 'Gender',            
             'company_name' => 'Company Name',
             'company_site_url' => 'Company Site Url',
             'company_address' => 'Company Address',

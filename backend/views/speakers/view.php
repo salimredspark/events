@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\User;
+use backend\models\SpeakerRole;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Speakers */
@@ -44,8 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            #'id',
             'speaker_name',
+            #'speaker_role_id',
+            array(
+                            'attribute'=>'speaker_role_id',                                
+                            'label'=>'Speaker Role',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(SpeakerRole::findOne($model->speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->speaker_role_id],['target'=>'_blank'])
+                            ),
             'speaker_details:ntext',
             #'updated_by',
              array(

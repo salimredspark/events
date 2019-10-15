@@ -33,7 +33,7 @@
                     <div class="col-md-12">
                         <?php 
                                                 
-                          $items = ArrayHelper::map(Events::find()->all(), 'id', 'event_name');                                                
+                          $items = ArrayHelper::map(Events::find()->where(['event_manage_by'=>Yii::$app->user->identity->id])->all(), 'id', 'event_name');                                                
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Event' ]

@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use backend\models\User;
 use backend\models\EventLocation;
 
-$this->title = 'Event Location Slots';
+$this->title = 'Event Hall Stage';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -34,14 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             #'event_location_id',
                             [
                                 'class' => 'yii\grid\DataColumn',
-                                'label' => 'Location Name',
+                                'label' => 'Event Hall',
                                 'filter' => true,
                                 'format' => 'html',
                                 'value' => function ($data) {
                                     return Html::a(EventLocation::findOne($data->event_location_id)->location_name, ['event-location/view', 'id'=>$data->event_location_id],['target'=>'_blank']);
                                 },
                             ],
-                            'slot_type',
+                            //'slot_type',
                             'slot_name',
                             //'slot_detail:ntext',
                             //'updated_by',

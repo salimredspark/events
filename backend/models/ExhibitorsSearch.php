@@ -18,7 +18,7 @@ class ExhibitorsSearch extends Exhibitors
     {
         return [
             [['id', 'user_id', 'updated_by'], 'integer'],
-            [['gender', 'birthdate', 'company_name', 'company_site_url', 'company_address', 'updated_at', 'created_at'], 'safe'],
+            [['gender', 'company_name', 'company_site_url', 'company_address', 'updated_at', 'created_at'], 'safe'],
         ];
     }
 
@@ -59,8 +59,7 @@ class ExhibitorsSearch extends Exhibitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'birthdate' => $this->birthdate,
+            'user_id' => $this->user_id,            
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,

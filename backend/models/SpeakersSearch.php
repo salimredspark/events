@@ -17,7 +17,7 @@ class SpeakersSearch extends Speakers
     public function rules()
     {
         return [
-            [['id', 'updated_by'], 'integer'],
+            [['id', 'updated_by', 'speaker_role_id'], 'integer'],
             [['speaker_name', 'speaker_details'], 'safe'],
         ];
     }

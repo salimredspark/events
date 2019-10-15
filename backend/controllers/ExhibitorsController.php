@@ -86,7 +86,7 @@ class ExhibitorsController extends Controller
             //save Exhibitors
             $post = Yii::$app->request->post('Exhibitors');              
             $model->user_id = $last_insert_userid; 
-            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
+            //$model->birthdate = date("Y-m-d", strtotime($post['birthdate']));            
             $model->created_at = date("Y-m-d H:i:s");
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
@@ -133,7 +133,7 @@ class ExhibitorsController extends Controller
             
             //save Exhibitors
             $post = Yii::$app->request->post('Exhibitors');            
-            $model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
+            //$model->birthdate = date("Y-m-d", strtotime($post['birthdate']));
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();             

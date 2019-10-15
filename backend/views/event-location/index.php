@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="col-sm-4 pull-right">
                         <?= Html::a('Create New', ['create'], ['class' => 'btn btn-success']) ?>
-                        <?= Html::a('Create Slots', ['event-location-slots/create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Stage', ['event-location-slots/create'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>
             </div>

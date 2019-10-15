@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'user.firstname',
                             'user.lastname',
                             'gender',
-                            array(
+                            /*array(
                             'attribute'=>'birthdate',                                
                             'value'=>Settings::getConfigDateTime($model->birthdate, 'number', 'date')
-                            ),
+                            ),*/
                             'company_name',
                             'company_site_url',
                             'company_address',

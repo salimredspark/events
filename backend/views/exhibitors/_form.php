@@ -38,7 +38,7 @@ use backend\models\Settings;
                             ])->dropDownList( $items, ['prompt'=>''] );                            
                         ?>
                     </div>
-                    <div class="col-md-3">                     
+                    <?php /*<div class="col-md-3">                     
                          <?php 
                          $day = '-18y';
                             echo $form->field($model, 'birthdate', [
@@ -46,7 +46,7 @@ use backend\models\Settings;
                             'labelOptions' => [ 'class' => 'control-label', 'label' =>'Birthdate'  ]
                             ])->widget(DatePicker::classname(), ['dateFormat' => 'php:M d, Y', 'options' => ['readonly' => true], 'clientOptions' => [ 'changeMonth' => true, 'changeYear' => true, 'yearRange' => '1970:'.date('Y'), 'maxDate' => $day]])                              
                         ?>
-                    </div>
+                    </div>*/?>
                 </div>
                 <div class="row">
                     <div class="col-md-3">

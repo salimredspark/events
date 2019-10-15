@@ -14,12 +14,13 @@
         <div class="card">
             <div class="card-header" data-background-color="purple">
                 <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <h4 class="title"><?= Html::encode($this->title) ?></h4>
                         <p class="category">Order by latest first</p>
                     </div>
-                    <div class="col-sm-2 pull-right">
+                    <div class="col-sm-4 pull-right">
                         <?= Html::a('Create Event', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Topic', ['event-show/create'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>
             </div>
