@@ -23,7 +23,7 @@ class DashboardController extends Controller
         'class' => AccessControl::className(),
         'rules' => [        
         [
-        'actions' => ['index'],
+        'actions' => ['index', 'set-global-event'],
         'allow' => true,
         'roles' => ['@'],
         ],
@@ -42,7 +42,14 @@ class DashboardController extends Controller
     }
 
     public function actionIndex()
-    {
+    {           
+        $allowLoginType = ['superadmin', 'admin'];        
+        $loginType = Yii::$app->user->identity->login_type; //'superadmin', 'admin', 'exhibitor', 'visitor                 
+        
+        if(!in_array($loginType, $allowLoginType)){
+            return $this->redirect(['user/view','id' => Yii::$app->user->identity->id ]); 
+        }
+        
         $this->view->title = 'Dashboard';
 
         //events
@@ -61,7 +68,7 @@ class DashboardController extends Controller
 
         //completed events list 
         $completed_events = Events::find()->where('end_time <= NOW()')->limit(10)->offset(0)->orderBy(['end_time'=>SORT_DESC])->all();
-        
+
         //events Shows
         //$total_eventshows = EventShow::find()->count();        
         //$today = date('Y-m-d h:i:s');
@@ -69,26 +76,26 @@ class DashboardController extends Controller
 
         //get total speakers count
         $total_speakers = Speakers::find()->count();
-                       
+
         //get exhibitors
         $total_exhibitors = Exhibitors::find()->count();
         $exhibitors_list = Exhibitors::find()
         ->joinWith('user', true, 'RIGHT JOIN')        
         ->groupBy(['id'])
         ->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
-                
+
         //get visitors
         $total_visitors = Visitors::find()->count();
         $visitors_list = Visitors::find()
         ->joinWith('user', true, 'RIGHT JOIN')
         ->groupBy(['id'])
         ->limit(10)->offset(0)->orderBy(['created_at'=>SORT_DESC])->all();
-        
-        
+
+
         return $this->render('dashboard', [
         'total_events' => $total_events, 
         'total_todays_events'=>$total_todays_active_events,
-        
+
         'active_events'=>$active_events,
         'todays_events'=>$todays_events,
         'upcoming_events'=>$upcoming_events,
@@ -98,12 +105,23 @@ class DashboardController extends Controller
         //'total_active_eventshows'=>$total_active_eventshows,
 
         'total_speakers'=>$total_speakers,
-                
+
         'total_exhibitors'=>$total_exhibitors,        
         'exhibitors_list'=>$exhibitors_list,
-        
+
         'total_visitors'=>$total_visitors,
         'visitors_list'=>$visitors_list,
         ]);        
     }                         
+
+    public function actionSetGlobalEvent(){
+        $session = Yii::$app->session;
+        $param = Yii::$app->request->get();
+        if(isset($param['global_event_id']) && $param['global_event_id'] > 0){ 
+            $session->set('global_event_id', $param['global_event_id']);
+        }else{
+           unset($session['global_event_id']);
+        }
+        return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+    }
 }

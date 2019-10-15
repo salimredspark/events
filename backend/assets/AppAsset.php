@@ -16,7 +16,7 @@ class AppAsset extends AssetBundle
         //'css/bootstrap.min.css',
         'css/material-dashboard.css',
         'css/demo.css',
-        '//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
+        'css/font-awesome.min.css',
         '//fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons',        
         'css/custom.css',
     ];

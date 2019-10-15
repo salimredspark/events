@@ -38,6 +38,15 @@
                     //'password_hash',
                     //'password_reset_token',
                     'email:email',
+                    //'login_type',
+                    [
+                        'class' => 'yii\grid\DataColumn',
+                        'label' => 'Login as',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            return ucfirst($data->login_type);
+                        },
+                    ],
                     //'status',
                     //'created_at',
                     //'updated_at',
