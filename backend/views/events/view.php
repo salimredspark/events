@@ -53,19 +53,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         'event_name',
                         'event_domain_name',
                         #'event_type_id',
-                        array(
+                        /*array(
                         'label' => 'Event Type',
                                         'attribute'=>'event_type_id',                                
                                         'format' => 'html',                                
                                         'value'=>Html::a(EventType::findOne($model->event_type_id)->type_name, ['event-type/view', 'id'=>$model->event_type_id],['target'=>'_blank'])
                                         ),
-                        //'event_location_id',
-                         array(         
+                                        */
+                        'event_location',
+                        /* array(         
                          'label' => 'Event Location',
                                         'attribute'=>'event_location_id',                                
                                         'format' => 'html',                                
                                         'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
-                                        ),                        
+                                        ),
+                                        */
                         #'start_time',
                         #'end_time',
                          array(

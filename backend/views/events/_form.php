@@ -18,20 +18,11 @@
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <?= $form->field($model, 'event_name', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
-                    </div> 
-                     <div class="col-md-3">
-                        <?php                        
-                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
-                            echo $form->field($model, 'event_manage_by',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Manage By' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
-                        ?>
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>                    
                     </div>                                        
                 </div>
                 
@@ -42,25 +33,31 @@
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
-                    <div class="col-md-3">
-                        <?php                        
-                            $items = ArrayHelper::map(EventType::find()->all(), 'id', 'type_name');                                                
-                            echo $form->field($model, 'event_type_id',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Type' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
-                        ?>
-                    </div>
-                                                                                
-                    <div class="col-md-3">                                                                        
-                    <?php                        
-                            $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
-                            echo $form->field($model, 'event_location_id',[
+                    <div class="col-md-6">
+                        <?php                      
+                        echo $form->field($model, 'event_location', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label', 'label'=>'Event Address' ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control']);
+                          
+                          /*$items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
+                            echo $form->field($model, 'event_location',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Location' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
-                        ?>                                                
+                            */
+                        ?>
                     </div>
+                                                                                
+                    <div class="col-md-3">
+                        <?php                        
+                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
+                            echo $form->field($model, 'event_manage_by',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Manage By' ]
+                            ])->dropDownList( $items, ['prompt'=>''] );
+                        ?>
+                        </div>
                     
                 </div>
                 

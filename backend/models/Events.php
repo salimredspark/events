@@ -40,15 +40,15 @@ class Events extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_name', 'event_domain_name', 'event_type_id', 'event_location_id', 'event_description', 'event_manage_by', 'updated_by'], 'required'],
-            [['event_type_id', 'event_location_id', 'event_manage_by', 'updated_by'], 'integer'],
+            [['event_name', 'event_domain_name', 'event_location', 'event_description', 'event_manage_by', 'updated_by'], 'required'],
+            [['event_manage_by', 'updated_by'], 'integer'],
             [['event_description'], 'string'],
             [['start_time', 'end_time'], 'safe'],
             [['event_name', 'event_domain_name'], 'string', 'max' => 255],
             [['event_domain_name'], 'unique'],
-            [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
+            //[['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-            [['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
+            //[['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
         ];
     }
 
@@ -60,8 +60,7 @@ class Events extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'event_name' => 'Event Name',
-            'event_domain_name' => 'Event Domain Name',
-            'event_type_id' => 'Event Type ID',
+            'event_domain_name' => 'Event Domain Name',            
             'event_location_id' => 'Event Location ID',
             'event_description' => 'Event Description',
             'start_time' => 'Start Time',

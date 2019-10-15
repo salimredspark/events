@@ -57,13 +57,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'show_name',                            
                              array(
                             'attribute'=>'show_location_id',                                
-                            'label'=>'Location Name',                                
+                            'label'=>'Event Topic Hall',                                
                             'format' => 'html',                                
                             'value'=>Html::a(EventLocation::findOne($model->show_location_id)->location_name, ['event-location/view', 'id'=>$model->show_location_id],['target'=>'_blank'])
                             ),
                              array(
                             'attribute'=>'show_location_slot_id',                                
-                            'label'=>'Location Slot',                                
+                            'label'=>'Hall Topic Stage',                                
                             'format' => 'html',                                
                             'value'=>Html::a(EventLocationSlots::findOne($model->show_location_slot_id)->slot_name, ['event-location/view', 'id'=>$model->show_location_slot_id],['target'=>'_blank'])
                             ),
@@ -83,10 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value'=>Html::a(Speakers::findOne($model->event_speaker_id)->speaker_name, ['speakers/view', 'id'=>$model->event_speaker_id],['target'=>'_blank'])
                             ),
                              array(
-                            'attribute'=>'event_speaker_role_id',                                
-                            'label'=>'Speaker Role',                                
+                            'attribute'=>'event_moderator_id',                                
+                            'label'=>'Moderator',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(SpeakerRole::findOne($model->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->event_speaker_role_id],['target'=>'_blank'])
+                            'value'=>Html::a(Speakers::findOne($model->event_moderator_id)->speaker_name, ['speakers/view', 'id'=>$model->event_moderator_id],['target'=>'_blank'])
                             ),
                              array(
                             'attribute'=>'show_manage_by',                                

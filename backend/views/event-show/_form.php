@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-header" data-background-color="purple">
                 <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Topic</h4>
-                <p class="category">New Event Show will be create</p>
+                <p class="category">New Event Topic will be create</p>
             </div>
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
@@ -29,27 +29,22 @@
                             $items = ArrayHelper::map(Events::find()->all(), 'id', 'event_name');                                                
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Name' ]
-                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
-                                //get spearkers
-                                $.post("index.php?r=event-show/event-spekers-list&id="+$(this).val(), function( data ) {
-                                $( "select#eventshow-event_speaker_id" ).html( data );
-                                });                                
-                                ']);
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Event' ]
+                            ])->dropDownList( $items, ['prompt'=>'']);
                         ?>
                     </div>                       
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <?= $form->field($model, 'show_name', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
+                        'labelOptions' => [ 'class' => 'control-label', 'label'=>'Topic Title' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <?php                        
                             $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
                             echo $form->field($model, 'show_manage_by',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Show Manage By' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Topic Manage By' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>                        
                     </div>
@@ -61,16 +56,16 @@
                             $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
                             echo $form->field($model, 'event_speaker_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Topic Speakers' ]
+                            ])->dropDownList( $items, ['prompt'=>''] ); //, 'multiple'=>'multiple'
                         ?>
                     </div>                       
                     <div class="col-md-3">
                         <?php                        
-                            $items = ArrayHelper::map(SpeakerRole::find()->all(), 'id', 'role_name');                                                
-                            echo $form->field($model, 'event_speaker_role_id',[
+                            $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                            echo $form->field($model, 'event_moderator_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Moderator' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
 
@@ -80,7 +75,7 @@
                             $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
                             echo $form->field($model, 'show_location_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Location Name' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Topic Hall' ]
                             ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
                                 //get spearkers
                                 $.post("index.php?r=event-show/event-location-slot-list&id="+$(this).val(), function( data ) {
@@ -94,7 +89,7 @@
                             $items = ArrayHelper::map(EventLocationSlots::find()->all(), 'id', 'slot_name');                                                
                             echo $form->field($model, 'show_location_slot_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Location Slot' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Hall Topic Stage' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>                                                
                     </div>
@@ -106,7 +101,7 @@
                             echo $form->field($model, 'start_time')->widget(
                             DateTimePicker::class, 
                             [
-                            'options' => ['placeholder' => 'Event Start Date Time'],
+                            'options' => ['placeholder' => 'Topic Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
                             'format' => 'd-m-yyyy hh:ii',
@@ -122,7 +117,7 @@
                             echo $form->field($model, 'end_time')->widget(
                             DateTimePicker::class, 
                             [
-                            'options' => ['placeholder' => 'Event Start Date Time'],
+                            'options' => ['placeholder' => 'Topic Start Date Time'],
                             'convertFormat' => false,
                             'pluginOptions' => [
                             'format' => 'd-m-yyyy hh:ii',
@@ -140,7 +135,7 @@
                     <div class="col-md-12">
                         <?= $form->field($model, 'show_description', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
+                        'labelOptions' => [ 'class' => 'control-label', 'label'=> 'Topic Description' ]
                         ])->textArea(['maxlength' => true,'class'=>'form-control'])
                         ?>
                     </div>

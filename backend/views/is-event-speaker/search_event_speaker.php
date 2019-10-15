@@ -19,7 +19,7 @@
             <div class="card-header" data-background-color="purple">
             <div class="row">
                     <div class="col-sm-6">
-                        <h4 class="title">Search Event Speaker</h4>
+                        <h4 class="title">Search Event Topic Speaker</h4>
                         <p class="category">Select event and search Speaker</p>
                     </div>
                     <div class="col-sm-2 pull-right">                        

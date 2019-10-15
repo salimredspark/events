@@ -39,8 +39,8 @@ class SpeakersSearch extends Speakers
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
-        $query = Speakers::find()->orderBy('id',SORT_DESC);
+    {       
+        $query = Speakers::find()->orderBy('id',SORT_DESC);                        
 
         // add conditions that should always apply here
 

@@ -37,7 +37,7 @@ class EventsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EventsSearch();
+        $searchModel = new EventsSearch();                
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

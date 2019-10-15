@@ -47,14 +47,14 @@
                     },
                     ],*/
                     #'event_type_id',
-                    [
+                    /*[
                     'class' => 'yii\grid\DataColumn',
                     'label' => 'Event Type',
                     'format' => 'html',
                     'value' => function ($data) {
                         return Html::a(EventType::findOne($data->event_type_id)->type_name, ['event-type/view', 'id'=>$data->event_type_id],['target'=>'_blank']);
                     },
-                    ],
+                    ],*/
                     //'event_location',
                     //'event_description',
                     //'start_time',
@@ -77,10 +77,21 @@
                     ],
                     [
                     'class' => 'yii\grid\DataColumn',
-                    'label' => 'Event Manage By',
+                    'label' => 'Event Manager/Status',
                     'format' => 'html',
                     'value' => function ($data) {
-                        return Html::a(User::findOne($data->event_manage_by)->username, ['user/view', 'id'=>$data->event_manage_by],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
+                        $html = Html::a(ucfirst(User::findOne($data->event_manage_by)->username), ['user/view', 'id'=>$data->event_manage_by],['target'=>'_blank']);                                                 
+                        $now = date('Y-m-d H:i:s'); $curDate = date("Y-m-d");
+                         if (($data->end_time > $now AND $data->start_time <= $now) AND date('Y-m-d',strtotime($data->start_time)) == $curDate){
+                            $html .= ' / Active';
+                         }elseif($data->start_time >= $now AND date('Y-m-d',strtotime($data->start_time)) == $curDate){
+                            $html .= ' / Today';
+                         }elseif($data->start_time >= $now  AND date('Y-m-d',strtotime($data->start_time)) != $curDate ){                            
+                            $html .= ' / Scheduled';
+                         }else{
+                            $html .= ' / Closed';
+                         }
+                        return $html;
                     },
                     ],
                     //'updated_by',

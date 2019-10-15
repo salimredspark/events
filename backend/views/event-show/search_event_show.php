@@ -19,11 +19,11 @@
             <div class="card-header" data-background-color="purple">
             <div class="row">
                     <div class="col-sm-6">
-                        <h4 class="title">Search Event Show</h4>
-                        <p class="category">Select event and search show</p>
+                        <h4 class="title">Search Event Topic</h4>
+                        <p class="category">Select event and search topic</p>
                     </div>
                     <div class="col-sm-2 pull-right">                        
-                        <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Topic', ['create'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>                                    
             </div>
@@ -36,7 +36,7 @@
                           $items = ArrayHelper::map(Events::find()->all(), 'id', 'event_name');                                                
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Name' ]
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Event' ]
                             ])->dropDownList( $items, ['prompt'=>''] );                        
                         ?>
                     </div>                                         

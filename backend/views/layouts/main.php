@@ -13,10 +13,18 @@ use backend\assets\AppAsset;
     
     $loginType = '';
     $allowLoginType = ['superadmin', 'admin'];
-        if(!Yii::$app->user->isGuest){
+    if(!Yii::$app->user->isGuest){
         $loginType = Yii::$app->user->identity->login_type; //'superadmin', 'admin', 'exhibitor', 'visitor         
     }    
-    $active_event_list = Events::find()->where('end_time >= NOW() OR start_time >= NOW() OR start_time >= NOW()')->orderBy(['start_time' => SORT_ASC])->all();    
+    if($loginType == 'superadmin'){
+        $active_event_list = Events::find()
+        ->where('end_time >= NOW() OR start_time >= NOW() OR start_time >= NOW()')
+        ->orderBy(['start_time' => SORT_ASC])->all();    
+    }else{
+        $active_event_list = Events::find()
+        ->where('(end_time >= NOW() OR start_time >= NOW() OR start_time >= NOW()) AND event_manage_by = '.Yii::$app->user->identity->id)
+        ->orderBy(['start_time' => SORT_ASC])->all();    
+    }
     $global_event_id = Yii::$app->session->get('global_event_id');
 ?>
 <?php $this->beginPage() ?>
@@ -79,28 +87,30 @@ use backend\assets\AppAsset;
                                                 <p>Event Topic</p>
                                             </a>
                                         </li>
+                                       <?php /*
                                         <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['is-event-speaker/search-event']);?>">
                                                 <i class="material-icons">event_available</i>
                                                 <p>Event Speakers</p>
                                             </a>
-                                        </li>                                    
+                                        </li>
+                                        */?>
                                         <li class="<?=($controller=='event-type')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['event-type/index']);?>">
                                                 <i class="material-icons">event_available</i>
-                                                <p>Event Type</p>
+                                                <p>Topic Type</p>
                                             </a>
                                         </li>
                                         <li class="<?=($controller=='event-location')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['event-location/index']);?>">
                                                 <i class="material-icons">event_available</i>
-                                                <p>Event Location</p>
+                                                <p>Event Hall</p>
                                             </a>
                                         </li>
                                         <li class="<?=($controller=='event-location-slots')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['event-location-slots/index']);?>">
                                                 <i class="material-icons">event_available</i>
-                                                <p>Event Location Slot</p>
+                                                <p>Event Hall Stage</p>
                                             </a>
                                         </li>
                                     </ul>
@@ -232,7 +242,7 @@ use backend\assets\AppAsset;
                                 <?php if($loginType == 'superadmin'){?>
                                     <a class="navbar-brand <?=(strpos($controller,'dashboard') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['dashboard/index']);?>">Dashboard</a>
                                     <a class="navbar-brand <?=(strpos($controller,'user') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['user/index']);?>">Users</a>
-                                <?php }?>    
+                                    <?php }?>    
                                 <?php if(in_array($loginType, $allowLoginType)){?>
                                     <a class="navbar-brand <?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'top-menu-active dark':'';?>" href="<?= Url::to(['events/index']);?>">Events</a>
                                     <a class="navbar-brand <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'top-menu-active dark':'';?>" href="<?= Url::to(['speakers/index']);?>">Speakers</a>
