@@ -20,7 +20,7 @@ class EventsSearch extends Events
     {
         return [
             [['id', 'event_manage_by', 'updated_by'], 'integer'],
-            [['event_name', 'event_domain_name', 'event_location', 'event_description', 'start_time', 'end_time'], 'safe'],
+            [['event_name', 'event_domain_name', 'event_location', 'event_description', 'event_banner', 'start_time', 'end_time'], 'safe'],
         ];
     }
 

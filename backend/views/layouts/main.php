@@ -176,7 +176,7 @@ use backend\assets\AppAsset;
                                     </a>
                                 </li>
                                 <?php }?>
-                            <li class="<?=($controller=='usersa')?'active':'';?>">
+                            <li class="<?=($controller=='users')?'active':'';?>">
                                 <a href="<?=Url::to(['site/logout']);?>">
                                     <i class="material-icons text-gray">logout</i>
                                     <?php

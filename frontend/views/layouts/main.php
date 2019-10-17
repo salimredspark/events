@@ -56,13 +56,14 @@
                 NavBar::end();
             ?>
 
-            <div class="container">
-                <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
-                <?= Alert::widget() ?>
-                <?= $content ?>
-            </div>
+            <?php /*<div class="container">
+                <?php
+                    echo Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]);
+                    echo Alert::widget();
+                    ?>                
+            </div>*/?>
+
+            <?= $content ?>
         </div>
 
         <footer class="footer">

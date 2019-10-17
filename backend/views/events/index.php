@@ -18,7 +18,7 @@
                         <h4 class="title"><?= Html::encode($this->title) ?></h4>
                         <p class="category">Order by latest first</p>
                     </div>
-                    <div class="col-sm-4 pull-right">
+                    <div class="col-sm-3 pull-right">
                         <?= Html::a('Create Event', ['create'], ['class' => 'btn btn-success']) ?>
                         <?= Html::a('Create Topic', ['event-show/create'], ['class' => 'btn btn-success']) ?>
                     </div>

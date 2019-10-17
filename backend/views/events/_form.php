@@ -7,6 +7,7 @@
     use backend\models\EventType;    
     use backend\models\EventLocation;    
     use kartik\datetime\DateTimePicker;
+
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -16,7 +17,7 @@
                 <p class="category">New Event will be create</p>
             </div>
             <div class="card-content">
-                <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($model, 'event_name', [
@@ -25,9 +26,9 @@
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>                    
                     </div>                                        
                 </div>
-                
+
                 <div class="row">
-                <div class="col-md-3">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'event_domain_name', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
@@ -35,12 +36,12 @@
                     </div>
                     <div class="col-md-6">
                         <?php                      
-                        echo $form->field($model, 'event_location', [
-                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label', 'label'=>'Event Address' ]
-                        ])->textInput(['maxlength' => true,'class'=>'form-control']);
-                          
-                          /*$items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
+                            echo $form->field($model, 'event_location', [
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label'=>'Event Address' ]
+                            ])->textInput(['maxlength' => true,'class'=>'form-control']);
+
+                            /*$items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
                             echo $form->field($model, 'event_location',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Location' ]
@@ -48,19 +49,19 @@
                             */
                         ?>
                     </div>
-                                                                                
+
                     <div class="col-md-3">
                         <?php                        
-                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
+                            $items = ArrayHelper::map(User::find()->all(), 'id', 'firstname');                                                
                             echo $form->field($model, 'event_manage_by',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Manage By' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                        </div>
-                    
+                    </div>
+
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-3">
                         <?php 
@@ -96,9 +97,15 @@
                             );
                         ?>                                                
                     </div>
-                                     
-                                     </div>
-                
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->field($model, 'event_banner')->fileInput()?>                                                
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($model, 'event_description', [

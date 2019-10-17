@@ -157,7 +157,6 @@ use backend\models\Settings;
                         <?php }?>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
@@ -204,7 +203,6 @@ use backend\models\Settings;
                         }else{?><div class="card-footer">No Exhibitors!</div> <?php }?>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card">                                    
                     <div class="card-content">
@@ -226,7 +224,6 @@ use backend\models\Settings;
 
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card">                                   
                     <div class="card-content">
@@ -238,7 +235,8 @@ use backend\models\Settings;
                             foreach($completed_events as $e){?>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> completed on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?> (<?=Settings::getTimeAgo($e->end_time);?>)
+                                    <i class="material-icons">access_time</i> <a href="<?= Url::to(['events/view', 'id'=>$e->id]);?>"><?=$e->event_name;?></a> completed on <?=Settings::getConfigDateTime($e->end_time,'number','datetime');?>
+                                    <br />(<?=Settings::getTimeAgo($e->end_time);?>)
                                     <?php //echo Settings::getConfigDateTime($e->end_time,'number','datetime');?>
                                 </div>
                             </div>
@@ -247,6 +245,5 @@ use backend\models\Settings;
                 </div>
             </div>
         </div>
-
     </div>
 </div>   

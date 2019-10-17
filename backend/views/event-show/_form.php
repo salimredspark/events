@@ -1,5 +1,5 @@
 <?php
-    use yii\helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;
     use yii\helpers\Url; 
     use yii\helpers\Html;   
     use yii\widgets\ActiveForm; 
@@ -11,22 +11,80 @@
     use backend\models\User;
     use backend\models\EventLocation;
     use backend\models\EventLocationSlots;
-    use kartik\datetime\DateTimePicker;    
+    use kartik\datetime\DateTimePicker;
 ?>
+<script>
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    //select speaker
+    function selectedSpeaker(obj){        
+            
+        var parentId = $(obj).parent().parent().parent().parent().attr("id");    
+                
+        if(parseInt(obj.value) > 0){
+                                    
+            //get spearkers
+            $.post("index.php?r=speakers/get-speaker&id="+obj.value, function( data ) {                                
+                if(parentId == undefined){
+                    $( "#eventshow-new_speaker_name" ).attr("disabled",'disabled').val( data['name'] );                
+                    $( "#eventshow-event_speaker_role_id").attr("disabled",'disabled').prop('selectedIndex', data['speaker_role_id']);
+                    $( "#eventshow-event_speaker_bio" ).attr("disabled",'disabled').val( data['speaker_details'] );
+                }else{
+                    $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("disabled").val( data['name'] );                
+                    $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', data['speaker_role_id']);
+                    $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("disabled").val( data['speaker_details'] );
+                }
+            }, "json");
+            
+        }else{
+            if(parentId == undefined){
+                $( "#eventshow-new_speaker_name").removeAttr("disabled").val('');
+                $( "#eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', '');
+                $( "#eventshow-event_speaker_bio").removeAttr("disabled").val('');            
+            }else{
+                $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("disabled").val('');                
+                $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', '');
+                $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("disabled").val('');    
+            }
+        }
+    }
+    
+    //add more speaker    
+    function addMore(obj){        
+        var createHtml = $(".can-addmore-field").html();        
+        $(".class-add-more").append("<div id='child-row-" + makeid(10) + "' class='row child-rows-can-delete'>" + createHtml + "</div>");
+        $(".class-add-more .ignore-addmore-field").html('<?= Html::a('DEL -', 'javascript://', ['class' => 'btn btn-error', 'onclick'=>'removeMore(this)']) ?>');
+        $(".class-add-more").show();
+    }
+    
+    //remove speaker
+    function removeMore(obj){
+        var divId = $(obj).parent().parent().attr('id');
+        $("#"+divId).remove();
+    }
+</script>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
-            <div class="row">
+                <div class="row">
                     <div class="col-sm-8">
-                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Topic</h4>
-                <p class="category">New Event Topic will be create</p>
-                </div>
-                <div class="col-sm-4 pull-right">
+                        <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Topic</h4>
+                        <p class="category">New Event Topic will be create</p>
+                    </div>
+                    <div class="col-sm-4 pull-right">
                         <?= Html::a('Create Event', ['events/create'], ['class' => 'btn btn-success']) ?>
                         <?= Html::a('Create Topic Type', ['event-type/create'], ['class' => 'btn btn-success']) ?>
                     </div>
-            </div>    
+                </div>    
             </div>
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
@@ -48,8 +106,8 @@
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
                     <div class="col-md-3">
-                    <?php                        
-                            $items = ArrayHelper::map(User::find()->all(), 'id', 'username');                                                
+                        <?php                        
+                            $items = ArrayHelper::map(User::find()->all(), 'id', 'firstname');                                                
                             echo $form->field($model, 'show_manage_by',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Topic Manage By' ]
@@ -58,42 +116,133 @@
                     </div>
                 </div> 
 
+                <div class="row can-addmore-field"> 
+                    <div class="col-md-2">
+                        <?php                        
+                            $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                            echo $form->field($model, 'event_speaker_id[]',[
+                            'template' => "<div class='form-group event_speaker_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Speaker', ]
+                            ])->dropDownList($items, ['prompt'=>'New', 'onchange'=>'selectedSpeaker(this)'] ); //, 'multiple'=>'multiple'
+                        ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php                        
+                            $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                            echo $form->field($model, 'new_speaker_name[]',[
+                            'template' => "<div class='form-group new_speaker_name label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
+                            ])->textInput(['maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                        ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php                        
+                            $items = ArrayHelper::map(SpeakerRole::find()->all(), 'id', 'role_name');                                                
+                            echo $form->field($model, 'event_speaker_role_id[]',[
+                            'template' => "<div class='form-group event_speaker_role_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
+                            ])->dropDownList($items, ['prompt'=>'']); //, 'multiple'=>'multiple'
+                        ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php 
+                            echo $form->field($model, 'event_speaker_bio[]',[
+                            'template' => "<div class='form-group event_speaker_bio label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Bio' ]
+                            ])->textInput(['maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                        ?>
+                    </div>
+                    <div class="col-md-1">
+                        <?php 
+                            echo $form->field($model, 'event_moderator_id[]',[
+                            'template' => "<div class='form-group event_moderator_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Is Moderator' ]
+                            ])->radio(array(
+                            'label'=>'',
+                            //'labelOptions'=>array('style'=>'padding:5px;'),
+                            //'disabled'=>true
+                            ))
+                            ->label('Moderator');
+                        ?>
+                    </div>
+                    <div class="col-md-1 ignore-addmore-field">
+                        <?= Html::a('Add +', 'javascript://', ['class' => 'btn btn-success', 'onclick'=>'addMore(this)']) ?> 
+                    </div>                    
+                </div>
+
+                <div class="class-add-more">                      
+                   <?php /* <div class="row master-row"> 
+                        <div class="col-md-2">
+                            <?php                        
+                                $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                                echo $form->field($model, 'event_speaker_id',[
+                                'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Speaker', ]
+                                ])->dropDownList($items, ['prompt'=>'New', 'onchange'=>'selectedSpeaker(this)'] ); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-2 <?=($model->id)?'if_speaker_does_not_exist':'';?>">
+                            <?php                        
+                                $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                                echo $form->field($model, 'new_speaker_name',[
+                                'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
+                                ])->textInput(['maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-2 <?=($model->id)?'if_speaker_does_not_exist':'';?>">
+                            <?php                        
+                                $items = ArrayHelper::map(SpeakerRole::find()->all(), 'id', 'role_name');                                                
+                                echo $form->field($model, 'event_speaker_role_id',[
+                                'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
+                                ])->dropDownList($items, ['prompt'=>'']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-4 <?=($model->id)?'if_speaker_does_not_exist':'';?>">
+                            <?php 
+                                echo $form->field($model, 'event_speaker_bio',[
+                                'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Bio' ]
+                                ])->textInput(['maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-1">
+                            <?php 
+                                echo $form->field($model, 'event_moderator_id',[
+                                'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Is Moderator' ]
+                                ])->checkbox(array(
+                                'label'=>'',
+                                //'labelOptions'=>array('style'=>'padding:5px;'),
+                                //'disabled'=>true
+                                ))
+                                ->label('Moderator');
+                            ?>
+                        </div>
+                        <div class="col-md-1">
+                            <?= Html::a('Remove', 'javascript://', ['class' => 'btn btn-delete', 'onclick'=>'removeMore(this)']) ?> 
+                        </div>                        
+                    </div>*/?>
+                </div>
+
                 <div class="row"> 
                     <div class="col-md-3">
                         <?php                        
-                            $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
-                            echo $form->field($model, 'event_speaker_id',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Topic Speakers' ]
-                            ])->dropDownList( $items, ['prompt'=>''] ); //, 'multiple'=>'multiple'
-                        ?>
-                    </div>                       
-                    <div class="col-md-3">
-                        <?php                        
-                            $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
-                            echo $form->field($model, 'event_moderator_id',[
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Moderator' ]
-                            ])->dropDownList( $items, ['prompt'=>''] );
-                        ?>
-
-                    </div>
-                    <div class="col-md-3">
-                    <?php                        
                             $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
                             echo $form->field($model, 'show_location_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Event Topic Hall' ]
                             ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'
-                                //get spearkers
-                                $.post("index.php?r=event-show/event-location-slot-list&id="+$(this).val(), function( data ) {
-                                $( "select#eventshow-show_location_slot_id" ).html( data );
-                                });                                
-                                '] );
+                            //get spearkers
+                            $.post("index.php?r=event-show/event-location-slot-list&id="+$(this).val(), function( data ) {
+                            $( "select#eventshow-show_location_slot_id" ).html( data );
+                            });                                
+                            '] );
                         ?>                                                
                     </div>
                     <div class="col-md-3">
-                    <?php                        
+                        <?php                        
                             $items = ArrayHelper::map(EventLocationSlots::find()->all(), 'id', 'slot_name');                                                
                             echo $form->field($model, 'show_location_slot_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
@@ -102,7 +251,7 @@
                         ?>                                                
                     </div>
                 </div>
-                                 
+
                 <div class="row">
                     <div class="col-md-3">
                         <?php
@@ -136,9 +285,9 @@
                             );                                             
 
                         ?>                                                
-                    </div>
+                    </div> 
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($model, 'show_description', [
@@ -147,9 +296,9 @@
                         ])->textArea(['maxlength' => true,'class'=>'form-control'])
                         ?>
                     </div>
-                </div>
+                </div>                
 
-                <div class="clearfix"></div>                                
+                <div class="clearfix"></div>
 
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>
                 <?php ActiveForm::end(); ?>

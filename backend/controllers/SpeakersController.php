@@ -13,10 +13,7 @@ use yii\filters\VerbFilter;
  * SpeakersController implements the CRUD actions for Speakers model.
  */
 class SpeakersController extends Controller
-{
-    /**
-     * {@inheritdoc}
-     */
+{       
     public function behaviors()
     {
         return [
@@ -28,11 +25,7 @@ class SpeakersController extends Controller
             ],
         ];
     }
-
-    /**
-     * Lists all Speakers models.
-     * @return mixed
-     */
+        
     public function actionIndex()
     {
         $searchModel = new SpeakersSearch();
@@ -43,13 +36,7 @@ class SpeakersController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    /**
-     * Displays a single Speakers model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+        
     public function actionView($id)
     {
         return $this->render('view', [
@@ -57,11 +44,6 @@ class SpeakersController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Speakers model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Speakers();
@@ -79,14 +61,7 @@ class SpeakersController extends Controller
             'model' => $model,
         ]);
     }
-
-    /**
-     * Updates an existing Speakers model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+        
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -104,28 +79,14 @@ class SpeakersController extends Controller
             'model' => $model,
         ]);
     }
-
-    /**
-     * Deletes an existing Speakers model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+        
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-
-    /**
-     * Finds the Speakers model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Speakers the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+        
     protected function findModel($id)
     {
         if (($model = Speakers::findOne($id)) !== null) {
@@ -133,5 +94,16 @@ class SpeakersController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionGetSpeaker($id){
+        if($id){
+            $returnObj = $this->findModel($id);            
+            $return['name'] = $returnObj->speaker_name;
+            $return['speaker_role_id'] = $returnObj->speaker_role_id;
+            $return['speaker_details'] = $returnObj->speaker_details;
+           
+            echo json_encode($return, true);
+        }        
     }
 }

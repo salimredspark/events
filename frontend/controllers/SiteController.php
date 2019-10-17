@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use backend\models\Events;
 
 /**
  * Site controller
@@ -76,7 +77,16 @@ class SiteController extends Controller
     public function actionIndex()
     {           
         $this->view->title = 'Redspark Events';
-        return $this->render('index');
+        
+        $active_events = Events::find()->where('(end_time >= NOW() AND start_time <= NOW()) AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy(['start_time' => SORT_ASC])->all();
+
+        //today events list
+        $todays_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) = CURDATE()')->limit(10)->offset(0)->orderBy(['start_time' => SORT_ASC])->all();        
+
+        //active but not todays events list
+        $upcoming_events = Events::find()->where('start_time >= NOW() AND DATE(start_time) <> CURDATE()')->limit(10)->offset(0)->orderBy(['start_time'=>SORT_ASC])->all();
+        
+        return $this->render('index', ['active_events'=>$active_events, 'todays_events'=>$todays_events, 'upcoming_events'=>$upcoming_events]);
     }
 
     /**

@@ -18,10 +18,7 @@ use yii\filters\VerbFilter;
 * EventShowController implements the CRUD actions for EventShow model.
 */
 class EventShowController extends Controller
-{
-    /**
-    * {@inheritdoc}
-    */
+{       
     public function behaviors()
     {
         return [
@@ -61,11 +58,6 @@ class EventShowController extends Controller
         ]);
     }
 
-
-    /**
-    * Lists all EventShow models.
-    * @return mixed
-    */
     public function actionIndex()
     {
         $searchModel = new EventShowSearch();
@@ -77,12 +69,6 @@ class EventShowController extends Controller
         ]);
     }
 
-    /**
-    * Displays a single EventShow model.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -90,11 +76,6 @@ class EventShowController extends Controller
         ]);
     }
 
-    /**
-    * Creates a new EventShow model.
-    * If creation is successful, the browser will be redirected to the 'view' page.
-    * @return mixed
-    */
     public function actionCreate()
     {
         $model = new EventShow();
@@ -119,13 +100,6 @@ class EventShowController extends Controller
         ]);
     }
 
-    /**
-    * Updates an existing EventShow model.
-    * If update is successful, the browser will be redirected to the 'view' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -136,11 +110,45 @@ class EventShowController extends Controller
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
-
             $model->start_time = $start_time;
             $model->end_time = $end_time;
             $model->updated_by = $updated_by;
             $model->save();
+            $show_id = $model->id;                                            
+            
+            //save new or exist speakers            
+            $thisTopicSpeakers=[];
+            $noOfSpeakerSelected = $eventsPost['event_speaker_id'];
+            foreach($noOfSpeakerSelected as $k => $speaker_id){                   
+                if($speaker_id){
+                    //exist speaker
+                    $thisTopicSpeakers[]=$speaker_id;                        
+                    $thisTopicSpeakersRole[$speaker_id] = $eventsPost['event_speaker_role_id'][$k];
+                }else{                      
+                    //save new speaker    
+                    $modelSpeakers = new Speakers();
+                    $modelSpeakers->speaker_name = $eventsPost['new_speaker_name'][$k];
+                    $modelSpeakers->speaker_role_id = $eventsPost['event_speaker_role_id'][$k];
+                    $modelSpeakers->speaker_details = $eventsPost['event_speaker_bio'][$k];
+                    $modelSpeakers->updated_by = $updated_by;
+                    $modelSpeakers->save();
+                    $new_speaker_id=$modelSpeakers->id;
+                    $thisTopicSpeakers[]=$new_speaker_id;
+                    $thisTopicSpeakersRole[$new_speaker_id] = $eventsPost['event_speaker_role_id'][$k];
+                }
+            }
+                        
+            //assign spekars to Show
+            IsEventSpeaker::deleteAll('event_id = '.$eventsPost['event_id']);
+            foreach($thisTopicSpeakers as $speaker_id){
+                $IsEventSpeaker = new IsEventSpeaker();
+                $IsEventSpeaker->event_id = $eventsPost['event_id'];
+                $IsEventSpeaker->event_speaker_id = $speaker_id;
+                $IsEventSpeaker->event_speaker_role_id = $thisTopicSpeakersRole[$speaker_id];
+                $IsEventSpeaker->event_location_id = $eventsPost['show_location_id'];
+                $IsEventSpeaker->event_location_slot_id = $eventsPost['show_location_slot_id'];
+                $IsEventSpeaker->save();
+            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -150,13 +158,6 @@ class EventShowController extends Controller
         ]);
     }
 
-    /**
-    * Deletes an existing EventShow model.
-    * If deletion is successful, the browser will be redirected to the 'index' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -164,13 +165,6 @@ class EventShowController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-    * Finds the EventShow model based on its primary key value.
-    * If the model is not found, a 404 HTTP exception will be thrown.
-    * @param integer $id
-    * @return EventShow the loaded model
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     protected function findModel($id)
     {
         if (($model = EventShow::findOne($id)) !== null) {
@@ -201,7 +195,7 @@ class EventShowController extends Controller
             echo "<option>-</option>";
         }
     }
-    
+
     public function actionEventLocationSlotList($id){        
         $locationSlots = EventLocationSlots::find()->where(['event_location_id'=>$id])->orderBy('slot_name ASC')->all();        
         if(count($locationSlots)){

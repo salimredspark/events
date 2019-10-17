@@ -10,60 +10,46 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Speakers;
 use backend\models\SpeakerRole;
+use yii\web\UploadedFile;
 
 /**
- * EventsController implements the CRUD actions for Events model.
- */
+* EventsController implements the CRUD actions for Events model.
+*/
 class EventsController extends Controller
 {
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+        'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+        'delete' => ['POST'],
+        ],
+        ],
         ];
     }
 
-    /**
-     * Lists all Events models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new EventsSearch();                
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
         ]);
     }
 
-    /**
-     * Displays a single Events model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+        'model' => $this->findModel($id),
         ]);
-    }
+    }  
 
-    /**
-     * Creates a new Events model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Events();
@@ -71,70 +57,75 @@ class EventsController extends Controller
         $modelSpeakerRole = new SpeakerRole();
 
         if ($model->load(Yii::$app->request->post())) {
-            
+
             $eventsPost = Yii::$app->request->post('Events'); 
             $updated_by = Yii::$app->user->identity->id;  
             
-            #$model->start_time = strtotime(Yii::$app->request->post('start_time'));
-            #$model->end_time = strtotime(Yii::$app->request->post('end_time'));
-            
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'event_banner');                        
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'events/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->event_banner = $uploadpath;
+            }            
+
             $start_time = date("Y-m-d H:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d H:i:s",strtotime($eventsPost['end_time']));
-            
+
             $model->start_time = $start_time;
             $model->end_time = $end_time;
             $model->updated_by = $updated_by;
             $model->save();
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model            
+        'model' => $model            
         ]);
-    }
+    }    
 
-    /**
-     * Updates an existing Events model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            
+
             $eventsPost = Yii::$app->request->post('Events');
-            //echo '<pre>';print_r($eventsPost);echo '</pre>';die('developer is working');
-            
             $updated_by = Yii::$app->user->identity->id;  
-                        
+
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'event_banner');            
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'events/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->event_banner = $uploadpath;
+            }
+
             $start_time = date("Y-m-d H:i:s",strtotime($eventsPost['start_time']));                        
-            $end_time = date("Y-m-d H:i:s",strtotime($eventsPost['end_time']));
-                        
+            $end_time = date("Y-m-d H:i:s",strtotime($eventsPost['end_time']));            
             $model->start_time = $start_time;
             $model->end_time = $end_time;
-            $model->updated_by = $updated_by;
+            $model->updated_by = $updated_by;                       
             $model->save();
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+        'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Events model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    * Deletes an existing Events model.
+    * If deletion is successful, the browser will be redirected to the 'index' page.
+    * @param integer $id
+    * @return mixed
+    * @throws NotFoundHttpException if the model cannot be found
+    */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -143,12 +134,12 @@ class EventsController extends Controller
     }
 
     /**
-     * Finds the Events model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Events the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    * Finds the Events model based on its primary key value.
+    * If the model is not found, a 404 HTTP exception will be thrown.
+    * @param integer $id
+    * @return Events the loaded model
+    * @throws NotFoundHttpException if the model cannot be found
+    */
     protected function findModel($id)
     {
         if (($model = Events::findOne($id)) !== null) {

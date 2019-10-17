@@ -11,7 +11,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 25px 15px 20px;
 }
 
 .footer {
@@ -117,4 +117,24 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+.events-list{
+    position:relative;
+    border-bottom: solid 1px #ddd;
+    margin-bottom: 40px;    
+    min-height: 170px;
+}
+.events-list .btn-readmore{
+    position: absolute;
+    bottom: 10px;   
+    display: block;
+}
+.dark{font-weight:bold}
+.header-image{
+    color:#fff;
+    padding:20px;
+    min-height:444px;
+    background-position:top center;
+    margin: 51px 0 0 0;
+    border-top: solid 1px #000;
 }

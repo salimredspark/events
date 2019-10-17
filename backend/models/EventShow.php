@@ -29,24 +29,21 @@ use Yii;
  */
 class EventShow extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
+    public $new_speaker_name;
+    public $event_speaker_role_id;
+    public $event_speaker_bio;
+    
+    public static function tableName(){
         return 'event_show';
     }
-
-    /**
-     * {@inheritdoc}
-     */
+        
     public function rules()
     {
         return [
-            [['show_name', 'show_location_id', 'show_location_slot_id', 'show_description', 'event_id', 'event_speaker_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'required'],
+            [['show_name', 'show_location_id', 'show_location_slot_id', 'show_description', 'event_id', 'show_manage_by', 'updated_by'], 'required'],
             [['show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
             [['show_description'], 'string'],
-            [['start_time', 'end_time'], 'safe'],
+            [['start_time', 'end_time', 'event_speaker_role_id', 'event_speaker_bio', 'new_speaker_name'], 'safe'],
             [['show_name'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -56,10 +53,7 @@ class EventShow extends \yii\db\ActiveRecord
             [['show_location_slot_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocationSlots::className(), 'targetAttribute' => ['show_location_slot_id' => 'id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
+        
     public function attributeLabels()
     {
         return [
@@ -77,50 +71,32 @@ class EventShow extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    
     public function getEvent()
     {
         return $this->hasOne(Events::className(), ['id' => 'event_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEventSpeaker()
     {
         return $this->hasOne(Speakers::className(), ['id' => 'event_speaker_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEventSpeakerRole()
     {
         return $this->hasOne(Speakers::className(), ['id' => 'event_moderator_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getShowLocation()
     {
         return $this->hasOne(EventLocation::className(), ['id' => 'show_location_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getShowLocationSlot()
     {
         return $this->hasOne(EventLocationSlots::className(), ['id' => 'show_location_slot_id']);
