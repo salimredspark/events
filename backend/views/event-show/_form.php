@@ -27,32 +27,32 @@ use yii\helpers\ArrayHelper;
     //select speaker
     function selectedSpeaker(obj){        
 
-        var parentId = $(obj).parent().parent().parent().parent().attr("id");    
-
+        var parentId = $(obj).parent().parent().parent().parent().parent().attr("id");    
+        
         if(parseInt(obj.value) > 0){
 
             //get spearkers
             $.post("index.php?r=speakers/get-speaker&id="+obj.value, function( data ) {                                
                 if(parentId == undefined){
-                    $( "#eventshow-new_speaker_name" ).attr("disabled",'disabled').val( data['name'] );                
-                    $( "#eventshow-event_speaker_role_id").attr("disabled",'disabled').prop('selectedIndex', data['speaker_role_id']);
-                    $( "#eventshow-event_speaker_bio" ).attr("disabled",'disabled').val( data['speaker_details'] );
+                    $( "#eventshow-new_speaker_name" ).attr("readonly",'readonly').val( data['name'] );                
+                    $( "#eventshow-event_speaker_role_id").attr("readonly",'readonly').prop('selectedIndex', data['speaker_role_id']);
+                    $( "#eventshow-event_speaker_bio" ).attr("readonly",'readonly').val( data['speaker_details'] );
                 }else{
-                    $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("disabled").val( data['name'] );                
-                    $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', data['speaker_role_id']);
-                    $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("disabled").val( data['speaker_details'] );
+                    $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("readonly").val( data['name'] );                
+                    $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("readonly").prop('selectedIndex', data['speaker_role_id']);
+                    $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("readonly").val( data['speaker_details'] );
                 }
             }, "json");
 
         }else{
             if(parentId == undefined){
-                $( "#eventshow-new_speaker_name").removeAttr("disabled").val('');
-                $( "#eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', '');
-                $( "#eventshow-event_speaker_bio").removeAttr("disabled").val('');            
+                $( "#eventshow-new_speaker_name").removeAttr("readonly").val('');
+                $( "#eventshow-event_speaker_role_id").removeAttr("readonly").prop('selectedIndex', '');
+                $( "#eventshow-event_speaker_bio").removeAttr("readonly").val('');            
             }else{
-                $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("disabled").val('');                
-                $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("disabled").prop('selectedIndex', '');
-                $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("disabled").val('');    
+                $( "#"+parentId + " #eventshow-new_speaker_name" ).removeAttr("readonly").val('');                
+                $( "#"+parentId + " #eventshow-event_speaker_role_id").removeAttr("readonly").prop('selectedIndex', '');
+                $( "#"+parentId + " #eventshow-event_speaker_bio" ).removeAttr("readonly").val('');    
             }
         }
     }

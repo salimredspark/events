@@ -32,8 +32,8 @@ class EventShow extends \yii\db\ActiveRecord
     public $new_speaker_name;
     public $event_speaker_role_id;
     public $event_speaker_bio;
-    public $event_speaker_hotel_id;
-    
+    public $event_speaker_id;
+        
     public static function tableName(){
         return 'event_show';
     }
@@ -42,13 +42,13 @@ class EventShow extends \yii\db\ActiveRecord
     {
         return [
             [['show_name', 'show_location_id', 'show_location_slot_id', 'show_description', 'event_id', 'show_manage_by', 'updated_by'], 'required'],
-            [['show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
+            [['show_location_id', 'show_location_slot_id', 'event_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
             [['show_description'], 'string'],
-            [['start_time', 'end_time', 'event_speaker_role_id', 'event_speaker_bio', 'new_speaker_name','event_speaker_hotel_id'], 'safe'],
+            [['start_time', 'end_time', 'event_speaker_id', 'event_speaker_role_id', 'event_speaker_bio', 'new_speaker_name'], 'safe'],
             [['show_name'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-            [['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],
+            //[['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],
             [['event_moderator_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_moderator_id' => 'id']],
             [['show_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['show_location_id' => 'id']],
             [['show_location_slot_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocationSlots::className(), 'targetAttribute' => ['show_location_slot_id' => 'id']],
@@ -66,7 +66,7 @@ class EventShow extends \yii\db\ActiveRecord
             'start_time' => 'Start Time',
             'end_time' => 'End Time',
             'event_id' => 'Event ID',
-            'event_speaker_id' => 'Event Speaker ID',
+            //'event_speaker_id' => 'Event Speaker ID',
             'event_moderator_id' => 'Event Moderator',
             'show_manage_by' => 'Show Manage By',
             'updated_by' => 'Updated By',

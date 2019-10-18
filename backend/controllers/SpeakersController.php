@@ -4,7 +4,10 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Speakers;
+use backend\models\EventShow;
 use backend\models\SpeakersSearch;
+use backend\models\IsEventSpeaker;
+use backend\models\SpeakerAccommodation;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -105,5 +108,19 @@ class SpeakersController extends Controller
            
             echo json_encode($return, true);
         }        
+    }
+    
+    public function actionAccommodation($id){
+        
+        $model = new SpeakerAccommodation;
+        $modelEventShow = EventShow::findOne($id);          
+        $modelIsEventSpeaker = IsEventSpeaker::find(['show_id',$model->id])->all();
+                
+        return $this->render('speaker_accommodation', [
+            'model' => $model,
+            'modelEventShow' => $modelEventShow,
+            'modelIsEventSpeaker' => $modelIsEventSpeaker,
+        ]); 
+          
     }
 }

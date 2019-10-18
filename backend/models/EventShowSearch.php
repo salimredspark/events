@@ -17,7 +17,7 @@ class EventShowSearch extends EventShow
     public function rules()
     {
         return [
-            [['id', 'show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
+            [['id', 'show_location_id', 'show_location_slot_id', 'event_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
             [['show_name', 'show_description', 'start_time', 'end_time'], 'safe'],
         ];
     }
@@ -64,7 +64,7 @@ class EventShowSearch extends EventShow
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'event_id' => $this->event_id,
-            'event_speaker_id' => $this->event_speaker_id,
+            //'event_speaker_id' => $this->event_speaker_id,
             'event_moderator_id' => $this->event_moderator_id,
             'show_manage_by' => $this->show_manage_by,
             'updated_by' => $this->updated_by,

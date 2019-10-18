@@ -36,13 +36,14 @@ class IsEventSpeaker extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'required'],
-            [['event_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'integer'],
+            [['event_id', 'show_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'required'],
+            [['event_id',  'show_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'integer'],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],
             [['event_speaker_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => SpeakerRole::className(), 'targetAttribute' => ['event_speaker_role_id' => 'id']],
             [['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
             [['event_location_slot_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocationSlots::className(), 'targetAttribute' => ['event_location_slot_id' => 'id']],
+            [['show_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventShow::className(), 'targetAttribute' => ['show_id' => 'id']],
         ];
     }
 

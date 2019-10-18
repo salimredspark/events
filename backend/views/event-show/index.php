@@ -80,7 +80,16 @@
                             return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>User::findOne($data->updated_by)->id],['target'=>'_blank']); // $data['name'] for array data, e.g. using SqlDataProvider.
                         },
                     ],
-                    ['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\ActionColumn',
+                    'template'=>'{speaker} {view} {update} {delete}',
+                    'contentOptions' => ['style' => 'width: 8.7%'],
+                    'visible'=> Yii::$app->user->isGuest ? false : true,
+                    'buttons'=>[        
+                        'speaker'=>function ($url, $model) {
+                            $t = 'index.php?r=speakers/accommodation&id='.$model->id;
+                            return  Html::a('<span class="glyphicon glyphicon-user"></span>', $t, ['title' => Yii::t('yii', 'View')]);
+                        },
+                    ]],
                 ],
             ]); ?>
 
