@@ -35,15 +35,19 @@ class EventShowController extends Controller
         $model = new EventShow();
 
         //search event show
-        if ($model->load(Yii::$app->request->post())) {
-            $post = Yii::$app->request->post()['EventShow'];
-            #$eventsAll = Events::find(['id', $post['event_id']])->all();
-
+        if ($model->load(Yii::$app->request->post()) || Yii::$app->session->get('global_event_id')) {                        
+            $event_id = Yii::$app->session->get('global_event_id');
+            if(!$event_id){
+                $post = Yii::$app->request->post()['EventShow'];
+               $event_id = $post['event_id'];
+            }
+            
+            
             $searchModel = new EventShowSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->query->andWhere('event_id = '.$post['event_id']);
+            $dataProvider->query->andWhere('event_id = '.$event_id);
 
-            $event_name = Events::findOne($post['event_id'])->event_name;
+            $event_name = Events::findOne($event_id)->event_name;
 
             return $this->render('index', [
             'event_name'=> $event_name,             

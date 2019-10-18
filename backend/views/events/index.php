@@ -21,6 +21,7 @@
                     <div class="col-sm-3 pull-right">
                         <?= Html::a('Create Event', ['create'], ['class' => 'btn btn-success']) ?>
                         <?= Html::a('Create Topic', ['event-show/create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Topic List', ['event-show/search-event'], ['class' => 'btn btn-success']) ?>
                     </div>
                 </div>
             </div>

@@ -32,6 +32,7 @@ class EventShow extends \yii\db\ActiveRecord
     public $new_speaker_name;
     public $event_speaker_role_id;
     public $event_speaker_bio;
+    public $event_speaker_hotel_id;
     
     public static function tableName(){
         return 'event_show';
@@ -43,7 +44,7 @@ class EventShow extends \yii\db\ActiveRecord
             [['show_name', 'show_location_id', 'show_location_slot_id', 'show_description', 'event_id', 'show_manage_by', 'updated_by'], 'required'],
             [['show_location_id', 'show_location_slot_id', 'event_id', 'event_speaker_id', 'event_moderator_id', 'show_manage_by', 'updated_by'], 'integer'],
             [['show_description'], 'string'],
-            [['start_time', 'end_time', 'event_speaker_role_id', 'event_speaker_bio', 'new_speaker_name'], 'safe'],
+            [['start_time', 'end_time', 'event_speaker_role_id', 'event_speaker_bio', 'new_speaker_name','event_speaker_hotel_id'], 'safe'],
             [['show_name'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
