@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2019 at 03:33 PM
+-- Generation Time: Oct 21, 2019 at 02:53 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -193,24 +193,47 @@ INSERT INTO `exhibitors` (`id`, `user_id`, `gender`, `birthdate`, `company_name`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hotels`
+-- Table structure for table `general_category`
 --
 
-CREATE TABLE `hotels` (
+CREATE TABLE `general_category` (
   `id` int(11) NOT NULL,
-  `hotel_name` varchar(255) NOT NULL,
-  `hotel_address` varchar(255) NOT NULL,
-  `hotel_website` varchar(255) NOT NULL,
-  `hotel_detail` text NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `category_detail` text NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hotels`
+-- Dumping data for table `general_category`
 --
 
-INSERT INTO `hotels` (`id`, `hotel_name`, `hotel_address`, `hotel_website`, `hotel_detail`, `updated_by`) VALUES
-(1, 'Taj', 'Mumbai', 'www.tajhotel.com', 'This is Taj Hotel', 1);
+INSERT INTO `general_category` (`id`, `category_name`, `category_detail`, `updated_by`) VALUES
+(1, 'Pic From', 'Airport, Railway Station, Bus Stand', 1),
+(2, 'Hotel', 'All Hotels', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `general_vendor`
+--
+
+CREATE TABLE `general_vendor` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `vendor_name` varchar(255) NOT NULL,
+  `vendor_website` varchar(255) NOT NULL,
+  `vendor_detail` text NOT NULL,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `general_vendor`
+--
+
+INSERT INTO `general_vendor` (`id`, `category_id`, `vendor_name`, `vendor_website`, `vendor_detail`, `updated_by`) VALUES
+(1, 2, 'Millennium Restaurant', 'millres.com', 'Address: 1st floor, Above Chatkaaz vadapao, Abbas Tyabji Rd, opp. Methodist (RED )Church, Vadodara, Gujarat 390002\r\nHours: Open ? Closes 10:45PM\r\nPhone: 0265 278 8435', 1),
+(2, 2, 'Rangoli Restaurant', '', 'Restaurant offering international and Indian buffets, banqueting and home deliveries.\r\nAddress: Abbas Tyabji Rd, opposite Methodist Church, Jayesh Colony, Fatehgunj, Vadodara, Gujarat 390002\r\nHours: Open ? Closes 11PM\r\n\r\nPhone: 090999 72140', 1),
+(3, 1, 'Airport - Tejas Tour And Travels', '', 'Airport - Tejas Tour And Travels', 1);
 
 -- --------------------------------------------------------
 
@@ -335,13 +358,21 @@ CREATE TABLE `speaker_accommodation` (
   `id` int(11) NOT NULL,
   `speaker_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `show_id` int(11) NOT NULL,
-  `category_name` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `vendor_id` int(11) NOT NULL,
   `category_item` varchar(255) NOT NULL,
   `category_item_qty` varchar(255) NOT NULL,
   `manage_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `speaker_accommodation`
+--
+
+INSERT INTO `speaker_accommodation` (`id`, `speaker_id`, `event_id`, `category_id`, `vendor_id`, `category_item`, `category_item_qty`, `manage_by`, `updated_by`) VALUES
+(1, 1, 1, 1, 1, 'Room', '1', 1, 1),
+(2, 1, 1, 2, 1, 'resort item', '5', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -479,10 +510,18 @@ ALTER TABLE `exhibitors`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `hotels`
+-- Indexes for table `general_category`
 --
-ALTER TABLE `hotels`
+ALTER TABLE `general_category`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `updated_by` (`updated_by`);
+
+--
+-- Indexes for table `general_vendor`
+--
+ALTER TABLE `general_vendor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`),
   ADD KEY `updated_by` (`updated_by`);
 
 --
@@ -532,9 +571,10 @@ ALTER TABLE `speaker_accommodation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `event_id` (`event_id`),
   ADD KEY `manage_by` (`manage_by`),
-  ADD KEY `show_id` (`show_id`),
   ADD KEY `speaker_id` (`speaker_id`),
-  ADD KEY `updated_by` (`updated_by`);
+  ADD KEY `updated_by` (`updated_by`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `vendor_id` (`vendor_id`);
 
 --
 -- Indexes for table `speaker_role`
@@ -600,10 +640,16 @@ ALTER TABLE `exhibitors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `hotels`
+-- AUTO_INCREMENT for table `general_category`
 --
-ALTER TABLE `hotels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `general_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `general_vendor`
+--
+ALTER TABLE `general_vendor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `is_event_exhibitors`
@@ -633,7 +679,7 @@ ALTER TABLE `speakers`
 -- AUTO_INCREMENT for table `speaker_accommodation`
 --
 ALTER TABLE `speaker_accommodation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `speaker_role`
@@ -700,10 +746,17 @@ ALTER TABLE `exhibitors`
   ADD CONSTRAINT `exhibitors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `hotels`
+-- Constraints for table `general_category`
 --
-ALTER TABLE `hotels`
-  ADD CONSTRAINT `hotels_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+ALTER TABLE `general_category`
+  ADD CONSTRAINT `general_category_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `general_vendor`
+--
+ALTER TABLE `general_vendor`
+  ADD CONSTRAINT `general_vendor_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `general_category` (`id`),
+  ADD CONSTRAINT `general_vendor_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `is_event_exhibitors`
@@ -736,9 +789,10 @@ ALTER TABLE `speakers`
 ALTER TABLE `speaker_accommodation`
   ADD CONSTRAINT `speaker_accommodation_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
   ADD CONSTRAINT `speaker_accommodation_ibfk_2` FOREIGN KEY (`manage_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `speaker_accommodation_ibfk_3` FOREIGN KEY (`show_id`) REFERENCES `event_show` (`id`),
   ADD CONSTRAINT `speaker_accommodation_ibfk_4` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`),
-  ADD CONSTRAINT `speaker_accommodation_ibfk_5` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `speaker_accommodation_ibfk_5` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `speaker_accommodation_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `general_category` (`id`),
+  ADD CONSTRAINT `speaker_accommodation_ibfk_7` FOREIGN KEY (`vendor_id`) REFERENCES `general_vendor` (`id`);
 
 --
 -- Constraints for table `speaker_role`
