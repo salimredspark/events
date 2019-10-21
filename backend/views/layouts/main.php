@@ -87,14 +87,14 @@ use backend\assets\AppAsset;
                                                 <p>Event Topic</p>
                                             </a>
                                         </li>
-                                       <?php /*
+                                       
                                         <li class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['is-event-speaker/search-event']);?>">
                                                 <i class="material-icons">event_available</i>
-                                                <p>Event Speakers</p>
+                                                <p>Event Speaker</p>
                                             </a>
                                         </li>
-                                        */?>
+                                       
                                         <li class="<?=($controller=='event-type')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['event-type/index']);?>">
                                                 <i class="material-icons">event_available</i>
@@ -115,18 +115,26 @@ use backend\assets\AppAsset;
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="<?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'active':'';?>">
+                                <li class="<?=((strpos($controller,'speaker') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'active':'';?>">
                                     <a href="<?=Url::to(['speakers/index']);?>">
                                         <i class="material-icons">mice</i>
                                         <p>Speakers</p>
                                     </a>
                                     <ul class="sub-menu">                                    
-                                        <li class="<?=($controller=='speakers')?'sub-active':'';?>">
+                                        <li class="<?=($controller=='speakers' && $controllerAction=='index')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['speakers/index']);?>">
                                                 <i class="material-icons">event_available</i>
                                                 <p>Speaker List</p>
                                             </a>
                                         </li>
+                                       
+                                        <li class="<?=($controller=='speaker-accommodation')?'sub-active':'';?>">
+                                            <a href="<?=Url::to(['speaker-accommodation/index']);?>">
+                                                <i class="material-icons">event_available</i>
+                                                <p>Accommodation</p>
+                                            </a>
+                                        </li>
+                                       
                                         <li class="<?=($controller=='speaker-role')?'sub-active':'';?>">
                                             <a href="<?=Url::to(['speaker-role/index']);?>">
                                                 <i class="material-icons">event_available</i>
@@ -168,6 +176,28 @@ use backend\assets\AppAsset;
                                     </a>
                                 </li>
                                 <?php }?>
+                                
+                                <li class="<?=(strpos($controller,'general-category') !== false || strpos($controller,'general-vendor')!== false )?'active':'';?>">
+                                    <a href="<?=Url::to(['general-category/index']);?>">
+                                        <i class="material-icons">settings_applications</i>
+                                        <p>General</p>
+                                    </a>
+                                    <ul class="sub-menu">                                    
+                                        <li class="<?=($controller=='general-category')?'sub-active':'';?>">
+                                            <a href="<?=Url::to(['general-category/index']);?>">
+                                                <i class="material-icons">event_available</i>
+                                                <p>Category List</p>
+                                            </a>
+                                        </li>
+                                        <li class="<?=($controller=='general-vendor')?'sub-active':'';?>">
+                                            <a href="<?=Url::to(['general-vendor/index']);?>">
+                                                <i class="material-icons">event_available</i>
+                                                <p>Vendor List</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
                             <?php if($loginType == 'superadmin'){?>
                                 <li class="<?=($controller=='settings')?'active':'';?>">
                                     <a href="<?=Url::to(['settings/index']);?>">
@@ -245,6 +275,7 @@ use backend\assets\AppAsset;
                                     <?php }?>    
                                 <?php if(in_array($loginType, $allowLoginType)){?>
                                     <a class="navbar-brand <?=(strpos($controller,'event') !== false && strpos($controller,'exhibitors') === false )?'top-menu-active dark':'';?>" href="<?= Url::to(['events/index']);?>">Events</a>
+                                    <a class="navbar-brand <?=(strpos($controller,'accommodation') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['speaker-accommodation/index']);?>">Accommodation</a>
                                     <a class="navbar-brand <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'hotels') !== false ))?'top-menu-active dark':'';?>" href="<?= Url::to(['speakers/index']);?>">Speakers</a>
                                     <a class="navbar-brand <?=(strpos($controller,'exhibitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['exhibitors/index']);?>">Exhibitors</a>
                                     <a class="navbar-brand <?=(strpos($controller,'visitors') !== false )?'top-menu-active dark':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>

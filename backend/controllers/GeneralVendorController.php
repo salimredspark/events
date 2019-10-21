@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Hotels;
-use backend\models\HotelsSearch;
+use backend\models\GeneralVendor;
+use backend\models\GeneralVendorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * HotelsController implements the CRUD actions for Hotels model.
+ * GeneralVendorController implements the CRUD actions for GeneralVendor model.
  */
-class HotelsController extends Controller
+class GeneralVendorController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class HotelsController extends Controller
     }
 
     /**
-     * Lists all Hotels models.
+     * Lists all GeneralVendor models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new HotelsSearch();
+        $searchModel = new GeneralVendorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class HotelsController extends Controller
     }
 
     /**
-     * Displays a single Hotels model.
+     * Displays a single GeneralVendor model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,17 +58,17 @@ class HotelsController extends Controller
     }
 
     /**
-     * Creates a new Hotels model.
+     * Creates a new GeneralVendor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Hotels();
+        $model = new GeneralVendor();
 
         if ($model->load(Yii::$app->request->post())) {
             
-            $updated_by = Yii::$app->user->identity->id;                          
+            $updated_by = Yii::$app->user->identity->id;  
             $model->updated_by = $updated_by;
             $model->save();
             
@@ -81,7 +81,7 @@ class HotelsController extends Controller
     }
 
     /**
-     * Updates an existing Hotels model.
+     * Updates an existing GeneralVendor model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,9 +93,10 @@ class HotelsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             
-            $updated_by = Yii::$app->user->identity->id;                          
+            $updated_by = Yii::$app->user->identity->id;  
             $model->updated_by = $updated_by;
             $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -105,7 +106,7 @@ class HotelsController extends Controller
     }
 
     /**
-     * Deletes an existing Hotels model.
+     * Deletes an existing GeneralVendor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,18 +120,29 @@ class HotelsController extends Controller
     }
 
     /**
-     * Finds the Hotels model based on its primary key value.
+     * Finds the GeneralVendor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Hotels the loaded model
+     * @return GeneralVendor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Hotels::findOne($id)) !== null) {
+        if (($model = GeneralVendor::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionGetVendor($id){
+        $locationSlots = GeneralVendor::find()->where(['category_id'=>$id])->orderBy('vendor_name ASC')->all();        
+        if(count($locationSlots)){
+            foreach($locationSlots as $locationSlot){
+                echo "<option value='".$locationSlot->id."'>".$locationSlot->vendor_name."</option>";
+            }
+        }else{
+            echo "<option>-</option>";
+        }
     }
 }

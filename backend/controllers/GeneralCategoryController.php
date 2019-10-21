@@ -3,22 +3,20 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Events;
-use backend\models\Speakers;
-use backend\models\EventShow;
-use backend\models\SpeakersSearch;
-use backend\models\IsEventSpeaker;
-use backend\models\SpeakerAccommodation;
 use backend\models\GeneralCategory;
+use backend\models\GeneralCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SpeakersController implements the CRUD actions for Speakers model.
+ * GeneralCategoryController implements the CRUD actions for GeneralCategory model.
  */
-class SpeakersController extends Controller
-{       
+class GeneralCategoryController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
@@ -30,10 +28,14 @@ class SpeakersController extends Controller
             ],
         ];
     }
-        
+
+    /**
+     * Lists all GeneralCategory models.
+     * @return mixed
+     */
     public function actionIndex()
     {
-        $searchModel = new SpeakersSearch();
+        $searchModel = new GeneralCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -41,7 +43,13 @@ class SpeakersController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-        
+
+    /**
+     * Displays a single GeneralCategory model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -49,16 +57,20 @@ class SpeakersController extends Controller
         ]);
     }
 
+    /**
+     * Creates a new GeneralCategory model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionCreate()
     {
-        $model = new Speakers();
+        $model = new GeneralCategory();
 
         if ($model->load(Yii::$app->request->post())) {
             
             $updated_by = Yii::$app->user->identity->id;  
             $model->updated_by = $updated_by;
             $model->save();
-            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -66,7 +78,14 @@ class SpeakersController extends Controller
             'model' => $model,
         ]);
     }
-        
+
+    /**
+     * Updates an existing GeneralCategory model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -84,31 +103,34 @@ class SpeakersController extends Controller
             'model' => $model,
         ]);
     }
-        
+
+    /**
+     * Deletes an existing GeneralCategory model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-        
+
+    /**
+     * Finds the GeneralCategory model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return GeneralCategory the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     protected function findModel($id)
     {
-        if (($model = Speakers::findOne($id)) !== null) {
+        if (($model = GeneralCategory::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-    
-    public function actionGetSpeaker($id){
-        if($id){
-            $returnObj = $this->findModel($id);            
-            $return['name'] = $returnObj->speaker_name;
-            $return['speaker_role_id'] = $returnObj->speaker_role_id;
-            $return['speaker_details'] = $returnObj->speaker_details;
-           
-            echo json_encode($return, true);
-        }        
     }
 }

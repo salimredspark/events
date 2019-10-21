@@ -10,8 +10,8 @@ use Yii;
  * @property int $id
  * @property int $speaker_id
  * @property int $event_id
- * @property int $show_id
- * @property string $category_name
+ * @property int $category_id
+ * @property int $vendor_id
  * @property string $category_item
  * @property string $category_item_qty
  * @property int $manage_by
@@ -19,9 +19,10 @@ use Yii;
  *
  * @property Events $event
  * @property User $manageBy
- * @property EventShow $show
  * @property Speakers $speaker
  * @property User $updatedBy
+ * @property GeneralCategory $category
+ * @property GeneralVendor $vendor
  */
 class SpeakerAccommodation extends \yii\db\ActiveRecord
 {
@@ -39,14 +40,15 @@ class SpeakerAccommodation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['speaker_id', 'event_id', 'show_id', 'category_name', 'category_item', 'category_item_qty', 'manage_by', 'updated_by'], 'required'],
-            [['speaker_id', 'event_id', 'show_id', 'manage_by', 'updated_by'], 'integer'],
-            [['category_name', 'category_item', 'category_item_qty'], 'string', 'max' => 255],
+            [['speaker_id', 'event_id', 'category_id', 'vendor_id', 'category_item', 'category_item_qty', 'manage_by', 'updated_by'], 'required'],
+            [['speaker_id', 'event_id', 'category_id', 'vendor_id', 'manage_by', 'updated_by'], 'integer'],
+            [['category_item', 'category_item_qty'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['manage_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['manage_by' => 'id']],
-            [['show_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventShow::className(), 'targetAttribute' => ['show_id' => 'id']],
             [['speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['speaker_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => GeneralCategory::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => GeneralVendor::className(), 'targetAttribute' => ['vendor_id' => 'id']],
         ];
     }
 
@@ -59,8 +61,8 @@ class SpeakerAccommodation extends \yii\db\ActiveRecord
             'id' => 'ID',
             'speaker_id' => 'Speaker ID',
             'event_id' => 'Event ID',
-            'show_id' => 'Show ID',
-            'category_name' => 'Category Name',
+            'category_id' => 'Category ID',
+            'vendor_id' => 'Vendor ID',
             'category_item' => 'Category Item',
             'category_item_qty' => 'Category Item Qty',
             'manage_by' => 'Manage By',
@@ -87,14 +89,6 @@ class SpeakerAccommodation extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getShow()
-    {
-        return $this->hasOne(EventShow::className(), ['id' => 'show_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSpeaker()
     {
         return $this->hasOne(Speakers::className(), ['id' => 'speaker_id']);
@@ -106,5 +100,21 @@ class SpeakerAccommodation extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(GeneralCategory::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVendor()
+    {
+        return $this->hasOne(GeneralVendor::className(), ['id' => 'vendor_id']);
     }
 }

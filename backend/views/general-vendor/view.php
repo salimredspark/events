@@ -1,15 +1,18 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\User; 
+use backend\models\GeneralCategory; 
 
-$this->title = $model->hotel_name;
-$this->params['breadcrumbs'][] = ['label' => 'Hotels', 'url' => ['index']];
+$this->title = $model->vendor_name;
+$this->params['breadcrumbs'][] = ['label' => 'General Vendors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 
 <div class="user-view">
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -17,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-sm-6">
                             <h4 class="title"><?= Html::encode($this->title) ?></h4>
-                            <p class="category">View Hotel</p>
+                            <p class="category">View Vendor</p>
                         </div>
                         <div class="col-sm-4 pull-right">
                             <?php
@@ -41,14 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'hotel_name',
-            'hotel_address',
-            'hotel_detail:ntext',            
+            //'category_id',
+            array(
+                            'attribute'=>'Category',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(GeneralCategory::findOne($model->category_id)->category_name, ['general-category/view', 'id'=>$model->category_id],['target'=>'_blank'])
+                            ),
+            'vendor_name',
+            'vendor_website',
              array(
                             'attribute'=>'updated_by',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                            'value'=>Html::a(ucfirst(User::findOne($model->updated_by)->username), ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
                             ),
+                            'vendor_detail:ntext',
         ],
     ]) ?>
     
@@ -60,4 +69,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
  

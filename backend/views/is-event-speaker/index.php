@@ -77,7 +77,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                     ],*/
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        ['class' => 'yii\grid\ActionColumn',
+                        'template'=>'{speaker} {view} {update} {delete}',
+                    'contentOptions' => ['style' => 'width: 8.7%'],
+                    'visible'=> Yii::$app->user->isGuest ? false : true,
+                    'buttons'=>[        
+                        'speaker'=>function ($url, $model) {
+                            //echo '<pre>';print_r($model);echo '</pre>';die('developer is working');
+                            //return $model->event_speaker_id;
+                            $t = 'index.php?r=speaker-accommodation/accommodation&speaker_id='.$model->event_speaker_id.'&event_id='.$model->event_id;
+                            return  Html::a('<span class="glyphicon glyphicon-user"></span>', $t, ['title' => Yii::t('yii', 'View')]);
+                        },
+                    ]],
                     ],
                 ]); ?>
 

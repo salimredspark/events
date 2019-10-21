@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Hotels;
+use backend\models\SpeakerAccommodation;
 
 /**
- * HotelsSearch represents the model behind the search form of `backend\models\Hotels`.
+ * SpeakerAccommodationSearch represents the model behind the search form of `backend\models\SpeakerAccommodation`.
  */
-class HotelsSearch extends Hotels
+class SpeakerAccommodationSearch extends SpeakerAccommodation
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class HotelsSearch extends Hotels
     public function rules()
     {
         return [
-            [['id', 'updated_by'], 'integer'],
-            [['hotel_name', 'hotel_address', 'hotel_website', 'hotel_detail'], 'safe'],
+            [['id', 'speaker_id', 'event_id', 'category_id', 'vendor_id', 'manage_by', 'updated_by'], 'integer'],
+            [['category_item', 'category_item_qty'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class HotelsSearch extends Hotels
      */
     public function search($params)
     {
-        $query = Hotels::find()->orderBy('id',SORT_DESC);
+        $query = SpeakerAccommodation::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +59,16 @@ class HotelsSearch extends Hotels
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'speaker_id' => $this->speaker_id,
+            'event_id' => $this->event_id,
+            'category_id' => $this->category_id,
+            'vendor_id' => $this->vendor_id,
+            'manage_by' => $this->manage_by,
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'hotel_name', $this->hotel_name])
-            ->andFilterWhere(['like', 'hotel_address', $this->hotel_address])
-            ->andFilterWhere(['like', 'hotel_website', $this->hotel_website])
-            ->andFilterWhere(['like', 'hotel_detail', $this->hotel_detail]);
+        $query->andFilterWhere(['like', 'category_item', $this->category_item])
+            ->andFilterWhere(['like', 'category_item_qty', $this->category_item_qty]);
 
         return $dataProvider;
     }

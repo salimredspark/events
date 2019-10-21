@@ -81,7 +81,7 @@
                         },
                     ],
                     ['class' => 'yii\grid\ActionColumn',
-                    'template'=>'{speaker} {view} {update} {delete}',
+                    /*'template'=>'{speaker} {view} {update} {delete}',
                     'contentOptions' => ['style' => 'width: 8.7%'],
                     'visible'=> Yii::$app->user->isGuest ? false : true,
                     'buttons'=>[        
@@ -89,7 +89,7 @@
                             $t = 'index.php?r=speakers/accommodation&id='.$model->id;
                             return  Html::a('<span class="glyphicon glyphicon-user"></span>', $t, ['title' => Yii::t('yii', 'View')]);
                         },
-                    ]],
+                    ]*/],
                 ],
             ]); ?>
 
