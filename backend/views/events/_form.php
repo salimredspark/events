@@ -102,7 +102,13 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <?= $form->field($model, 'event_banner')->fileInput()?>                                                
+                        <?php
+                        echo $form->field($model, 'event_banner')->fileInput();
+                        if(!empty($model->event_banner)){
+                            echo Html::a('View Image', '../../uploads/'.$model->event_banner,['target'=>'_blank']);
+                            //echo Html::img('../../uploads/'.$model->company_logo, ['width'=>'100px']);
+                        }
+                        ?>
                     </div>
                 </div>
 

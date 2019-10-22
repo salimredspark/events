@@ -9,10 +9,8 @@ use backend\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
-/**
-* ExhibitorsController implements the CRUD actions for Exhibitors model.
-*/
 class ExhibitorsController extends Controller
 {
     /**
@@ -83,6 +81,15 @@ class ExhibitorsController extends Controller
             $userModel->save(); 
             $last_insert_userid = $userModel->id;                     
             
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'company_logo');                        
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'exhibitors/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->company_logo = $uploadpath;
+            } 
+            
             //save Exhibitors
             $post = Yii::$app->request->post('Exhibitors');              
             $model->user_id = $last_insert_userid; 
@@ -126,7 +133,17 @@ class ExhibitorsController extends Controller
                 $userModel->password_hash = $old_password;
             }else{
                 $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
-            }            
+            }             
+            
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'company_logo');                        
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'exhibitors/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->company_logo = $uploadpath;
+            }
+                                     
             $userModel->updated_at = date("Y-m-d H:i:s");
             $userModel->updated_by = $updated_by;
             $userModel->save();

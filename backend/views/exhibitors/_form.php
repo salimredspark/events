@@ -15,7 +15,7 @@ use backend\models\Settings;
                 <p class="category">Exhibitor will be create</p>
             </div>
             <div class="card-content">
-                <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
                     <div class="col-md-3">
                         <?= $form->field($userModel, 'firstname', [
@@ -38,15 +38,15 @@ use backend\models\Settings;
                             ])->dropDownList( $items, ['prompt'=>''] );                            
                         ?>
                     </div>
-                    <?php /*<div class="col-md-3">                     
-                         <?php 
-                         $day = '-18y';
-                            echo $form->field($model, 'birthdate', [
-                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                            'labelOptions' => [ 'class' => 'control-label', 'label' =>'Birthdate'  ]
-                            ])->widget(DatePicker::classname(), ['dateFormat' => 'php:M d, Y', 'options' => ['readonly' => true], 'clientOptions' => [ 'changeMonth' => true, 'changeYear' => true, 'yearRange' => '1970:'.date('Y'), 'maxDate' => $day]])                              
+                    <div class="col-md-3">                    
+                        <?php
+                        echo $form->field($model, 'company_logo')->fileInput();
+                        if(!empty($model->company_logo)){
+                            echo Html::a('View Image', '../../uploads/'.$model->company_logo,['target'=>'_blank']);
+                            //echo Html::img('../../uploads/'.$model->company_logo, ['width'=>'100px']);
+                        }
                         ?>
-                    </div>*/?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -69,6 +69,14 @@ use backend\models\Settings;
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                    <?= $form->field($model, 'company_detail', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textArea(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>
+                    </div>
+                <div class="row">
                     <div class="col-md-3">
                         <?= $form->field($userModel, 'username', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
@@ -88,7 +96,7 @@ use backend\models\Settings;
                         ])->passwordInput(['maxlength' => true,'class'=>'form-control','value'=>''])?>
                     </div>                     
                 </div>                
-
+                   
                 <div class="clearfix"></div>                                
 
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>

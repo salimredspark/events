@@ -50,6 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute'=>'birthdate',                                
                             'value'=>Settings::getConfigDateTime($model->birthdate, 'number', 'date')
                             ),*/
+                             array(
+                            'attribute'=>'Company Logo',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$model->company_logo,['target'=>'_blank'])
+                            ),
                             'company_name',
                             'company_site_url',
                             'company_address',
@@ -64,6 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',                                
                             'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
                             ),
+                            'company_detail:ntext',
                             ],
                             ]) ?>
 

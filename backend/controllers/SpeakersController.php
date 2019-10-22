@@ -13,10 +13,8 @@ use backend\models\GeneralCategory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
-/**
- * SpeakersController implements the CRUD actions for Speakers model.
- */
+use yii\web\UploadedFile;
+               
 class SpeakersController extends Controller
 {       
     public function behaviors()
@@ -56,6 +54,16 @@ class SpeakersController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             
             $updated_by = Yii::$app->user->identity->id;  
+            
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'speaker_image');                        
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'speakers/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->speaker_image = $uploadpath;
+            } 
+            
             $model->updated_by = $updated_by;
             $model->save();
             
@@ -74,6 +82,16 @@ class SpeakersController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             
             $updated_by = Yii::$app->user->identity->id;  
+            
+            //upload files
+            $uploadObj = UploadedFile::getInstance($model, 'speaker_image');                        
+            if($uploadObj){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
+                $uploadpath = 'speakers/'.$filename;
+                $uploadObj->saveAs('../../uploads/'.$uploadpath);
+                $model->speaker_image = $uploadpath;
+            }
+            
             $model->updated_by = $updated_by;
             $model->save();
             

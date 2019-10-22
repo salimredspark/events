@@ -1,12 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\User;
 use backend\models\SpeakerRole;
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\Speakers */
 
 $this->title = $model->speaker_name;
 $this->params['breadcrumbs'][] = ['label' => 'Speakers', 'url' => ['index']];
@@ -35,36 +31,40 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                                 ],
                                 ]);
-                             ?>
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card-content">
                     <div id="typography">
                         <div class="row">
-                        <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            #'id',
-            'speaker_name',
-            #'speaker_role_id',
-            array(
+                            <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                            #'id',
+                            'speaker_name',
+                            array(
+                            'attribute'=>'Speaker Image',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$model->speaker_image,['target'=>'_blank'])
+                            ),
+                            array(
                             'attribute'=>'speaker_role_id',                                
                             'label'=>'Speaker Role',                                
                             'format' => 'html',                                
                             'value'=>Html::a(SpeakerRole::findOne($model->speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->speaker_role_id],['target'=>'_blank'])
                             ),
-            'speaker_details:ntext',
-            #'updated_by',
-             array(
+                            'speaker_details:ntext',
+                            #'updated_by',
+                            array(
                             'attribute'=>'updated_by',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(User::findOne($model->updated_by)->username, ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
+                            'value'=>Html::a(ucfirst(User::findOne($model->updated_by)->username), ['user/view', 'id'=>$model->updated_by],['target'=>'_blank'])
                             ),
-        ],
-    ]) ?>
-    
-                            
+                            ],
+                            ]) ?>
+
+
                         </div>
                     </div>
                 </div>

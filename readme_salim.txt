@@ -49,7 +49,6 @@ ZHwmbwBnaN*O
 https://redspark.a2hosted.com/events/backend/web/index.php?r=dashboard%2Findex
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-1) Remove Validation from Mapping -- Done
-1) Font-Family
-2) Remove Background Color from all tags - -Done
-3) Set Upload file limit
+ALTER TABLE `exhibitors` ADD `company_logo` VARCHAR(255) NOT NULL AFTER `birthdate`;
+ALTER TABLE `speakers` ADD `speaker_image` VARCHAR(255) NOT NULL AFTER `speaker_role_id`;
+ALTER TABLE `exhibitors` ADD `company_detail` TEXT NOT NULL AFTER `company_address`;

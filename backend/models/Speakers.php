@@ -32,7 +32,7 @@ class Speakers extends \yii\db\ActiveRecord
     {
         return [
             [['speaker_name', 'speaker_role_id', 'speaker_details', 'updated_by'], 'required'],
-            [['speaker_details'], 'string'],
+            [['speaker_details','speaker_image'], 'string'],
             [['updated_by','speaker_role_id'], 'integer'],
             [['speaker_name'], 'string', 'max' => 255],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],

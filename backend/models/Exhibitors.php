@@ -39,7 +39,7 @@ class Exhibitors extends \yii\db\ActiveRecord
         return [
             [['user_id', 'gender', 'company_name', 'company_site_url', 'company_address', 'updated_by'], 'required'],
             [['user_id', 'updated_by'], 'integer'],
-            [['updated_at', 'created_at'], 'safe'],
+            [['updated_at', 'created_at', 'company_logo', 'company_detail'], 'safe'],
             [['company_address'], 'string'],
             [['gender'], 'string', 'max' => 20],            
             [['company_name', 'company_site_url'], 'string', 'max' => 255],
