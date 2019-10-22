@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2019 at 07:53 AM
+-- Generation Time: Oct 22, 2019 at 03:18 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -119,7 +119,7 @@ CREATE TABLE `event_show` (
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `event_id` int(11) NOT NULL,
   `event_speaker_id` int(11) DEFAULT NULL,
-  `event_moderator_id` int(11) NOT NULL,
+  `event_moderator_id` int(11) DEFAULT NULL,
   `show_manage_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -135,7 +135,8 @@ INSERT INTO `event_show` (`id`, `show_name`, `show_location_id`, `show_location_
 (4, 'Event - 5 -- Topic 4', 2, 3, '6am Show', '2019-10-22 05:47:10', '2019-10-10 06:30:00', 5, 2, 1, 3, 1),
 (5, 'Event - 1 -- Topic 5', 2, 3, 'iklkjlkjlkj', '2019-10-22 05:46:36', '2019-10-18 06:20:00', 1, NULL, 1, 3, 1),
 (6, 'Event - 1 -- Topic 6', 2, 3, 'iklkjlkjlkj', '2019-10-22 05:46:39', '2019-10-18 06:20:00', 1, NULL, 1, 3, 1),
-(7, 'Event - 1 -- Topic 7', 2, 3, 'iklkjlkjlkj', '2019-10-22 05:46:41', '2019-10-18 06:20:00', 1, NULL, 1, 3, 1);
+(7, 'Event - 1 -- Topic 7', 2, 3, 'iklkjlkjlkj', '2019-10-22 05:46:41', '2019-10-18 06:20:00', 1, NULL, 1, 3, 1),
+(8, 'New Topic For Event 001', 1, 1, 'demo', '2019-10-22 00:27:48', '2019-10-22 01:30:00', 1, NULL, 2, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -278,7 +279,10 @@ CREATE TABLE `is_event_speaker` (
 
 INSERT INTO `is_event_speaker` (`id`, `event_id`, `show_id`, `event_speaker_id`, `event_speaker_role_id`, `event_location_id`, `event_location_slot_id`) VALUES
 (8, 5, 1, 4, 3, 2, 3),
-(9, 6, 1, 4, 3, 2, 3);
+(9, 6, 1, 4, 3, 2, 3),
+(19, 1, 8, 1, 1, 1, 1),
+(20, 1, 8, 2, 2, 1, 1),
+(21, 1, 8, 3, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -370,8 +374,9 @@ CREATE TABLE `speaker_accommodation` (
 --
 
 INSERT INTO `speaker_accommodation` (`id`, `speaker_id`, `event_id`, `category_id`, `vendor_id`, `category_item`, `category_item_qty`, `manage_by`, `updated_by`) VALUES
-(1, 1, 1, 1, 1, 'Room', '1', 1, 1),
-(2, 1, 1, 2, 1, 'resort item', '5', 1, 1);
+(1, 1, 1, 2, 2, 'Room', '1', 1, 1),
+(2, 1, 1, 2, 1, 'resort item', '5', 1, 1),
+(3, 4, 5, 1, 3, 'pick from baroda airport', '2', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -414,20 +419,22 @@ CREATE TABLE `user` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_by` int(11) NOT NULL,
-  `login_type` enum('superadmin','admin','exhibitor','visitor') COLLATE utf8_unicode_ci NOT NULL
+  `login_type` enum('superadmin','admin','exhibitor','visitor') COLLATE utf8_unicode_ci NOT NULL,
+  `device_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `device_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`) VALUES
-(1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin'),
-(2, 'Deval', 'Barot', 'deval', '', '$2y$10$UM3CkMj4vFd0FMPqHZFCnuoUYTlzEl29ZcmEd2qlQQj9bkodw3ho.', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-15 05:57:25', '2019-10-15 05:57:25', NULL, 1, 'admin'),
-(3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin'),
-(4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor'),
-(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor'),
-(9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`, `device_type`, `device_token`) VALUES
+(1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin', NULL, NULL),
+(2, 'Deval', 'Barot', 'deval', '', '$2y$10$UM3CkMj4vFd0FMPqHZFCnuoUYTlzEl29ZcmEd2qlQQj9bkodw3ho.', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-15 05:57:25', '2019-10-15 05:57:25', NULL, 1, 'admin', NULL, NULL),
+(3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin', NULL, NULL),
+(4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor', NULL, NULL),
+(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor', NULL, NULL),
+(9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -624,7 +631,7 @@ ALTER TABLE `event_location_slots`
 -- AUTO_INCREMENT for table `event_show`
 --
 ALTER TABLE `event_show`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `event_type`
@@ -660,7 +667,7 @@ ALTER TABLE `is_event_exhibitors`
 -- AUTO_INCREMENT for table `is_event_speaker`
 --
 ALTER TABLE `is_event_speaker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -678,7 +685,7 @@ ALTER TABLE `speakers`
 -- AUTO_INCREMENT for table `speaker_accommodation`
 --
 ALTER TABLE `speaker_accommodation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `speaker_role`
