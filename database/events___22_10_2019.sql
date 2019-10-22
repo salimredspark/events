@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2019 at 03:18 PM
+-- Generation Time: Oct 22, 2019 at 03:44 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -46,7 +46,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `event_name`, `event_banner`, `event_domain_name`, `event_location`, `event_description`, `start_time`, `end_time`, `event_manage_by`, `updated_by`) VALUES
-(1, 'Event 001', '', 'domain1', 'Millenium Resort, Fategunj, Vadodara, Gujarat', 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\nThe mobile industry eco-system has an economic impact of $3.9 trillion\r\nâ€¢   The industry connects Â½ the worldâ€™s population to the Internet\r\nâ€¢   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the worldâ€™s leading operators, including for the first time Vodafoneâ€™s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-22 05:40:00', '2019-10-22 17:30:00', 1, 1),
+(1, 'Event 001', 'events/f977d07ec577ec36b659a75c3c43eee5.jpg', 'domain1', 'Millenium Resort, Fategunj, Vadodara, Gujarat', 'Network operators are the great enabler of the digital economy. Their contribution and statistics are astonishing;\r\n\r\nThe mobile industry eco-system has an economic impact of $3.9 trillion\r\nâ€¢   The industry connects Â½ the worldâ€™s population to the Internet\r\nâ€¢   5.1 billion people subscribe to a mobile service\r\n\r\nThe mobile industry has a tremendous impact and therefore responsibility toward individual, national and international security, privacy and society. \r\n \r\nThe opening keynote of MWC19 will see the worldâ€™s leading operators, including for the first time Vodafoneâ€™s new CEO Nick Read,  discuss how they continue to push the boundaries of technological innovation through 5G, AI, IoT, and Big Data. \r\nThey will also discuss the regulatory environment required to ensure operators are able to deploy these technologies, and the strategies, business models and internal systems needed to ensure they deliver on their promise. All within the context of their wider social and environmental responsibilities.								', '2019-10-22 13:30:08', '2019-10-22 17:30:00', 1, 1),
 (2, 'Event 002', '', 'domain2', 'ccompanied by English versions from the 1914 translation by H. Rackham', 'Demonstration Event', '2019-10-22 07:30:00', '2019-10-22 18:25:00', 1, 1),
 (3, 'Event 003', '', 'domain3', 'Lorem Ipsum is not simply random text. It has roots in a piece of classical', 'this is test', '2019-10-23 06:30:00', '2019-10-23 12:30:00', 2, 1),
 (4, 'Event 004', '', 'domain4', 'ccompanied by English versions from the 1914 translation by H. Rackham', 'demo', '2019-10-24 09:20:00', '2019-10-25 12:30:00', 3, 1),
@@ -174,9 +174,11 @@ CREATE TABLE `exhibitors` (
   `user_id` int(11) NOT NULL,
   `gender` varchar(20) NOT NULL COMMENT 'Male, Female, Other',
   `birthdate` date NOT NULL,
+  `company_logo` varchar(255) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `company_site_url` varchar(255) NOT NULL,
   `company_address` text NOT NULL,
+  `company_detail` text NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_by` int(11) NOT NULL
@@ -186,10 +188,10 @@ CREATE TABLE `exhibitors` (
 -- Dumping data for table `exhibitors`
 --
 
-INSERT INTO `exhibitors` (`id`, `user_id`, `gender`, `birthdate`, `company_name`, `company_site_url`, `company_address`, `updated_at`, `created_at`, `updated_by`) VALUES
-(1, 2, 'Male', '1987-08-30', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', '2019-10-14 12:34:51', '2019-10-11 10:53:25', 1),
-(2, 3, 'Male', '1978-10-25', 'Spark', 'http://www.spark.coom', 'Alkapuri, Vadodara', '2019-10-14 12:34:56', '2019-10-11 10:53:32', 1),
-(3, 4, 'Male', '1978-10-25', 'pk', 'www.pk.com', 'Surat, Gujarat', '2019-10-14 12:35:40', '2019-10-11 04:00:55', 1);
+INSERT INTO `exhibitors` (`id`, `user_id`, `gender`, `birthdate`, `company_logo`, `company_name`, `company_site_url`, `company_address`, `company_detail`, `updated_at`, `created_at`, `updated_by`) VALUES
+(1, 2, 'Male', '1987-08-30', '', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', 'demo details', '2019-10-22 13:41:42', '2019-10-11 10:53:25', 1),
+(2, 3, 'Male', '1978-10-25', '', 'Spark', 'http://www.spark.coom', 'Alkapuri, Vadodara', '', '2019-10-14 12:34:56', '2019-10-11 10:53:32', 1),
+(3, 4, 'Male', '1978-10-25', '', 'pk', 'www.pk.com', 'Surat, Gujarat', '', '2019-10-14 12:35:40', '2019-10-11 04:00:55', 1);
 
 -- --------------------------------------------------------
 
@@ -337,6 +339,7 @@ CREATE TABLE `speakers` (
   `id` int(11) NOT NULL,
   `speaker_name` varchar(255) NOT NULL,
   `speaker_role_id` int(11) NOT NULL,
+  `speaker_image` varchar(255) NOT NULL,
   `speaker_details` text NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -345,11 +348,11 @@ CREATE TABLE `speakers` (
 -- Dumping data for table `speakers`
 --
 
-INSERT INTO `speakers` (`id`, `speaker_name`, `speaker_role_id`, `speaker_details`, `updated_by`) VALUES
-(1, 'Salim Kureshi', 1, 'Team Leader at Redspark Technologies', 1),
-(2, 'Prashant', 2, 'Sr. Team Leader at Redspark Technologies', 1),
-(3, 'Nirav', 1, 'Sr. Team Leader at Redspark Technologies', 1),
-(4, 'Deval Barot', 1, 'Sr. Web Developer at Redspark Technologies', 1);
+INSERT INTO `speakers` (`id`, `speaker_name`, `speaker_role_id`, `speaker_image`, `speaker_details`, `updated_by`) VALUES
+(1, 'Salim Kureshi', 1, 'speakers/7267e5602f03e0940b55fe226bcb386b.jpg', 'Team Leader at Redspark Technologies', 1),
+(2, 'Prashant', 2, '', 'Sr. Team Leader at Redspark Technologies', 1),
+(3, 'Nirav', 1, '', 'Sr. Team Leader at Redspark Technologies', 1),
+(4, 'Deval Barot', 1, '', 'Sr. Web Developer at Redspark Technologies', 1);
 
 -- --------------------------------------------------------
 
@@ -430,7 +433,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`, `device_type`, `device_token`) VALUES
 (1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin', NULL, NULL),
-(2, 'Deval', 'Barot', 'deval', '', '$2y$10$UM3CkMj4vFd0FMPqHZFCnuoUYTlzEl29ZcmEd2qlQQj9bkodw3ho.', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-15 05:57:25', '2019-10-15 05:57:25', NULL, 1, 'admin', NULL, NULL),
+(2, 'Deval', 'Barot', 'deval', '', '$2y$10$O46p258rxAgrA2tL3bwSXu5DQZuK1yvrXhEBL8YDQz6UTxa6Ca.oS', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-22 13:41:42', '2019-10-22 13:41:42', NULL, 1, 'admin', NULL, NULL),
 (3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin', NULL, NULL),
 (4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor', NULL, NULL),
 (8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor', NULL, NULL),
