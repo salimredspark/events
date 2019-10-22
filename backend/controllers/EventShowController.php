@@ -175,24 +175,29 @@ class EventShowController extends Controller
                         
             return $this->redirect(['view', 'id' => $show_id]);
         }
-
+        
+        
         return $this->render('create', [
         'model' => $model,
+        'IsEventSpeaker' => IsEventSpeaker::find()->where(['show_id'=>$model->id, 'event_id'=>$model->event_id])->all(),
         ]);
     }
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id);                
 
         if ($model->load(Yii::$app->request->post())) {
             $eventsPost = Yii::$app->request->post('EventShow');                        
-
+                        
+            $event_moderator_id = array_values(array_filter($eventsPost['event_moderator_id']));                        
+            
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
             $model->start_time = $start_time;
             $model->end_time = $end_time;
+            $model->event_moderator_id = $event_moderator_id[0];
             $model->updated_by = $updated_by;
             $model->save();
             $show_id = $model->id;                                            
@@ -235,9 +240,10 @@ class EventShowController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+                                
         return $this->render('update', [
         'model' => $model,
+        'IsEventSpeaker' => IsEventSpeaker::find()->where(['show_id'=>$model->id, 'event_id'=>$model->event_id])->all(),
         ]);
     }
 

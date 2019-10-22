@@ -37,7 +37,10 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
+        //get only admin or superadmin users
+        $dataProvider->query->andWhere('login_type in ("superadmin","admin")');
+        
         return $this->render('index', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
@@ -74,7 +77,7 @@ class UserController extends Controller
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -95,9 +98,9 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-             
+
             $updated_by = Yii::$app->user->identity->id;  
-                        
+
             $old_password = $model->password_hash;
             $postUser = Yii::$app->request->post('User');            
             if (empty($postUser['password_hash'])) {                
@@ -105,11 +108,11 @@ class UserController extends Controller
             }else{
                 $model->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
             }                        
-                        
+
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

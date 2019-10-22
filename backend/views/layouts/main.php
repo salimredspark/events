@@ -292,11 +292,13 @@ use backend\assets\AppAsset;
                                     </div>
                                     <a class="<?=(strpos($controller,'visitors') !== false )?'top-menu-active':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>
                                     <div class="dropdown">
-                                        <button class="dropbtn <?=(strpos($controller,'settings') !== false || strpos($controller,'general') !== false )?'top-menu-active':'';?>">Configuration <i class="fa fa-caret-down"></i></button>
+                                        <button class="dropbtn <?=(strpos($controller,'settings') !== false || strpos($controller,'general') !== false )?'top-menu-active':'';?>">Config <i class="fa fa-caret-down"></i></button>
                                         <div class="dropdown-content">
                                             <a href="<?= Url::to(['general-category/index']);?>" class="<?=($controller=='general-category')?'sub-active':'';?>">Categories</a>                                    
-                                            <a href="<?= Url::to(['general-vendor/index']);?>" class="<?=($controller=='general-vendor')?'sub-active':'';?>">Vendors</a>                                    
+                                            <a href="<?= Url::to(['general-vendor/index']);?>" class="<?=($controller=='general-vendor')?'sub-active':'';?>">Vendors</a>
+                                            <?php if($loginType == 'superadmin'){?>
                                             <a href="<?= Url::to(['settings/index']);?>" class="<?=($controller=='settings')?'sub-active':'';?>">Settings</a>
+                                            <?php }?>
                                         </div>
                                     </div>                            
                                     <?php }?>

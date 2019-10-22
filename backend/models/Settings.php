@@ -59,7 +59,7 @@ class Settings extends \yii\db\ActiveRecord
         return 'http://'.$domain;
     }
 
-    public function getConfigDateTime($date, $string = 'number', $param = 'datetime'){
+    public static function getConfigDateTime($date, $string = 'number', $param = 'datetime'){
 
         if(empty($date) || $date == '0000-00-00') return '';
 
@@ -88,7 +88,7 @@ class Settings extends \yii\db\ActiveRecord
         return $return;
     }
 
-    public function getTimeAgo( $timestamp, $string = 'number' ){
+    public static function getTimeAgo( $timestamp, $string = 'number' ){
 
         if(empty($timestamp)) return $timestamp;                
 

@@ -59,8 +59,8 @@ use kartik\datetime\DateTimePicker;
 
     //add more speaker    
     function addMore(obj){        
-        var createHtml = $(".can-addmore-field").html();        
-        $(".class-add-more").append("<div id='child-row-" + makeid(10) + "' class='child-rows-can-delete'>" + createHtml + "</div>");
+        var createHtml = $(".can-addmore-field .row").first().html();        
+        $(".class-add-more").append("<div id='child-row-" + makeid(10) + "' class='child-rows-can-delete'><div class='row'>" + createHtml + "</div></div>");
         $(".class-add-more .ignore-addmore-field").html('<?= Html::a('DEL -', 'javascript://', ['class' => 'btn btn-error', 'onclick'=>'removeMore(this)']) ?>');
         $(".class-add-more").show();
     }
@@ -115,8 +115,77 @@ use kartik\datetime\DateTimePicker;
                         ?>                        
                     </div>
                 </div> 
-
+                
                 <div class="can-addmore-field"> 
+                    <?php 
+                    if(count($IsEventSpeaker) > 0){
+                        $rows=1;
+                    foreach($IsEventSpeaker as $speakerObj){                        
+                        $speakerInfo = Speakers::find()->where(['id'=>$speakerObj->event_speaker_id])->one();                                                 
+                        ?>
+                    <div class="child-rows-can-delete" id="speaker_id_<?=$speakerObj->event_speaker_id;?>">
+                        <div class="row">
+                        <div class="col-md-2">
+                            <?php                        
+                                $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');
+                                echo $form->field($model, 'event_speaker_id[]',[
+                                'template' => "<div class='form-group event_speaker_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Speaker', ]
+                                ])->dropDownList($items, ['options' => [$speakerObj->event_speaker_id => ['Selected'=>'selected']], 'prompt'=>'New', 'onchange'=>'selectedSpeaker(this)'] ); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?php                        
+                                $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                                                
+                                echo $form->field($model, 'new_speaker_name[]',[
+                                'template' => "<div class='form-group new_speaker_name label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Name' ]
+                                ])->textInput(['value'=>$speakerInfo->speaker_name,'maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?php                        
+                                $items = ArrayHelper::map(SpeakerRole::find()->all(), 'id', 'role_name');                                                
+                                echo $form->field($model, 'event_speaker_role_id[]',[
+                                'template' => "<div class='form-group event_speaker_role_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Role' ]
+                                ])->dropDownList($items, ['options' => [$speakerInfo->speaker_role_id => ['Selected'=>'selected']],'prompt'=>'']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?php 
+                                echo $form->field($model, 'event_speaker_bio[]',[
+                                'template' => "<div class='form-group event_speaker_bio label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Speaker Bio' ]
+                                ])->textInput(['value'=>$speakerInfo->speaker_details,'maxlength' => true,'class'=>'form-control']); //, 'multiple'=>'multiple'
+                            ?>
+                        </div>
+                        <div class="col-md-1">
+                            <?php                                 
+                                echo $form->field($model, 'event_moderator_id[]',[
+                                'template' => "<div class='form-group event_moderator_id label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                                'labelOptions' => [ 'class' => 'control-label', 'label' => 'Is Moderator' ]
+                                ])->radio(array(
+                                'label'=>'',
+                                'value'=>$speakerObj->event_speaker_id,                                                                                                
+                                'checked'=>($speakerObj->event_speaker_id == $model->event_moderator_id)?true:false
+                                ))
+                                ->label('Moderator');
+                            ?>
+                        </div>
+                        <div class="col-md-1 ignore-addmore-field">
+                            <?php
+                            if($rows == 1){
+                                echo Html::a('Add +', 'javascript://', ['class' => 'btn btn-success', 'onclick'=>'addMore(this)']);
+                            }else{
+                                echo Html::a('DEL -', 'javascript://', ['class' => 'btn btn-error', 'onclick'=>'removeMore(this)']);                             
+                            }
+                             ?>
+                        </div>
+                    </div>
+                    </div>
+                    <?php $rows++;}?>
+                    <?php }else{?>
                     <div class="row">
                         <div class="col-md-2">
                             <?php                        
@@ -170,11 +239,10 @@ use kartik\datetime\DateTimePicker;
                             <?= Html::a('Add +', 'javascript://', ['class' => 'btn btn-success', 'onclick'=>'addMore(this)']) ?> 
                         </div>                    
                     </div>
+                    <?php }?>
                 </div>
 
-                <div class="class-add-more">                      
-
-                </div>
+                 <div class="class-add-more"></div>
 
                 <div class="row"> 
                     <div class="col-md-3">

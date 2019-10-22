@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-sm-3 pull-right">
                         <?php //echo Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
                         <?php 
-                            echo Html::a('Event Speaker', ['is-event-speaker/search-event'], ['class' => 'btn btn-success']);
+                            //echo Html::a('Event Speaker', ['is-event-speaker/search-event'], ['class' => 'btn btn-success']);
 
                             $items = ArrayHelper::map(Speakers::find()->all(), 'id', 'speaker_name');                        
                             echo Html::dropDownList('speaker_id', $speaker_id, $items, 

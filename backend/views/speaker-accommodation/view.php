@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                              array(
                             'attribute'=>'vendor_id',                                
                             'format' => 'html',                                
-                            'value'=>Html::a(ucfirst(GeneralVendor::findOne($model->event_id)->vendor_name), ['general-vendor/view', 'id'=>$model->vendor_id],['target'=>'_blank'])
+                            'value'=>Html::a(ucfirst(GeneralVendor::findOne($model->vendor_id)->vendor_name), ['general-vendor/view', 'id'=>$model->vendor_id],['target'=>'_blank'])
                             ),
                             'category_item',
                             'category_item_qty',

@@ -64,6 +64,10 @@ class SpeakerAccommodationController extends Controller
     {
         $model = new SpeakerAccommodation();
 
+        $modelEvent = Events::find($model->event_id)->one();      
+        $modelSpeaker = Speakers::find($model->speaker_id)->one();      
+        $modelCategory = GeneralCategory::find()->all();
+        
         if ($model->load(Yii::$app->request->post())) {
            
             $updated_by = Yii::$app->user->identity->id;  
@@ -76,13 +80,22 @@ class SpeakerAccommodationController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'speaker_id' => $model->speaker_id,
+            'event_id' => $model->event_id,
+            'modelEvent' => $modelEvent,
+            'modelSpeaker' => $modelSpeaker,
+            'modelCategory' => $modelCategory,
         ]);
     }
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
+        $model = $this->findModel($id);         
+                
+        $modelEvent = Events::find($model->event_id)->one();      
+        $modelSpeaker = Speakers::find($model->speaker_id)->one();      
+        $modelCategory = GeneralCategory::find()->all();
+        
         if ($model->load(Yii::$app->request->post())) {
             
             $updated_by = Yii::$app->user->identity->id; 
@@ -94,6 +107,11 @@ class SpeakerAccommodationController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'speaker_id' => $model->speaker_id,
+            'event_id' => $model->event_id,
+            'modelEvent' => $modelEvent,
+            'modelSpeaker' => $modelSpeaker,
+            'modelCategory' => $modelCategory,            
         ]);
     }
 

@@ -46,3 +46,10 @@ ftp.redspark.a2hosted.com
 developer@redspark.a2hosted.com
 ZHwmbwBnaN*O
 ----------------------------------------------------------------------------------------------------------------------------------------
+https://redspark.a2hosted.com/events/backend/web/index.php?r=dashboard%2Findex
+----------------------------------------------------------------------------------------------------------------------------------------
+
+1) Remove Validation from Mapping -- Done
+1) Font-Family
+2) Remove Background Color from all tags - -Done
+3) Set Upload file limit

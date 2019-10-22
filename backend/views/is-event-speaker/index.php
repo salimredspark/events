@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         //echo '<pre>';print_r($model);echo '</pre>';die('developer is working');
                         //return $model->event_speaker_id;
                         $t = 'index.php?r=speaker-accommodation/accommodation&speaker_id='.$model->event_speaker_id.'&event_id='.$model->event_id;
-                        return  Html::a('<span class="glyphicon glyphicon-user"></span>', $t, ['title' => Yii::t('yii', 'View')]);
+                        return  Html::a('<span class="glyphicon glyphicon-user"></span>', $t, ['title' => Yii::t('yii', 'Create Accommodation')]);
                     },
                     ]],
                     ],

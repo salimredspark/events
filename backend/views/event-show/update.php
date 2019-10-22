@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="event-show-update">        
     <?= $this->render('_form', [
         'model' => $model,
+        'IsEventSpeaker' => $IsEventSpeaker,
     ]) ?>
 
 </div>
