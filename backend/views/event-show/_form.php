@@ -1,17 +1,17 @@
 <?php
 use yii\helpers\ArrayHelper;
-    use yii\helpers\Url; 
-    use yii\helpers\Html;   
-    use yii\widgets\ActiveForm; 
-    use backend\models\Events;
-    use backend\models\EventType;    
-    use backend\models\Speakers;
-    use backend\models\SpeakerRole;
-    use backend\models\Hotels; 
-    use backend\models\User;
-    use backend\models\EventLocation;
-    use backend\models\EventLocationSlots;
-    use kartik\datetime\DateTimePicker;
+use yii\helpers\Url; 
+use yii\helpers\Html;   
+use yii\widgets\ActiveForm; 
+use backend\models\Events;
+use backend\models\EventType;    
+use backend\models\Speakers;
+use backend\models\SpeakerRole;
+use backend\models\Hotels; 
+use backend\models\User;
+use backend\models\EventLocation;
+use backend\models\EventLocationSlots;
+use kartik\datetime\DateTimePicker;
 ?>
 <script>
     function makeid(length) {
@@ -28,7 +28,7 @@ use yii\helpers\ArrayHelper;
     function selectedSpeaker(obj){        
 
         var parentId = $(obj).parent().parent().parent().parent().parent().attr("id");    
-        
+
         if(parseInt(obj.value) > 0){
 
             //get spearkers

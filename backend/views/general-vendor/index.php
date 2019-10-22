@@ -1,9 +1,9 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
-    use backend\models\User;
+use backend\models\User;
+use backend\models\GeneralCategory;
 
 $this->title = 'General Vendors';
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,24 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            //['class' => 'yii\grid\SerialColumn'],
+                        //['class' => 'yii\grid\SerialColumn'],
 
-                            //'id',
-                            'vendor_name',
-                            'category_id',
-                            [
-                                'class' => 'yii\grid\DataColumn',
-                                'label' => 'Updated By',
-                                'format' => 'html',
-                                'value' => function ($data) {
-                                    return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>$data->updated_by],['target'=>'_blank']);
-                                },
-                            ],
-
-                            ['class' => 'yii\grid\ActionColumn'],
+                        //'id',
+                        'vendor_name',
+                        #'category_id',
+                        [
+                        'class' => 'yii\grid\DataColumn',
+                        'label' => 'Category',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            return Html::a(GeneralCategory::findOne($data->category_id)->category_name, ['general-category/view', 'id'=>$data->category_id],['target'=>'_blank']);
+                        },
                         ],
-                    ]); ?>
-                     
+                        [
+                        'class' => 'yii\grid\DataColumn',
+                        'label' => 'Updated By',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            return Html::a(User::findOne($data->updated_by)->username, ['user/view', 'id'=>$data->updated_by],['target'=>'_blank']);
+                        },
+                        ],
+
+                        ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                        ]); ?>
+
                 </div>
             </div>
         </div>

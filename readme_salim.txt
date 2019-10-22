@@ -31,5 +31,18 @@ Ref: https://www.dev-tips-and-tricks.com/add-subdomains-to-a-xampp-server-on-win
 3) C:\Windows\System32\drivers\etc\hosts and add 127.0.0.1 test.localhost.com
 4) events.localhost.com
 ----------------------------------------------------------------------------------------------------------------------------------
-GJ23BE8710
-GJ56094181126052929
+admin login
+admin / admin123
+----------------------------------------------------------------------------------------------------------------------------------------
+Server
+
+Cpnale
+https://my.a2hosting.com/clientarea.php
+dhruv@redsparkinfo.com
+Redspark@1
+
+FTP
+ftp.redspark.a2hosted.com
+developer@redspark.a2hosted.com
+ZHwmbwBnaN*O
+----------------------------------------------------------------------------------------------------------------------------------------

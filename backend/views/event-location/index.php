@@ -4,7 +4,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\models\User;
 
-$this->title = 'Event Location';
+$this->title = 'Event Halls';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">

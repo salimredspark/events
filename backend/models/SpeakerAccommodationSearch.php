@@ -39,23 +39,22 @@ class SpeakerAccommodationSearch extends SpeakerAccommodation
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
+    {                   
         $query = SpeakerAccommodation::find();
-
+        
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            // $query->where('0=1');            
             return $dataProvider;
         }
-
+                
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -65,11 +64,9 @@ class SpeakerAccommodationSearch extends SpeakerAccommodation
             'vendor_id' => $this->vendor_id,
             'manage_by' => $this->manage_by,
             'updated_by' => $this->updated_by,
-        ]);
-
-        $query->andFilterWhere(['like', 'category_item', $this->category_item])
-            ->andFilterWhere(['like', 'category_item_qty', $this->category_item_qty]);
-
+        ]);        
+        
+        $query->andFilterWhere(['like', 'category_item', $this->category_item])->andFilterWhere(['like', 'category_item_qty', $this->category_item_qty]);
         return $dataProvider;
     }
 }

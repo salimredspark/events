@@ -66,9 +66,18 @@ class IsEventSpeakerController extends Controller
         $searchModel = new IsEventSpeakerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $event_id = Yii::$app->session->get('global_event_id');
+        $event_name = false;        
+        if($event_id > 0){
+            $dataProvider->query->andWhere('event_id = '.$event_id);
+            $event_name = Events::findOne($event_id)->event_name;            
+        }                        
+        
         return $this->render('index', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
+        'event_id' => $event_id,
+        'event_name' => $event_name,
         ]);
     }
 

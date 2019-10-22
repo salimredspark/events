@@ -18,6 +18,8 @@ use yii\filters\VerbFilter;
  */
 class SpeakerAccommodationController extends Controller
 {
+    public $speaker_id;
+    
     public function behaviors()
     {
         return [
@@ -31,13 +33,23 @@ class SpeakerAccommodationController extends Controller
     }
 
     public function actionIndex()
-    {
+    {                
         $searchModel = new SpeakerAccommodationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $speaker_id = 0;$speaker_name=false;                
+        $params = Yii::$app->request->queryParams;
+        if(isset($params['speaker_id'])){
+            $dataProvider->query->andWhere('speaker_id = '.$params['speaker_id']);
+            $speaker_name = Speakers::findOne($params['speaker_id'])->speaker_name;
+            $speaker_id = $params['speaker_id'];
+        }
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'speaker_id' => $speaker_id,
+            'speaker_name' => $speaker_name,
         ]);
     }
 
