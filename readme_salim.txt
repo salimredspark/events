@@ -48,7 +48,38 @@ ZHwmbwBnaN*O
 ----------------------------------------------------------------------------------------------------------------------------------------
 https://redspark.a2hosted.com/events/backend/web/index.php?r=dashboard%2Findex
 ----------------------------------------------------------------------------------------------------------------------------------------
+ALTER TABLE `is_event_exhibitors` DROP `exhibitor_join_status`;
+ALTER TABLE `is_event_exhibitors` ADD FOREIGN KEY (`event_location_id`) REFERENCES `event_location`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `is_event_exhibitors` ADD FOREIGN KEY (`event_location_slot_id`) REFERENCES `event_location_slots`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `is_event_speaker` DROP `event_speaker_role_id`;
+ALTER TABLE `is_event_speaker` ADD `comment` TEXT NOT NULL AFTER `event_location_slot_id`;
 
-ALTER TABLE `exhibitors` ADD `company_logo` VARCHAR(255) NOT NULL AFTER `birthdate`;
-ALTER TABLE `speakers` ADD `speaker_image` VARCHAR(255) NOT NULL AFTER `speaker_role_id`;
-ALTER TABLE `exhibitors` ADD `company_detail` TEXT NOT NULL AFTER `company_address`;
+Create Table: event_location_booth
+----------------------------------------------------------------------------------------------------------------------------------------
+1)Login
+
+https://redspark.a2hosted.com/events/api/web/event/users/login
+
+username:amir
+password:123456
+device_type:android
+device_token:123456789
+
+2)Get speakers
+
+https://redspark.a2hosted.com/events/api/web/event/users/speakers
+
+Method : POST
+params : event_id
+
+3)Events List
+
+https://redspark.a2hosted.com/events/api/web/event/users/events
+
+Method: GET
+
+4)Exibitors list
+https://redspark.a2hosted.com/events/api/web/event/users/exibitors
+
+
+Method : POST
+Params: event_id

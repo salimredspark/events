@@ -269,10 +269,12 @@ use backend\assets\AppAsset;
                                         <div class="dropdown-content">
                                             <a href="<?= Url::to(['events/index']);?>" class="<?=($controller=='events')?'sub-active':'';?>">Manage Event</a>
                                             <a href="<?= Url::to(['event-show/index']);?>" class="<?=($controller=='event-show')?'sub-active':'';?>">Manage Topics</a>
-                                            <a href="<?= Url::to(['is-event-speaker/index']);?>" class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">Event Speaker</a>
+                                            <a href="<?= Url::to(['is-event-speaker/index']);?>" class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">Event Speaker</a>                                            
+                                            <a href="<?=Url::to(['is-event-exhibitors/index']);?>" class="<?=($controller=='is-event-exhibitors')?'sub-active':'';?>">Event Exhibitors</a>                
                                             <a href="<?= Url::to(['event-type/index']);?>" class="<?=($controller=='event-type')?'sub-active':'';?>">Topics Types</a>
                                             <a href="<?= Url::to(['event-location/index']);?>" class="<?=($controller=='event-location')?'sub-active':'';?>">Halls</a>
                                             <a href="<?= Url::to(['event-location-slots/index']);?>" class="<?=($controller=='event-location-slots')?'sub-active':'';?>">Hall Stage</a>
+                                            <a href="<?= Url::to(['event-location-booth/index']);?>" class="<?=($controller=='event-location-booth')?'sub-active':'';?>">Hall Booth</a>
                                         </div>
                                     </div>                            
                                     <div class="dropdown">

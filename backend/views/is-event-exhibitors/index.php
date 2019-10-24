@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="category">Order by latest first</p>
                     </div>
                     <div class="col-sm-2 pull-right">
-                        <?= Html::a('Create New', ['create'], ['class' => 'btn btn-success']) ?>                        
+                        <?= Html::a('Assign Exhibitor to Event', ['create'], ['class' => 'btn btn-success']) ?>                        
                     </div>
                 </div>
             </div>
@@ -51,14 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                             ],
                            // 'exhibitor_join_status',
-                           [
+                           /*[
                                 'class' => 'yii\grid\DataColumn',
                                 'label' => 'Exhibitor Join?',                                
                                 'format' => 'html',
                                 'value' => function ($data) {
                                     return ucfirst($data->exhibitor_join_status);
                                 },
-                            ],
+                            ],*/
                             //'comment:ntext',
                             ['class' => 'yii\grid\ActionColumn'],
                         ],

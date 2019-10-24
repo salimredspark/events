@@ -295,4 +295,15 @@ class EventShowController extends Controller
             echo "<option>-</option>";
         }
     }
+    
+    public function actionEventShowList($id){        
+        $eventShow = EventShow::find()->where(['event_id'=>$id])->orderBy('id DESC')->all();
+        if(count($eventShow) > 0){
+            foreach($eventShow as $show){                
+                echo "<option value='".$show->id."'>".$show->show_name."</option>";
+            }
+        }else{
+            echo "<option>-</option>";
+        }
+    }
 }

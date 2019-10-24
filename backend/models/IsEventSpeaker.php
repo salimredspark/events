@@ -9,16 +9,19 @@ use Yii;
  *
  * @property int $id
  * @property int $event_id
+ * @property int $show_id
  * @property int $event_speaker_id
  * @property int $event_speaker_role_id
  * @property int $event_location_id
  * @property int $event_location_slot_id
+ * @property string $comment
  *
  * @property Events $event
  * @property Speakers $eventSpeaker
  * @property SpeakerRole $eventSpeakerRole
  * @property EventLocation $eventLocation
  * @property EventLocationSlots $eventLocationSlot
+ * @property EventShow $show
  */
 class IsEventSpeaker extends \yii\db\ActiveRecord
 {
@@ -36,11 +39,11 @@ class IsEventSpeaker extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_id', 'show_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'required'],
-            [['event_id',  'show_id', 'event_speaker_id', 'event_speaker_role_id', 'event_location_id', 'event_location_slot_id'], 'integer'],
+            [['event_id', 'show_id', 'event_speaker_id', 'event_location_id', 'event_location_slot_id'], 'required'],
+            [['event_id', 'show_id', 'event_speaker_id', 'event_location_id', 'event_location_slot_id'], 'integer'],
+            [['comment'], 'string'],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
-            [['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],
-            [['event_speaker_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => SpeakerRole::className(), 'targetAttribute' => ['event_speaker_role_id' => 'id']],
+            [['event_speaker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Speakers::className(), 'targetAttribute' => ['event_speaker_id' => 'id']],            
             [['event_location_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocation::className(), 'targetAttribute' => ['event_location_id' => 'id']],
             [['event_location_slot_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLocationSlots::className(), 'targetAttribute' => ['event_location_slot_id' => 'id']],
             [['show_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventShow::className(), 'targetAttribute' => ['show_id' => 'id']],
@@ -55,10 +58,11 @@ class IsEventSpeaker extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'event_id' => 'Event ID',
-            'event_speaker_id' => 'Event Speaker ID',
-            'event_speaker_role_id' => 'Event Speaker Role ID',
+            'show_id' => 'Show ID',
+            'event_speaker_id' => 'Event Speaker ID',            
             'event_location_id' => 'Event Location ID',
             'event_location_slot_id' => 'Event Location Slot ID',
+            'comment' => 'Comment',
         ];
     }
 
@@ -77,14 +81,7 @@ class IsEventSpeaker extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Speakers::className(), ['id' => 'event_speaker_id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventSpeakerRole()
-    {
-        return $this->hasOne(SpeakerRole::className(), ['id' => 'event_speaker_role_id']);
-    }
+           
 
     /**
      * @return \yii\db\ActiveQuery
@@ -100,5 +97,13 @@ class IsEventSpeaker extends \yii\db\ActiveRecord
     public function getEventLocationSlot()
     {
         return $this->hasOne(EventLocationSlots::className(), ['id' => 'event_location_slot_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShow()
+    {
+        return $this->hasOne(EventShow::className(), ['id' => 'show_id']);
     }
 }

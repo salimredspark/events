@@ -17,7 +17,8 @@ class IsEventSpeakerSearch extends IsEventSpeaker
     public function rules()
     {
         return [
-            [['id', 'event_id', 'event_speaker_id', 'event_speaker_role_id'], 'integer'],
+            [['id', 'event_id', 'show_id', 'event_speaker_id', 'event_location_id', 'event_location_slot_id'], 'integer'],
+            [['comment'], 'safe'],
         ];
     }
 
@@ -59,9 +60,13 @@ class IsEventSpeakerSearch extends IsEventSpeaker
         $query->andFilterWhere([
             'id' => $this->id,
             'event_id' => $this->event_id,
-            'event_speaker_id' => $this->event_speaker_id,
-            'event_speaker_role_id' => $this->event_speaker_role_id,
+            'show_id' => $this->show_id,
+            'event_speaker_id' => $this->event_speaker_id,            
+            'event_location_id' => $this->event_location_id,
+            'event_location_slot_id' => $this->event_location_slot_id,
         ]);
+
+        $query->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

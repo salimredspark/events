@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\IsEventExhibitors;
+use backend\models\EventLocationBooth;
 
 /**
- * IsEventExhibitorsSearch represents the model behind the search form of `backend\models\IsEventExhibitors`.
+ * EventLocationBoothSearch represents the model behind the search form of `backend\models\EventLocationBooth`.
  */
-class IsEventExhibitorsSearch extends IsEventExhibitors
+class EventLocationBoothSearch extends EventLocationBooth
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class IsEventExhibitorsSearch extends IsEventExhibitors
     public function rules()
     {
         return [
-            [['id', 'event_id', 'exhibitor_id', 'event_location_id', 'event_location_booth_id'], 'integer'],
-            [['comment'], 'safe'],
+            [['id', 'event_location_id', 'updated_by'], 'integer'],
+            [['booth_name', 'booth_detail'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class IsEventExhibitorsSearch extends IsEventExhibitors
      */
     public function search($params)
     {
-        $query = IsEventExhibitors::find();
+        $query = EventLocationBooth::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +59,12 @@ class IsEventExhibitorsSearch extends IsEventExhibitors
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'event_id' => $this->event_id,
-            'exhibitor_id' => $this->exhibitor_id,
             'event_location_id' => $this->event_location_id,
-            'event_location_booth_id' => $this->event_location_booth_id,
+            'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'comment', $this->comment]);
+        $query->andFilterWhere(['like', 'booth_name', $this->booth_name])
+            ->andFilterWhere(['like', 'booth_detail', $this->booth_detail]);
 
         return $dataProvider;
     }

@@ -4,6 +4,8 @@ use yii\widgets\DetailView;
 use backend\models\User; 
 use backend\models\Events; 
 use backend\models\Exhibitors; 
+use backend\models\EventLocation; 
+use backend\models\EventLocationBooth; 
     
 $this->title = 'View Exhibitor Event';
 $this->params['breadcrumbs'][] = ['label' => 'Is Event Exhibitors', 'url' => ['index']];
@@ -58,13 +60,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'format' => 'html',                                
                                     'value'=>Html::a(User::findOne($model->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$model->exhibitor_id],['target'=>'_blank'])
                                  ),
+                                  array(
+                            'attribute'=>'event_location_id',                                
+                            'label'=>'Topic Hall',
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
+                            ), 
+                            array(
+                            'attribute'=>'event_location_booth_id',                                
+                            'label'=>'Hall Booth',
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventLocationBooth::findOne($model->event_location_booth_id)->booth_name, ['event-location-booth/view', 'id'=>$model->event_location_booth_id],['target'=>'_blank'])
+                            ),
                                     #'exhibitor_join_status',
-                                    array(
+                                    /*array(
                                     'label' => 'Exhibitor Join?',
                                     'attribute'=>'exhibitor_join_status',                                
                                     'format' => 'html',                                
                                     'value'=> ucfirst($model->exhibitor_join_status)
-                                 ),
+                                 ),  */
                                     'comment:ntext',
                                 ],
                             ])

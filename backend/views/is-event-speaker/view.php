@@ -61,24 +61,25 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value'=>Html::a(Speakers::findOne($model->event_speaker_id)->speaker_name, ['speakers/view', 'id'=>$model->event_speaker_id],['target'=>'_blank'])
                             ),
                             #'event_speaker_role_id',
-                            array(
+                            /*array(
                             'attribute'=>'event_speaker_role_id',                                
                             'label'=>'Speaker Role',
                             'format' => 'html',                                
                             'value'=>Html::a(SpeakerRole::findOne($model->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->event_speaker_role_id],['target'=>'_blank'])
-                            ),
+                            ),*/
                             array(
                             'attribute'=>'event_location_id',                                
-                            'label'=>'Event Show Location',
+                            'label'=>'Topic Hall',
                             'format' => 'html',                                
                             'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
                             ), 
                             array(
                             'attribute'=>'event_location_slot_id',                                
-                            'label'=>'Show Location Slot',
+                            'label'=>'Hall Stage',
                             'format' => 'html',                                
                             'value'=>Html::a(EventLocationSlots::findOne($model->event_location_slot_id)->slot_name, ['event-location-slots/view', 'id'=>$model->event_location_slot_id],['target'=>'_blank'])
-                            ), 
+                            ),
+                            'comment:ntext', 
                             ],
                             ]) ?>                            
                         </div>

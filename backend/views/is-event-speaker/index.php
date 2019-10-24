@@ -74,14 +74,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     ],
                     #'event_speaker_role_id',
-                    [
+                    /*[
                     'class' => 'yii\grid\DataColumn',
                     'label' => 'Speaker Role',
                     'format' => 'html',
                     'value' => function ($data) {                           
                         return Html::a(SpeakerRole::findOne($data->event_speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$data->event_speaker_role_id],['target'=>'_blank']);
                     },
-                    ],
+                    ],*/
 
                     /*'role_name',                        
                     [
