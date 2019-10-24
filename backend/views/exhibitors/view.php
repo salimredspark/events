@@ -55,10 +55,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',                                
                             'value'=>Html::a('Click Here', '../../uploads/'.$model->company_logo,['target'=>'_blank'])
                             ),
+                            array(
+                            'attribute'=>'Profile Image',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$userModel->profile_image,['target'=>'_blank'])
+                            ),
                             'company_name',
                             'company_site_url',
                             'company_address',
                             'user.username',
+                            'user.facebook_profile',
+                            'user.instagram_profile',
+                            'user.youtube_profile',
+                            'user.linkedin_profile',
+                            'user.twitter_profile',
                             #'updated_at',            
                             array(
                             'attribute'=>'updated_at',                                

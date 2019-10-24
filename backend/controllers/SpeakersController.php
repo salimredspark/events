@@ -10,6 +10,7 @@ use backend\models\SpeakersSearch;
 use backend\models\IsEventSpeaker;
 use backend\models\SpeakerAccommodation;
 use backend\models\GeneralCategory;
+use backend\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,8 +43,12 @@ class SpeakersController extends Controller
         
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        //$userModel = User::find($model->user_id);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+             //'userModel' => $userModel 
         ]);
     }
 
@@ -66,12 +71,15 @@ class SpeakersController extends Controller
             
             $model->updated_by = $updated_by;
             $model->save();
-            
+                        
+             
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        //$userModel = User::find($model->user_id);
         return $this->render('create', [
             'model' => $model,
+            //'userModel' => $userModel,
         ]);
     }
         
@@ -97,9 +105,10 @@ class SpeakersController extends Controller
             
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        //$userModel = User::find($model->user_id);
         return $this->render('update', [
             'model' => $model,
+            //'userModel' => $userModel,
         ]);
     }
         

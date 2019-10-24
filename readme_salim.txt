@@ -48,13 +48,6 @@ ZHwmbwBnaN*O
 ----------------------------------------------------------------------------------------------------------------------------------------
 https://redspark.a2hosted.com/events/backend/web/index.php?r=dashboard%2Findex
 ----------------------------------------------------------------------------------------------------------------------------------------
-ALTER TABLE `is_event_exhibitors` DROP `exhibitor_join_status`;
-ALTER TABLE `is_event_exhibitors` ADD FOREIGN KEY (`event_location_id`) REFERENCES `event_location`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `is_event_exhibitors` ADD FOREIGN KEY (`event_location_slot_id`) REFERENCES `event_location_slots`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE `is_event_speaker` DROP `event_speaker_role_id`;
-ALTER TABLE `is_event_speaker` ADD `comment` TEXT NOT NULL AFTER `event_location_slot_id`;
-
-Create Table: event_location_booth
-----------------------------------------------------------------------------------------------------------------------------------------
 1)Login
 
 https://redspark.a2hosted.com/events/api/web/event/users/login
@@ -83,3 +76,24 @@ https://redspark.a2hosted.com/events/api/web/event/users/exibitors
 
 Method : POST
 Params: event_id
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+ALTER TABLE `user` 
+ADD `country` TEXT NULL AFTER `profile_image`, 
+ADD `technology` TEXT NULL AFTER `country`, 
+ADD `facebook_profile` VARCHAR(255) NULL AFTER `technology`;
+
+ALTER TABLE `user` 
+ADD `instagram_profile` VARCHAR(255) NOT NULL AFTER `facebook_profile`, 
+ADD `youtube_profile` VARCHAR(255) NOT NULL AFTER `instagram_profile`, 
+ADD `linkedin_profile` VARCHAR(255) NOT NULL AFTER `youtube_profile`, 
+ADD `twitter_profile` VARCHAR(255) NOT NULL AFTER `linkedin_profile`;
+-------------------------------------------------------------------------------------------------------------------------------------------
+None Priority
+Profile_image
+Event Date time on Create Topic
+
+Priority
+Create Exibior social in user tbls -- Done
+Crteate time slots in assign exibitors

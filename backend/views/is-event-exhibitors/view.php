@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-sm-4 pull-right">
                             <?php
-                            echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
-                            echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-                            
+                                echo Html::a('Create New', ['create'], ['class' => 'btn btn-primary']);
+                                echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+
                                 echo Html::a('Delete', ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-danger',
                                 'data' => [
@@ -34,56 +34,56 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                                 ],
                                 ]);
-                             ?>
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card-content">
                     <div id="typography">
                         <div class="row">
-                         <?php
-                         echo DetailView::widget([
+                            <?php
+                                echo DetailView::widget([
                                 'model' => $model,
                                 'attributes' => [
-                                    //'id',
-                                    //'event_id',
-                                     array(
-                                    'attribute'=>'event_id',                                
-                                    'label' => 'Event Name',
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(Events::findOne($model->event_id)->event_name, ['events/view', 'id'=>$model->event_id],['target'=>'_blank'])
-                                 ),
-                                    #'exhibitor_id',                                    
-                                    array(
-                                    'label' => 'Exhibitor Name',
-                                    'attribute'=>'event_id',                                
-                                    'format' => 'html',                                
-                                    'value'=>Html::a(User::findOne($model->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$model->exhibitor_id],['target'=>'_blank'])
-                                 ),
-                                  array(
-                            'attribute'=>'event_location_id',                                
-                            'label'=>'Topic Hall',
-                            'format' => 'html',                                
-                            'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
-                            ), 
-                            array(
-                            'attribute'=>'event_location_booth_id',                                
-                            'label'=>'Hall Booth',
-                            'format' => 'html',                                
-                            'value'=>Html::a(EventLocationBooth::findOne($model->event_location_booth_id)->booth_name, ['event-location-booth/view', 'id'=>$model->event_location_booth_id],['target'=>'_blank'])
-                            ),
-                                    #'exhibitor_join_status',
-                                    /*array(
-                                    'label' => 'Exhibitor Join?',
-                                    'attribute'=>'exhibitor_join_status',                                
-                                    'format' => 'html',                                
-                                    'value'=> ucfirst($model->exhibitor_join_status)
-                                 ),  */
-                                    'comment:ntext',
+                                //'id',
+                                //'event_id',
+                                array(
+                                'attribute'=>'event_id',                                
+                                'label' => 'Event Name',
+                                'format' => 'html',                                
+                                'value'=>Html::a(Events::findOne($model->event_id)->event_name, ['events/view', 'id'=>$model->event_id],['target'=>'_blank'])
+                                ),
+                                #'exhibitor_id',                                    
+                                array(
+                                'label' => 'Exhibitor Name',
+                                'attribute'=>'event_id',                                
+                                'format' => 'html',                                
+                                'value'=>Html::a(User::findOne($model->exhibitor_id)->firstname, ['exhibitors/view', 'id'=>$model->exhibitor_id],['target'=>'_blank'])
+                                ),
+                                array(
+                                'attribute'=>'event_location_id',                                
+                                'label'=>'Topic Hall',
+                                'format' => 'html',                                
+                                'value'=>Html::a(EventLocation::findOne($model->event_location_id)->location_name, ['event-location/view', 'id'=>$model->event_location_id],['target'=>'_blank'])
+                                ), 
+                                array(
+                                'attribute'=>'event_location_booth_id',                                
+                                'label'=>'Hall Booth',
+                                'format' => 'html',                                
+                                'value'=>Html::a(EventLocationBooth::findOne($model->event_location_booth_id)->booth_name, ['event-location-booth/view', 'id'=>$model->event_location_booth_id],['target'=>'_blank'])
+                                ),
+                                #'exhibitor_join_status',
+                                /*array(
+                                'label' => 'Exhibitor Join?',
+                                'attribute'=>'exhibitor_join_status',                                
+                                'format' => 'html',                                
+                                'value'=> ucfirst($model->exhibitor_join_status)
+                                ),  */
+                                'comment:ntext',
                                 ],
-                            ])
-                           ?>    
-                            
+                                ])
+                            ?>    
+
                         </div>
                     </div>
                 </div>

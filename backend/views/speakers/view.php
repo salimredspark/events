@@ -42,12 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'attributes' => [
                             #'id',
-                            'speaker_name',
-                            array(
-                            'attribute'=>'Speaker Image',                                
-                            'format' => 'html',                                
-                            'value'=>Html::a('Click Here', '../../uploads/'.$model->speaker_image,['target'=>'_blank'])
-                            ),
+                            'speaker_name',                            
                             array(
                             'attribute'=>'speaker_role_id',                                
                             'label'=>'Speaker Role',                                

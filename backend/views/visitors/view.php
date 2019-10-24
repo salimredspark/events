@@ -46,6 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attributes' => [
                                 'user.firstname',
                                 'user.lastname',
+                                array(
+                            'attribute'=>'Profile Image',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$userModel->profile_image,['target'=>'_blank'])
+                            ),
                                 'visitor_uid',                                
                                 'gender',
                                  array(

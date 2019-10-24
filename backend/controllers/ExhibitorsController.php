@@ -51,8 +51,12 @@ class ExhibitorsController extends Controller
     */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $userModel = User::find($model->user_id); 
+        
         return $this->render('view', [
-        'model' => $this->findModel($id),
+        'model' => $model,
+        'userModel' => $userModel,
         ]);
     }
 
@@ -81,7 +85,7 @@ class ExhibitorsController extends Controller
             $userModel->save(); 
             $last_insert_userid = $userModel->id;                     
             
-            //upload files
+            //upload company logo
             $uploadObj = UploadedFile::getInstance($model, 'company_logo');                        
             if($uploadObj){
                 $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
@@ -89,6 +93,15 @@ class ExhibitorsController extends Controller
                 $uploadObj->saveAs('../../uploads/'.$uploadpath);
                 $model->company_logo = $uploadpath;
             } 
+            
+            //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($userModel, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'exhibitors/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $userModel->profile_image = $uploadpath;
+            }
             
             //save Exhibitors
             $post = Yii::$app->request->post('Exhibitors');              
@@ -135,13 +148,22 @@ class ExhibitorsController extends Controller
                 $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
             }             
             
-            //upload files
+            //upload company logo
             $uploadObj = UploadedFile::getInstance($model, 'company_logo');                        
             if($uploadObj){
                 $filename = md5(time().rand(1111,9999)).'.'.$uploadObj->extension;
                 $uploadpath = 'exhibitors/'.$filename;
                 $uploadObj->saveAs('../../uploads/'.$uploadpath);
                 $model->company_logo = $uploadpath;
+            }
+            
+             //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($userModel, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'exhibitors/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $userModel->profile_image = $uploadpath;
             }
                                      
             $userModel->updated_at = date("Y-m-d H:i:s");

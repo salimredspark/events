@@ -10,9 +10,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Event Location Booths', 'url' => [
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-location-booth-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

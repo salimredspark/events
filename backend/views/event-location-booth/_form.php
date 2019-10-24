@@ -1,29 +1,60 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\EventLocationBooth */
-/* @var $form yii\widgets\ActiveForm */
+    use yii\helpers\ArrayHelper;
+    use backend\models\User; 
+    use backend\models\Events;  
+    use backend\models\Exhibitors; 
+    use backend\models\EventLocation; 
+    use backend\models\EventLocationSlots; 
+    use backend\models\EventLocationBooth;
 ?>
 
-<div class="event-location-booth-form">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="purple">
+                <h4 class="title"><?php echo ($model->id)?'Update':'Assign';?> Exhibitor to Event</h4>
+                <p class="category">Exhibitor will be assign to event</p>
+            </div>
+            <div class="card-content">
+                <?php $form = ActiveForm::begin(); ?>
+                <div class="row">                    
+                    <div class="col-md-3">
+                        <?php                        
+                            $items = ArrayHelper::map(EventLocation::find()->all(), 'id', 'location_name');                                                
+                            echo $form->field($model, 'event_location_id',[
+                            'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                            'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Hall' ]
+                            ])->dropDownList( $items, ['prompt'=>'',]);
+                        ?>
+                    </div>
+                    <div class="col-md-6">                        
+                        <?= $form->field($model, 'booth_name', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
+                    
+                    </div>                    
 
-    <?php $form = ActiveForm::begin(); ?>
+                </div>
 
-    <?= $form->field($model, 'event_location_id')->textInput() ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->field($model, 'booth_detail', [
+                        'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
+                        'labelOptions' => [ 'class' => 'control-label' ]
+                        ])->textArea(['maxlength' => true,'class'=>'form-control'])?>
+                    </div>                     
+                </div>                
 
-    <?= $form->field($model, 'booth_name')->textInput(['maxlength' => true]) ?>
+                <div class="clearfix"></div>                                
 
-    <?= $form->field($model, 'booth_detail')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>
+                <?php ActiveForm::end(); ?>
+            </div>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+
+ 

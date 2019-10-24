@@ -9,6 +9,7 @@ use backend\models\VisitorsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
 * VisitorsController implements the CRUD actions for Visitors model.
@@ -78,6 +79,16 @@ class VisitorsController extends Controller
             $postUser = Yii::$app->request->post('User');
             $userModel->load(Yii::$app->request->post());            
             $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT);
+            
+             //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($userModel, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'visitors/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $userModel->profile_image = $uploadpath;
+            }
+            
             $userModel->updated_at = date("Y-m-d H:i:s");
             $userModel->created_at = date("Y-m-d H:i:s");
             $userModel->updated_by = $updated_by;
@@ -128,6 +139,16 @@ class VisitorsController extends Controller
             }else{
                 $userModel->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
             }            
+            
+             //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($userModel, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'visitors/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $userModel->profile_image = $uploadpath;
+            }
+            
             $userModel->updated_at = date("Y-m-d H:i:s");
             $userModel->updated_by = $updated_by;
             $userModel->save();
