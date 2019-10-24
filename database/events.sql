@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2019 at 12:47 PM
+-- Generation Time: Oct 24, 2019 at 04:06 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -489,7 +489,7 @@ INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `pass
 (2, 'Deval', 'Barot', 'deval', '', '$2y$10$JExEB9ArLfd09FLpti8xcOfy2NF8RBrN.F4RXFlrOX1UPfXmJ96.q', NULL, 'deval@redsaprkinfo.co.in', 10, 'exhibitors/922a88c7d6121ca03de977ab67bc4ac3.png', 'India,USA,UK', 'php,java,.net', 'www.facebook.com', 'www.instagram.com', 'www.youtube.com', 'www.linkedin.com', 'www.twitter.com', '2019-10-24 10:35:02', '2019-10-24 10:35:02', NULL, 1, 'admin', NULL, NULL),
 (3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '', NULL, NULL, NULL, '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin', NULL, NULL),
 (4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor', NULL, NULL),
-(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor', NULL, NULL),
+(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, 'visitors/cc86c9087f033243d73fc82268d78b50.png', NULL, NULL, NULL, '', '', '', '', '2019-10-24 10:59:29', '2019-10-24 10:59:29', NULL, 1, 'visitor', NULL, NULL),
 (9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -514,7 +514,7 @@ CREATE TABLE `visitors` (
 --
 
 INSERT INTO `visitors` (`id`, `user_id`, `visitor_uid`, `gender`, `birthdate`, `created_at`, `updated_at`, `updated_by`) VALUES
-(12, 8, 'Arvind', 'Male', '2001-10-11', '2019-10-14 10:13:43', '2019-10-14 09:18:41', 1),
+(12, 8, 'Arvind', 'Male', '2001-10-11', '2019-10-24 10:59:29', '2019-10-24 10:59:29', 1),
 (13, 9, 'Salman', 'Male', '2001-10-10', '2019-10-14 11:55:38', '2019-10-14 11:55:38', 1);
 
 --
