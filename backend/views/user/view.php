@@ -48,6 +48,11 @@
                             //'id',
                             'firstname',
                             'lastname',
+                            array(
+                            'attribute'=>'Profile Image',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$model->profile_image,['target'=>'_blank'])
+                            ),
                             'username',
                             //'auth_key',
                             //'password_hash',

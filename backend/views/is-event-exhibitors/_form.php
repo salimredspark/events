@@ -1,14 +1,15 @@
 <?php
 use yii\helpers\Html;
-    use yii\widgets\ActiveForm;
-    use yii\helpers\Url;
-    use yii\helpers\ArrayHelper;
-    use backend\models\User; 
-    use backend\models\Events;  
-    use backend\models\Exhibitors; 
-    use backend\models\EventLocation; 
-    use backend\models\EventLocationSlots; 
-    use backend\models\EventLocationBooth; 
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use backend\models\User; 
+use backend\models\Events;  
+use backend\models\Settings;  
+use backend\models\Exhibitors; 
+use backend\models\EventLocation; 
+use backend\models\EventLocationSlots; 
+use backend\models\EventLocationBooth;
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -26,10 +27,17 @@ use yii\helpers\Html;
                             echo $form->field($model, 'event_id',[
                             'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Event' ]
-                            ])->dropDownList( $items, ['prompt'=>'']);
+                            ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'                            
+                            //get event locations
+                            $.post("index.php?r=events/get-event-info&id="+$(this).val(), function( data ) {
+                            
+                            $( ".event_start_time" ).html( data.stime );
+                            $( ".event_end_time" ).html( data.etime );
+                            $( ".meeting_time_slot" ).html( data.tslot );
+                            },"json");
+                            ']);
                         ?>
                     </div>
-                     
                     <div class="col-md-3">                        
                         <?php                                                
                             #$items = ArrayHelper::map(Exhibitors::find()->joinWith('user', true, 'RIGHT JOIN')->where(['user.login_type' => "exhibitor"])->all(), 'id', 'user.firstname');
@@ -62,8 +70,7 @@ use yii\helpers\Html;
                             'labelOptions' => [ 'class' => 'control-label', 'label' => 'Select Hall Booth' ]
                             ])->dropDownList( $items, ['prompt'=>''] );
                         ?>
-                    </div>                    
-
+                    </div>
                 </div>
 
                 <div class="row">
@@ -74,6 +81,36 @@ use yii\helpers\Html;
                         ])->textArea(['maxlength' => true,'class'=>'form-control'])?>
                     </div>                     
                 </div>                
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><strong>Event Time</strong></h4>                        
+                        <?php
+                            $eventObj = Events::find($model->event_id)->one();
+                            $start_time = $eventObj->start_time;                       
+                            $end_time = $eventObj->end_time;                       
+                        ?>
+                        <p>Start Time - <span class="event_start_time"><?php echo Settings::getConfigDateTime($start_time);?></span></p>
+                        <p>End Time - <span class="event_end_time"><?php echo Settings::getConfigDateTime($end_time);?></span></p>
+                    </div>                     
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><strong>Meeting Time Slot</strong></h4>
+                        <div class="meeting_time_slot">
+                        <?php 
+                            $meetingSlots = Settings::SplitTime($start_time, $end_time, "30");
+                            if(count($meetingSlots) > 0){
+                                foreach($meetingSlots as $slot){
+                                ?>
+                                <p><?php echo $slot;?></p>
+                                <?php   
+                                }
+                            }
+                        ?>
+                       </div>                     
+                    </div>                     
+                </div>
 
                 <div class="clearfix"></div>                                
 

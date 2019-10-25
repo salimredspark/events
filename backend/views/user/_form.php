@@ -14,20 +14,28 @@
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'firstname', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'lastname', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
                         'labelOptions' => [ 'class' => 'control-label' ]
                         ])->textInput(['maxlength' => true,'class'=>'form-control'])?>
                     </div>
-
+                     <div class="col-md-3">
+                        <?php
+                            echo $form->field($model, 'profile_image')->fileInput();
+                            if(!empty($model->profile_image)){
+                                echo Html::a('View Image', '../../uploads/'.$model->profile_image,['target'=>'_blank']);
+                                //echo Html::img('../../uploads/'.$model->company_logo, ['width'=>'100px']);
+                            }
+                        ?>                        
+                    </div>
                 </div>
 
                 <div class="row">                        
@@ -40,7 +48,7 @@
                     <div class="col-md-3">
                         <?= $form->field($model, 'password_hash', [
                         'template' => "<div class='form-group label-floating is-empty'>{label}\n{input}</div>\n{hint}\n{error}",
-                        'labelOptions' => [ 'class' => 'control-label' ]
+                        'labelOptions' => [ 'class' => 'control-label', 'label'=>'Password' ]
                         ])->passwordInput(['maxlength' => true,'class'=>'form-control', 'value'=>''])?>                                                
                     </div>
                     

@@ -36,11 +36,11 @@ use yii\helpers\ArrayHelper;
                     </div>
                      <div class="col-md-3">
                         <?php
-                            /*echo $form->field($userModel, 'profile_image')->fileInput();
-                            if(!empty($userModel->profile_image)){
-                                echo Html::a('View Image', '../../uploads/'.$userModel->profile_image,['target'=>'_blank']);
-                                //echo Html::img('../../uploads/'.$model->company_logo, ['width'=>'100px']);
-                            }*/
+                            echo $form->field($model, 'speaker_image')->fileInput();
+                            if(!empty($model->speaker_image)){
+                                echo Html::a('View Image', '../../uploads/'.$model->speaker_image,['target'=>'_blank']);
+                                //echo Html::img('../../uploads/'.$model->speaker_image, ['width'=>'100px']);
+                            }
                         ?>                        
                     </div>
                 </div>

@@ -49,6 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',                                
                             'value'=>Html::a(SpeakerRole::findOne($model->speaker_role_id)->role_name, ['speaker-role/view', 'id'=>$model->speaker_role_id],['target'=>'_blank'])
                             ),
+                            array(
+                            'attribute'=>'Profile Image',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a('Click Here', '../../uploads/'.$model->speaker_image,['target'=>'_blank'])
+                            ),
                             'speaker_details:ntext',
                             #'updated_by',
                             array(

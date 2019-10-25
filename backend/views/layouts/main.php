@@ -281,6 +281,7 @@ use backend\assets\AppAsset;
                                         <button class="dropbtn <?=((strpos($controller,'speakers') !== false) || (strpos($controller,'speaker-role') !== false ) || (strpos($controller,'accommodation') !== false ))?'top-menu-active':'';?>">Speakers <i class="fa fa-caret-down"></i></button>
                                         <div class="dropdown-content">
                                             <a href="<?= Url::to(['speakers/index']);?>" class="<?=($controller=='speakers')?'sub-active':'';?>">Manage Speakers</a>
+                                            <a href="<?= Url::to(['is-event-speaker/create']);?>" class="<?=($controller=='is-event-speaker')?'sub-active':'';?>">Assign Event</a>
                                             <a href="<?= Url::to(['speaker-accommodation/index']);?>" class="<?=($controller=='speaker-accommodation')?'sub-active':'';?>">Accommodation</a>
                                             <a href="<?= Url::to(['speaker-role/index']);?>" class="<?=($controller=='speaker-role')?'sub-active':'';?>">Speaker Role</a>
                                         </div>
@@ -289,7 +290,7 @@ use backend\assets\AppAsset;
                                         <button class="dropbtn <?=(strpos($controller,'exhibitors') !== false )?'top-menu-active':'';?>">Exhibitors <i class="fa fa-caret-down"></i></button>
                                         <div class="dropdown-content">
                                             <a href="<?= Url::to(['exhibitors/index']);?>" class="<?=($controller=='speakers')?'sub-active':'';?>">Manage</a>                                    
-                                            <a href="<?= Url::to(['is-event-exhibitors/index']);?>" class="<?=($controller=='is-event-exhibitors')?'sub-active':'';?>">Assign</a>
+                                            <a href="<?= Url::to(['is-event-exhibitors/index']);?>" class="<?=($controller=='is-event-exhibitors')?'sub-active':'';?>">Assign Event</a>
                                         </div>
                                     </div>
                                     <a class="<?=(strpos($controller,'visitors') !== false )?'top-menu-active':'';?>" href="<?= Url::to(['visitors/index']);?>">Visitors</a>

@@ -13,32 +13,19 @@ use Yii;
 */
 class Settings extends \yii\db\ActiveRecord
 {      
-
-    /**
-    * {@inheritdoc}
-    */
-    public static function tableName()
-    {
+    public static function tableName(){
         return 'settings';
     }
 
-    /**
-    * {@inheritdoc}
-    */
-    public function rules()
-    {
+    public function rules(){
         return [
         [['setting_key', 'setting_value'], 'required'],
         [['setting_value'], 'string'],
         [['setting_key'], 'string', 'max' => 255],
         ];
     }
-
-    /**
-    * {@inheritdoc}
-    */
-    public function attributeLabels()
-    {
+        
+    public function attributeLabels(){
         return [
         'id' => 'ID',
         'setting_key' => 'Setting Key',
@@ -149,6 +136,23 @@ class Settings extends \yii\db\ActiveRecord
                 return "$years years ago";
             }
         }
+    }
+
+    public static function SplitTime($StartTime, $EndTime, $Duration="30"){
+        $ReturnArray = array ();// Define output
+        
+        $StartTime    = strtotime ($StartTime); //Get Timestamp
+        $EndTime      = strtotime ($EndTime); //Get Timestamp
+
+        $AddMins  = $Duration * 60;
+
+        while ($StartTime <= $EndTime) //Run loop
+        {
+            #$ReturnArray[] = date ("d M, Y h:i", $StartTime);
+            $ReturnArray[] = Settings::getConfigDateTime($StartTime, 'string');
+            $StartTime += $AddMins; //Endtime check
+        }
+        return $ReturnArray;
     }
 }
 

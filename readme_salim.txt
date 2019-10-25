@@ -79,16 +79,8 @@ Params: event_id
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
-ALTER TABLE `user` 
-ADD `country` TEXT NULL AFTER `profile_image`, 
-ADD `technology` TEXT NULL AFTER `country`, 
-ADD `facebook_profile` VARCHAR(255) NULL AFTER `technology`;
-
-ALTER TABLE `user` 
-ADD `instagram_profile` VARCHAR(255) NOT NULL AFTER `facebook_profile`, 
-ADD `youtube_profile` VARCHAR(255) NOT NULL AFTER `instagram_profile`, 
-ADD `linkedin_profile` VARCHAR(255) NOT NULL AFTER `youtube_profile`, 
-ADD `twitter_profile` VARCHAR(255) NOT NULL AFTER `linkedin_profile`;
+ALTER TABLE `speakers` ADD `user_id` INT(11) NOT NULL AFTER `id`;
+ALTER TABLE `speakers` CHANGE `user_id` `user_id` INT(11) NULL;
 -------------------------------------------------------------------------------------------------------------------------------------------
 None Priority
 Profile_image

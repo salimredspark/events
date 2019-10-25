@@ -1,5 +1,4 @@
 <?php
-
 namespace backend\controllers;
 
 use Yii;
@@ -8,10 +7,8 @@ use backend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
-/**
-* UserController implements the CRUD actions for User model.
-*/
 class UserController extends Controller
 {
     /**
@@ -73,6 +70,15 @@ class UserController extends Controller
 
             $updated_by = Yii::$app->user->identity->id;  
 
+             //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($model, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'users/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $model->profile_image = $uploadpath;
+            }
+            
             $model->created_at = date("Y-m-d H:i:s");
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
@@ -109,6 +115,15 @@ class UserController extends Controller
                 $model->password_hash = password_hash($postUser['password_hash'], PASSWORD_DEFAULT); 
             }                        
 
+             //upload profile image
+            $uploadObjProfileImg = UploadedFile::getInstance($model, 'profile_image');                        
+            if($uploadObjProfileImg){
+                $filename = md5(time().rand(1111,9999)).'.'.$uploadObjProfileImg->extension;
+                $uploadpath = 'users/'.$filename;
+                $uploadObjProfileImg->saveAs('../../uploads/'.$uploadpath);
+                $model->profile_image = $uploadpath;
+            }
+            
             $model->updated_at = date("Y-m-d H:i:s");
             $model->updated_by = $updated_by;
             $model->save();

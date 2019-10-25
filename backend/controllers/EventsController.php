@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Events;
+use backend\models\Settings;
 use backend\models\EventsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -16,10 +17,7 @@ use yii\web\UploadedFile;
 * EventsController implements the CRUD actions for Events model.
 */
 class EventsController extends Controller
-{
-    /**
-    * {@inheritdoc}
-    */
+{       
     public function behaviors()
     {
         return [
@@ -60,7 +58,7 @@ class EventsController extends Controller
 
             $eventsPost = Yii::$app->request->post('Events'); 
             $updated_by = Yii::$app->user->identity->id;  
-            
+
             //upload files
             $uploadObj = UploadedFile::getInstance($model, 'event_banner');                        
             if($uploadObj){
@@ -119,13 +117,6 @@ class EventsController extends Controller
         ]);
     }
 
-    /**
-    * Deletes an existing Events model.
-    * If deletion is successful, the browser will be redirected to the 'index' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -133,13 +124,6 @@ class EventsController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-    * Finds the Events model based on its primary key value.
-    * If the model is not found, a 404 HTTP exception will be thrown.
-    * @param integer $id
-    * @return Events the loaded model
-    * @throws NotFoundHttpException if the model cannot be found
-    */
     protected function findModel($id)
     {
         if (($model = Events::findOne($id)) !== null) {
@@ -147,5 +131,26 @@ class EventsController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetEventInfo($id)
+    {
+        $eventObj = $this->findModel($id);
+        $start_time = $eventObj->start_time;                       
+        $end_time = $eventObj->end_time;
+
+        $return ['stime'] = Settings::getConfigDateTime($start_time);
+        $return ['etime'] = Settings::getConfigDateTime($end_time);
+        
+        $_html='';
+        $meetingSlots = Settings::SplitTime($start_time, $end_time, "30");
+        if(count($meetingSlots) > 0){
+            foreach($meetingSlots as $slot){
+                $_html .= '<p>'.$slot.'</p>';
+            }
+        }
+        $return ['tslot'] = $_html;
+        $return = json_encode($return);
+        return $return;
     }
 }
