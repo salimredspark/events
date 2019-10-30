@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2019 at 08:35 AM
+-- Generation Time: Oct 24, 2019 at 04:06 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -108,7 +108,7 @@ CREATE TABLE `event_location_booth` (
 --
 
 INSERT INTO `event_location_booth` (`id`, `event_location_id`, `booth_name`, `booth_detail`, `updated_by`) VALUES
-(1, 1, 'Booth 1', 'Zinger Hotel Hall 1 Section B', 1),
+(1, 1, 'Booth 1 1', 'Zinger Hotel Hall 1 Section B', 1),
 (2, 1, 'Booth 2', 'Room 13', 1),
 (3, 2, 'Booth 1', 'Room 007', 1),
 (4, 3, 'Booth 1', 'Hall 1 - Slot 1', 1),
@@ -230,7 +230,7 @@ CREATE TABLE `exhibitors` (
 --
 
 INSERT INTO `exhibitors` (`id`, `user_id`, `gender`, `birthdate`, `company_logo`, `company_name`, `company_site_url`, `company_address`, `company_detail`, `updated_at`, `created_at`, `updated_by`) VALUES
-(1, 2, 'Male', '1987-08-30', '', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', 'demo details', '2019-10-22 13:41:42', '2019-10-11 10:53:25', 1),
+(1, 2, 'Male', '1987-08-30', '', 'Redspark Technologies', 'http://www.redsparkinfo.coom', 'Fategunj, Vadodara ', 'demo details', '2019-10-24 10:35:02', '2019-10-11 10:53:25', 1),
 (2, 3, 'Male', '1978-10-25', '', 'Spark', 'http://www.spark.coom', 'Alkapuri, Vadodara', '', '2019-10-14 12:34:56', '2019-10-11 10:53:32', 1),
 (3, 4, 'Male', '1978-10-25', '', 'pk', 'www.pk.com', 'Surat, Gujarat', '', '2019-10-14 12:35:40', '2019-10-11 04:00:55', 1);
 
@@ -385,7 +385,6 @@ CREATE TABLE `speakers` (
   `id` int(11) NOT NULL,
   `speaker_name` varchar(255) NOT NULL,
   `speaker_role_id` int(11) NOT NULL,
-  `speaker_image` varchar(255) NOT NULL,
   `speaker_details` text NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -394,11 +393,11 @@ CREATE TABLE `speakers` (
 -- Dumping data for table `speakers`
 --
 
-INSERT INTO `speakers` (`id`, `speaker_name`, `speaker_role_id`, `speaker_image`, `speaker_details`, `updated_by`) VALUES
-(1, 'Salim Kureshi', 1, 'speakers/7267e5602f03e0940b55fe226bcb386b.jpg', 'Team Leader at Redspark Technologies', 1),
-(2, 'Prashant', 2, '', 'Sr. Team Leader at Redspark Technologies', 1),
-(3, 'Nirav', 1, 'speakers/de6e50582d79ed451f900acc0e43406d.png', 'Sr. Team Leader at Redspark Technologies', 1),
-(4, 'Deval Barot', 1, 'speakers/303b64325d6275814ff6017f490c2757.png', 'Sr. Web Developer at Redspark Technologies', 1);
+INSERT INTO `speakers` (`id`, `speaker_name`, `speaker_role_id`, `speaker_details`, `updated_by`) VALUES
+(1, 'Salim Kureshi', 1, 'Team Leader at Redspark Technologies', 1),
+(2, 'Prashant', 2, 'Sr. Team Leader at Redspark Technologies', 1),
+(3, 'Nirav', 1, 'Sr. Team Leader at Redspark Technologies', 1),
+(4, 'Deval Barot', 1, 'Sr. Web Developer at Redspark Technologies', 1);
 
 -- --------------------------------------------------------
 
@@ -464,6 +463,14 @@ CREATE TABLE `user` (
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
+  `profile_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `country` text COLLATE utf8_unicode_ci,
+  `technology` text COLLATE utf8_unicode_ci,
+  `facebook_profile` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `instagram_profile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `youtube_profile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `linkedin_profile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `twitter_profile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -477,13 +484,13 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`, `device_type`, `device_token`) VALUES
-(1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin', NULL, NULL),
-(2, 'Deval', 'Barot', 'deval', '', '$2y$10$O46p258rxAgrA2tL3bwSXu5DQZuK1yvrXhEBL8YDQz6UTxa6Ca.oS', NULL, 'deval@redsaprkinfo.co.in', 10, '2019-10-22 13:41:42', '2019-10-22 13:41:42', NULL, 1, 'admin', NULL, NULL),
-(3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin', NULL, NULL),
-(4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor', NULL, NULL),
-(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, '2019-10-14 10:14:37', '2019-10-14 09:18:41', NULL, 1, 'visitor', NULL, NULL),
-(9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor', NULL, NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `profile_image`, `country`, `technology`, `facebook_profile`, `instagram_profile`, `youtube_profile`, `linkedin_profile`, `twitter_profile`, `created_at`, `updated_at`, `verification_token`, `updated_by`, `login_type`, `device_type`, `device_token`) VALUES
+(1, 'Salim', 'Kureshi', 'admin', 'uz-u_bv9UkyDKr6dCipX38e8aDCnvmKC', '$2y$10$AZlLCnSFE.qGomIt1PoR/urkl3bKRS2/txY.Eu7A3tCxe5gdu9StO', NULL, 'salim@redsparkinfo.co.in', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-14 12:34:05', '2019-10-14 12:34:05', 'gxZfCFqetP4z8MaHo6uYGF3rKxabFsUN_1569999351', 1, 'superadmin', NULL, NULL),
+(2, 'Deval', 'Barot', 'deval', '', '$2y$10$JExEB9ArLfd09FLpti8xcOfy2NF8RBrN.F4RXFlrOX1UPfXmJ96.q', NULL, 'deval@redsaprkinfo.co.in', 10, 'exhibitors/922a88c7d6121ca03de977ab67bc4ac3.png', 'India,USA,UK', 'php,java,.net', 'www.facebook.com', 'www.instagram.com', 'www.youtube.com', 'www.linkedin.com', 'www.twitter.com', '2019-10-24 10:35:02', '2019-10-24 10:35:02', NULL, 1, 'admin', NULL, NULL),
+(3, 'Nirav', 'Patel', 'nirav', '', 'nirav123', NULL, 'nirav@redsparkinfo.co.in', 10, '', NULL, NULL, NULL, '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 1, 'admin', NULL, NULL),
+(4, 'Sandip', 'Solanki', 'sandip', '', '', NULL, 'sandip@redsparkinfo.co.in', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-15 05:55:32', '2019-10-15 05:55:32', NULL, 4, 'exhibitor', NULL, NULL),
+(8, 'Salman', 'Khan', 'dasd', '', '$2y$10$ApRZzINT1XIioaTNAPi3.ejLl47dZA7MstIO8pErNU06P/yUTsNr6', NULL, 'dasd', 10, 'visitors/cc86c9087f033243d73fc82268d78b50.png', NULL, NULL, NULL, '', '', '', '', '2019-10-24 10:59:29', '2019-10-24 10:59:29', NULL, 1, 'visitor', NULL, NULL),
+(9, 'Amir', 'Khan', 'amir', '', '$2y$10$xdFEYoeZAUYp7GqmiHOq.umjAQIEIXgasDReMaGSYssqFpK.hN0By', NULL, 'amir@khan.com', 10, '', NULL, NULL, NULL, '', '', '', '', '2019-10-14 11:55:38', '2019-10-14 11:55:38', NULL, 1, 'visitor', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -507,7 +514,7 @@ CREATE TABLE `visitors` (
 --
 
 INSERT INTO `visitors` (`id`, `user_id`, `visitor_uid`, `gender`, `birthdate`, `created_at`, `updated_at`, `updated_by`) VALUES
-(12, 8, 'Arvind', 'Male', '2001-10-11', '2019-10-14 10:13:43', '2019-10-14 09:18:41', 1),
+(12, 8, 'Arvind', 'Male', '2001-10-11', '2019-10-24 10:59:29', '2019-10-24 10:59:29', 1),
 (13, 9, 'Salman', 'Male', '2001-10-10', '2019-10-14 11:55:38', '2019-10-14 11:55:38', 1);
 
 --
