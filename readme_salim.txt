@@ -73,19 +73,8 @@ Method: GET
 4)Exibitors list
 https://redspark.a2hosted.com/events/api/web/event/users/exibitors
 
+---------------------------------------------------------------------------------------
+08-11-2019
+---------------------------------------------------------------------------------------
+ALTER TABLE `event_show` ADD `topic_type` INT(11) NOT NULL AFTER `event_id`;
 
-Method : POST
-Params: event_id
-
-
--------------------------------------------------------------------------------------------------------------------------------------------
-ALTER TABLE `speakers` ADD `user_id` INT(11) NOT NULL AFTER `id`;
-ALTER TABLE `speakers` CHANGE `user_id` `user_id` INT(11) NULL;
--------------------------------------------------------------------------------------------------------------------------------------------
-None Priority
-Profile_image
-Event Date time on Create Topic
-
-Priority
-Create Exibior social in user tbls -- Done
-Crteate time slots in assign exibitors

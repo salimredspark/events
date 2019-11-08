@@ -1,0 +1,63 @@
+<?php
+
+namespace api\modules\event\models;
+
+use Yii;
+use yii\db\ActiveRecord;
+
+/**
+ * This is the model class for table "speakers".
+ *
+ * @property int $id
+ * @property string $speaker_name
+ * @property string $speaker_details
+ * @property int $updated_by
+ *
+ * @property IsEventSpeaker[] $isEventSpeakers
+ * @property User $updatedBy
+ */
+class Speakers extends ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'speakers';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['speaker_name', 'speaker_role_id', 'speaker_details', 'updated_by'], 'required'],
+            [['speaker_details','speaker_image'], 'string'],
+            [['updated_by','speaker_role_id'], 'integer'],
+            [['speaker_name'], 'string', 'max' => 255],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['speaker_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => SpeakerRole::className(), 'targetAttribute' => ['speaker_role_id' => 'id']],
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIsEventSpeakers()
+    {
+        return $this->hasMany(IsEventSpeaker::className(), ['event_speaker_id' => 'id']);
+    }
+    public function getSpeakersRole()
+    {
+        return $this->hasOne(SpeakerRole::className(), ['id'=>'speaker_role_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+}
