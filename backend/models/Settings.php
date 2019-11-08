@@ -147,11 +147,45 @@ class Settings extends \yii\db\ActiveRecord
         $AddMins  = $Duration * 60;
 
         while ($StartTime <= $EndTime) //Run loop
-        {
-            #$ReturnArray[] = date ("d M, Y h:i", $StartTime);
-            $ReturnArray[] = Settings::getConfigDateTime($StartTime, 'string');
+        {               
+            //$ReturnArray[] = Settings::getConfigDateTime($StartTime, 'string');
+            //$StartTime += $AddMins; //Endtime check
+            
+            $_dateKey = Settings::getConfigDateTime($StartTime, 'string', 'date');
+            $ReturnArray[$_dateKey][] = Settings::getConfigDateTime($StartTime, 'string');
             $StartTime += $AddMins; //Endtime check
         }
+        return $ReturnArray;
+    }
+    
+    public static function SplitTimeByDate($StartTime, $EndTime, $Duration="30",$exhibitor_id,$event_id){
+        
+        $days_diff = abs(round((strtotime($EndTime) - strtotime($StartTime))/ 86400)); 
+        $start_date = date('Y-m-d',strtotime($StartTime)); 
+        $start_time_original=$start_time = strtotime(date('H:i',strtotime($StartTime))); 
+        $end_time = strtotime(date('H:i',strtotime($EndTime))); 
+        
+        for($i=0;$i<=$days_diff;$i++)
+        {
+            $start_time=$start_time_original;
+            $AddMins  = $Duration * 60;
+            $j=0;
+            $ReturnArray[$i]['date'] = Settings::getConfigDateTime($start_date, 'number', 'date');
+            while ($start_time <= $end_time) 
+            {
+                
+                $exhibitorMeetingsCount=ExhibitorMeetings::find()->where(['event_id'=>$event_id])->andWhere(['exhibitor_id'=>$exhibitor_id])->andWhere(['confirmed'=>1])->andWhere(['meeting_date'=>$start_date])->andWhere(['meeting_time'=>date("h:i", $start_time)])->count();
+                $ReturnArray[$i]['timeslots'][$j]['slot'] = Settings::getConfigDateTime($start_time,'','time');
+                $ReturnArray[$i]['timeslots'][$j]['occupied'] = $exhibitorMeetingsCount;
+                $start_time += $AddMins; 
+                $j++;
+            }
+            
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
+        }
+        
+        //echo '<pre>';print_r($ReturnArray);echo '</pre>';die('developer is working');
+        
         return $ReturnArray;
     }
 }

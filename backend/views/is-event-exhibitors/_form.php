@@ -30,7 +30,7 @@ use backend\models\EventLocationBooth;
                             ])->dropDownList( $items, ['prompt'=>'', 'onchange'=>'                            
                             //get event locations
                             $.post("index.php?r=events/get-event-info&id="+$(this).val(), function( data ) {
-                            
+
                             $( ".event_start_time" ).html( data.stime );
                             $( ".event_end_time" ).html( data.etime );
                             $( ".meeting_time_slot" ).html( data.tslot );
@@ -82,9 +82,11 @@ use backend\models\EventLocationBooth;
                     </div>                     
                 </div>                
 
+
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?> 
                 <div class="row">
-                    <div class="col-md-12">
-                        <h4><strong>Event Time</strong></h4>                        
+                    <div class="col-md-6">
+                        <h4><strong>Event Date Time</strong></h4>                        
                         <?php
                             $eventObj = Events::find($model->event_id)->one();
                             $start_time = $eventObj->start_time;                       
@@ -93,28 +95,40 @@ use backend\models\EventLocationBooth;
                         <p>Start Time - <span class="event_start_time"><?php echo Settings::getConfigDateTime($start_time);?></span></p>
                         <p>End Time - <span class="event_end_time"><?php echo Settings::getConfigDateTime($end_time);?></span></p>
                     </div>                     
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4><strong>Meeting Time Slot</strong></h4>
-                        <div class="meeting_time_slot">
-                        <?php 
-                            $meetingSlots = Settings::SplitTime($start_time, $end_time, "30");
-                            if(count($meetingSlots) > 0){
-                                foreach($meetingSlots as $slot){
-                                ?>
-                                <p><?php echo $slot;?></p>
-                                <?php   
-                                }
-                            }
-                        ?>
-                       </div>                     
-                    </div>                     
-                </div>
+                </div>                     
 
+                <?php
+                    $meetingSlots = Settings::SplitTimeByDate($start_time, $end_time, "30", $model->exhibitor_id,$model->event_id );
+                    //echo '<pre>';print_r($meetingSlots);echo '</pre>';die('developer is working');
+                    
+                    if(count($meetingSlots) >0){
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><strong>Meeting Time Slot</strong></h4>
+                            <div class="meeting_time_slot">
+                                <?php
+                                    foreach($meetingSlots as $slots){
+                                        $cols = (round(count($meetingSlots) / 2) );
+                                    ?>
+                                    <div class="col-md-<?=$cols;?>">
+                                        <strong>Date: <?=$slots['date'];?></strong>
+                                        <hr/>
+                                        <?php 
+                                            if(isset($slots['timeslots'])){
+                                                foreach($slots['timeslots'] as $slot){?>
+                                                <p><?php echo $slot['slot'];?></p> 
+                                                <?php 
+                                                }
+                                            }
+                                        ?>
+                                    </div>
+                                    <?php } ?>                                                                                                                      
+                            </div>                     
+                        </div>                     
+                    </div>                
+                    <?php }?>            
                 <div class="clearfix"></div>                                
-
-                <?= Html::submitButton('Save', ['class' => 'btn btn-success']);?>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
