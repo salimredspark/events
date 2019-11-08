@@ -67,7 +67,7 @@ class EventShowController extends Controller
     {
         $searchModel = new EventShowSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         $event_id = Yii::$app->session->get('global_event_id');
         $event_name = false;        
         if($event_id > 0){
@@ -118,7 +118,7 @@ class EventShowController extends Controller
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
-            
+
             $model->event_id = $eventsPost['event_id'];            
             $model->show_name = $eventsPost['show_name'];
             $model->show_manage_by = $eventsPost['show_manage_by'];
@@ -131,7 +131,7 @@ class EventShowController extends Controller
             $model->updated_by = $updated_by;
             $model->save();
             $show_id = $model->id;
-            
+
             $thisTopicSpeakers=[];
             if($show_id > 0){
                 //save new or exist speakers                            
@@ -172,11 +172,11 @@ class EventShowController extends Controller
                     }
                 }
             }
-                        
+
             return $this->redirect(['view', 'id' => $show_id]);
         }
-        
-        
+
+
         return $this->render('create', [
         'model' => $model,
         'IsEventSpeaker' => IsEventSpeaker::find()->where(['show_id'=>$model->id, 'event_id'=>$model->event_id])->all(),
@@ -189,15 +189,17 @@ class EventShowController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $eventsPost = Yii::$app->request->post('EventShow');                        
-                        
+
             $event_moderator_id = array_values(array_filter($eventsPost['event_moderator_id']));                        
-            
+
             $updated_by = Yii::$app->user->identity->id;  
             $start_time = date("Y-m-d h:i:s",strtotime($eventsPost['start_time']));                        
             $end_time = date("Y-m-d h:i:s",strtotime($eventsPost['end_time']));
             $model->start_time = $start_time;
             $model->end_time = $end_time;
-            $model->event_moderator_id = $event_moderator_id[0];
+            if(isset($event_moderator_id[0])){
+                $model->event_moderator_id = $event_moderator_id[0];
+            }
             $model->updated_by = $updated_by;
             $model->save();
             $show_id = $model->id;                                            
@@ -205,42 +207,45 @@ class EventShowController extends Controller
             //save new or exist speakers            
             $thisTopicSpeakers=[];
             $noOfSpeakerSelected = $eventsPost['event_speaker_id'];
-
-            foreach($noOfSpeakerSelected as $k => $speaker_id){                   
-                if($speaker_id){
-                    //exist speaker
-                    $thisTopicSpeakers[]=$speaker_id;                        
-                    $thisTopicSpeakersRole[$speaker_id] = $eventsPost['event_speaker_role_id'][$k];
-                }else{                      
-                    //save new speaker    
-                    $modelSpeakers = new Speakers();
-                    $modelSpeakers->speaker_name = $eventsPost['new_speaker_name'][$k];
-                    $modelSpeakers->speaker_role_id = $eventsPost['event_speaker_role_id'][$k];
-                    $modelSpeakers->speaker_details = $eventsPost['event_speaker_bio'][$k];
-                    $modelSpeakers->updated_by = $updated_by;
-                    $modelSpeakers->save();
-                    $new_speaker_id=$modelSpeakers->id;
-                    $thisTopicSpeakers[]=$new_speaker_id;
-                    $thisTopicSpeakersRole[$new_speaker_id] = $eventsPost['event_speaker_role_id'][$k];
+            if(isset($eventsPost['event_speaker_role_id']) && count($eventsPost['event_speaker_role_id']) > 0){
+                foreach($noOfSpeakerSelected as $k => $speaker_id){                   
+                    if($speaker_id){
+                        //exist speaker
+                        $thisTopicSpeakers[]=$speaker_id;                        
+                        $thisTopicSpeakersRole[$speaker_id] = $eventsPost['event_speaker_role_id'][$k];
+                    }else{                      
+                        //save new speaker    
+                        $modelSpeakers = new Speakers();
+                        $modelSpeakers->speaker_name = $eventsPost['new_speaker_name'][$k];
+                        $modelSpeakers->speaker_role_id = $eventsPost['event_speaker_role_id'][$k];
+                        $modelSpeakers->speaker_details = $eventsPost['event_speaker_bio'][$k];
+                        $modelSpeakers->updated_by = $updated_by;
+                        $modelSpeakers->save();
+                        $new_speaker_id=$modelSpeakers->id;
+                        $thisTopicSpeakers[]=$new_speaker_id;
+                        $thisTopicSpeakersRole[$new_speaker_id] = $eventsPost['event_speaker_role_id'][$k];
+                    }
                 }
             }
 
             //assign spekars to Show
-            IsEventSpeaker::deleteAll('event_id = '.$eventsPost['event_id']);
-            foreach($thisTopicSpeakers as $speaker_id){
-                $IsEventSpeaker = new IsEventSpeaker();
-                $IsEventSpeaker->event_id = $eventsPost['event_id'];
-                $IsEventSpeaker->show_id = $show_id;
-                $IsEventSpeaker->event_speaker_id = $speaker_id;
-                $IsEventSpeaker->event_speaker_role_id = $thisTopicSpeakersRole[$speaker_id];
-                $IsEventSpeaker->event_location_id = $eventsPost['show_location_id'];
-                $IsEventSpeaker->event_location_slot_id = $eventsPost['show_location_slot_id'];
-                $IsEventSpeaker->save();
+            if(count($thisTopicSpeakers) > 0){
+                IsEventSpeaker::deleteAll('event_id = '.$eventsPost['event_id']);
+                foreach($thisTopicSpeakers as $speaker_id){
+                    $IsEventSpeaker = new IsEventSpeaker();
+                    $IsEventSpeaker->event_id = $eventsPost['event_id'];
+                    $IsEventSpeaker->show_id = $show_id;
+                    $IsEventSpeaker->event_speaker_id = $speaker_id;
+                    //$IsEventSpeaker->event_speaker_role_id = $thisTopicSpeakersRole[$speaker_id];
+                    $IsEventSpeaker->event_location_id = $eventsPost['show_location_id'];
+                    $IsEventSpeaker->event_location_slot_id = $eventsPost['show_location_slot_id'];
+                    $IsEventSpeaker->save();
+                }
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
-                                
+
         return $this->render('update', [
         'model' => $model,
         'IsEventSpeaker' => IsEventSpeaker::find()->where(['show_id'=>$model->id, 'event_id'=>$model->event_id])->all(),
@@ -295,7 +300,7 @@ class EventShowController extends Controller
             echo "<option>-</option>";
         }
     }
-    
+
     public function actionEventShowList($id){        
         $eventShow = EventShow::find()->where(['event_id'=>$id])->orderBy('id DESC')->all();
         if(count($eventShow) > 0){

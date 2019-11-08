@@ -4,6 +4,7 @@ use yii\widgets\DetailView;
 use yii\helpers\Url; 
 use backend\models\User; 
 use backend\models\Events; 
+use backend\models\EventType; 
 use backend\models\Settings;
 use backend\models\Speakers;
 use backend\models\SpeakerRole;
@@ -75,6 +76,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             array(
                             'attribute'=>'end_time',                                
                             'value'=>Settings::getConfigDateTime($model->end_time) //date("d M, Y h:i A", strtotime($model->end_time))
+                            ),
+                            array(
+                            'attribute'=>'topic_type_id',                                
+                            'label'=>'Topic Type',                                
+                            'format' => 'html',                                
+                            'value'=>Html::a(EventType::findOne($model->topic_type_id)->type_name, ['event-type/view', 'id'=>$model->topic_type_id],['target'=>'_blank'])
                             ),
                             /*array(
                             'attribute'=>'event_speaker_id',                                

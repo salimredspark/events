@@ -15,8 +15,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="purple">
-                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Event Type</h4>
-                <p class="category">New Event Type will be create</p>
+                <h4 class="title"><?php echo ($model->id)?'Update':'Create';?> Topic Type</h4>
+                <p class="category">New Event Topic Type will be create</p>
             </div>
             <div class="card-content">
                 <?php $form = ActiveForm::begin(); ?>
