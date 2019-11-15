@@ -77,4 +77,6 @@ https://redspark.a2hosted.com/events/api/web/event/users/exibitors
 08-11-2019
 ---------------------------------------------------------------------------------------
 ALTER TABLE `event_show` ADD `topic_type` INT(11) NOT NULL AFTER `event_id`;
+UPDATE event_show set `topic_type` = 1 WHERE 1
+ALTER TABLE `event_show` ADD  FOREIGN KEY (`topic_type`) REFERENCES `event_type`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
