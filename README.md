@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.redsparkinfo.com/" target="_blank">
-        <img src="https://www.redsparkinfo.com/wp-content/themes/redspark/assets/newsite_images/logos/logo_blue.png">
+        <img src="https://www.redsparkinfo.com/wp-content/uploads/2019/09/logo.png">
     </a>
     <h1 align="center">Event Management App</h1>
     <br>
